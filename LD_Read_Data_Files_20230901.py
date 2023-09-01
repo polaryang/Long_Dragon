@@ -65,7 +65,7 @@ def load_data(url):
     df = pd.read_csv(url)
     return df
 
-st.set_page_config(page_title='長龍股權數據分析儀表板', page_icon=':sparkles:', layout='wide')
+st.set_page_config(page_title='長龍股權*數據分析儀表板', page_icon=':sparkles:', layout='wide')
 st.header(':sparkles: :blue[長龍股權*數據分析]  :red[儀表板] :pencil:')
 st.markdown('**公司重要事情 : 颱風來襲，請同仁注意安全 !**')
 st.info('**_長龍會議顧問 :以「專業委託書徵求機構」，協助各公司順利完成股東會召開，同時兼顧股東行使權益_**')
@@ -106,7 +106,7 @@ with col2:
     db_news['發言日期'] = db_news['發言日期'].astype(str)
     db_news['發言時間'] = db_news['發言時間'].astype(str)
     db_news['公司代號'] = db_news['公司代號'].astype(str)
-    df_news=db_news[db_news['公司代號']==id]
+    df_news=db_news[db_news['公司代號']==str(id)]
     df_news=df_news.drop(['出表日期'], axis=1)
     st.dataframe(df_news, use_container_width=True)
     st.write('今日全部重大訊息')
@@ -134,7 +134,7 @@ with col2:
     db_announce['開會日期'] = db_announce['開會日期'].astype(str)
     db_announce['停止過戶-起期'] = db_announce['停止過戶-起期'].astype(str)
     db_announce['停止過戶-訖期'] = db_announce['停止過戶-訖期'].astype(str)
-    df_announce=db_announce[db_announce['公司代號']==id]
+    df_announce=db_announce[db_announce['公司代號']==str(id)]
     df_announce=df_announce.drop(['出表日期'], axis=1)
     st.dataframe(df_announce, use_container_width=True)
     st.write('今日全部重大訊息')
@@ -154,7 +154,6 @@ with col2:
     db_basic_O = load_data(url)
     db_basic=pd.concat([db_basic_L, db_basic_O])
     collect_date=db_basic.iloc[0,0]
-    #df_basic['Stock_ID']=str(df_basic['公司代號'])
     df_basic=db_basic[db_basic['公司代號']==id]
     df_basic=df_basic.drop(['出表日期'], axis=1)
     df_basic_T=df_basic.T
