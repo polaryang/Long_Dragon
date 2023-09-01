@@ -247,9 +247,9 @@ with col2:
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
     st.dataframe(df_share_meeting, use_container_width=True)
     
-st.info(' ')
+st.info('© 2023 長龍會議顧問股份有限公司  100 台北市中正區博愛路80號10樓')
 st.write(':gem:*POWERED by*')
-st.write('   :dragon_face: :red[長龍會議顧問 X 銘傳大學] :dove_of_peace: :blue[財務金融學系 金融科技實驗室 楊重任副教授 / 團隊學生: 黃冠斌、姚岱均]')
+st.write('   :dragon_face: :red[長龍會議顧問  X  銘傳大學] :dove_of_peace: :blue[財務金融學系 金融科技實驗室 團隊學生: 黃冠斌、姚岱均]')
 
   #with tab8:   
     #image = Image.open('https://raw.githubusercontent.com/polaryang/Long_Dragon/main/workflow')
