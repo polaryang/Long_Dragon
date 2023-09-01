@@ -165,6 +165,7 @@ with col2:
     df_stock_holder2['持股分級']=range(1,16)
     df_stock_holder2['股數']=round(df_stock_holder2['股數']/1000,0)
     df_stock_holder2=df_stock_holder2.rename(columns={'股數':'張數'})
+    df_stock_holder2=df_stock_holder2.rename(columns={'占集保庫存數比例%':'比例'})
     stock_holder_class=['1張以下','1~5張','5~10張','10~15張','15~20張','20~30張','30~50張','50~100張','100~200張','200~400張','400~600張','600~800張','800~1000張','1000以上張','合計']
     df_stock_holder2.insert(3,"持股分級_說明",stock_holder_class,True)
     
