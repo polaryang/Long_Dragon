@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Sep  1 00:48:11 2023
-
-@author: user
-"""
 import datetime
 import json
 import pandas as pd
@@ -18,8 +13,10 @@ import streamlit as st
 import streamlit.components.v1 as components
 file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
 
-id=2330
-st.write(id)
+id = st.text_input('輸入股票代號', '2330')
+st.write('查詢的股票代號: ', id)
+id=int(id)
+
 # 1.	重大訊息
 # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv 每日更新
 db_news_L=pd.read_csv(file_raw+'t187ap04_L.csv') 
@@ -27,6 +24,7 @@ db_news_O=pd.read_csv(file_raw+'t187ap04_O.csv')
 db_news=pd.concat([db_news_L, db_news_O])
 #df_basic['Stock_ID']=str(df_basic['公司代號'])
 df_news=db_news[db_news['公司代號']==id]
+st.dataframe(df_news, use_container_width=True)
 
 # 2.	公告查詢 
 # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv 不定期更新
@@ -35,6 +33,7 @@ db_announce_O=pd.read_csv(file_raw+'t187ap38_O.csv')
 db_announce=pd.concat([db_announce_L, db_announce_O])
 #df_basic['Stock_ID']=str(df_basic['公司代號'])
 df_announce=db_announce[db_announce['公司代號']==id]
+st.dataframe(df_announce, use_container_width=True)
 
 # 3.	公司基本資料 
 # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap03_L.csv 不定期更新
@@ -43,7 +42,7 @@ db_basic_O=pd.read_csv(file_raw+'t187ap03_O.csv')
 db_basic=pd.concat([db_basic_L, db_basic_O])
 #df_basic['Stock_ID']=str(df_basic['公司代號'])
 df_basic=db_basic[db_basic['公司代號']==id]
-
+st.dataframe(df_basic, use_container_width=True)
 
 
 # 4.	董監事持股餘額明細資料
@@ -52,6 +51,7 @@ db_board_balance_L=pd.read_csv(file_raw+'t187ap11_L.csv') #4.	董監事持股餘
 db_board_balance_O=pd.read_csv(file_raw+'t187ap11_O.csv')
 db_board_balance=pd.concat([db_board_balance_L, db_board_balance_O])
 df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
+st.dataframe(df_board_balance, use_container_width=True)
 
 # 5.	年報前十大股東相互間關係表
 # 先到TEJ執行特殊轉檔 每年一次
