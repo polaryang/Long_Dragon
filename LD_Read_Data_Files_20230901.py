@@ -66,7 +66,7 @@ st.markdown('**財富自由 = 被動收入 > 生活支出；  藉由存股的穩
 st.info('**_The highest use of capital is not to make more money, but to make money do more for the betterment of life.     ~ Henry Ford_**')
 #today = datetime.date.today()
 
-col1, col2 = st.columns([12,30], gap='large')
+col1, col2 = st.columns([6,30], gap='large')
 with col1:
   ID = st.text_input('輸入股票代號', '2330')
   id=int(ID)
@@ -127,6 +127,7 @@ with col2:
     # 先到TEJ執行特殊轉檔 每年一次
     db_control=pd.read_excel(file_raw+'Control.xlsx') #4.	董監事持股餘額明細資料
     df_control=db_control[db_control['公司']==id]
+    st.dataframe(df_control, use_container_width=True)
     
   with tab6:  
     # 6.	股權分散表(公開觀測站)
@@ -163,9 +164,11 @@ with col2:
     df_stock_holder2.insert(4,"股東會時_比率",temp_ratio,True)
     df_stock_holder2.insert(4,"股東會時_張數",temp_share,True)
     df_stock_holder2.insert(4,"股東會時_人數",temp_person,True)
-   
+    st.dataframe(df_stock_holder2, use_container_width=True)
+    
   with tab7:   
     #8.	議事錄
     #https://mops.twse.com.tw/mops/web/t150sb04 可以出總表 每年一次
     db_share_meeting=pd.read_excel(file_raw+'share_meeting.xlsx')
     df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==id]
+    st.dataframe(df_share_meeting, use_container_width=True)
