@@ -197,7 +197,7 @@ with col2:
     df_control['Control_ratio']=df_control['最終控制者個人持股%']+df_control['集團未上市公司持股%']+df_control['集團基金會持股%']+df_control['集團上市公司持股%']+df_control['經理人持股%']+df_control['外部個人持股%']+df_control['外部未上市公司持股%']+df_control['外部基金會持股%']+df_control['外部上市公司持股%']
     df_control_class = df_control.groupby('控制別').sum()
     df_control_results=df_control_class['Control_ratio']
-    st.bar_chart(df_control_results, use_container_width=True,color=['#FF0000','#00FFFF','#0000FF','#FF00FF'])
+    st.bar_chart(df_control_results, use_container_width=True,color=['#FF0000','#00FFFF','#FFFF00','#0000FF','#FF00FF'])
     st.write('資料截止日期: '+str(collect_date))
     
   with tab6:  
