@@ -62,11 +62,11 @@ def Checking_ID(ID):
 
 st.set_page_config(page_title='長龍股權數據分析儀表板', page_icon=':sparkles:', layout='wide')
 st.header(':sparkles: :blue[長龍股權數據分析]  :red[儀表板] :pencil:')
-st.markdown('**財富自由 = 被動收入 > 生活支出；  藉由存股的穩定配息，增加被動收入，達成財富自由；  財富自由不是提早退休，而是活出人生命的價值**')
+st.markdown('**公司重要事情**')
 st.info('**_The highest use of capital is not to make more money, but to make money do more for the betterment of life.     ~ Henry Ford_**')
 #today = datetime.date.today()
 
-col1, col2 = st.columns([6,30], gap='large')
+col1, col2 = st.columns([6,30], gap='small')
 with col1:
   ID = st.text_input('輸入股票代號', '2330')
   id=int(ID)
@@ -92,6 +92,8 @@ with col2:
     #df_basic['Stock_ID']=str(df_basic['公司代號'])
     df_news=db_news[db_news['公司代號']==id]
     st.dataframe(df_news, use_container_width=True)
+    st.write('今日全部重大訊息')
+    st.dataframe(db_news, use_container_width=True)
     
   with tab2:    
     # 2.	公告查詢 
@@ -102,6 +104,8 @@ with col2:
     #df_basic['Stock_ID']=str(df_basic['公司代號'])
     df_announce=db_announce[db_announce['公司代號']==id]
     st.dataframe(df_announce, use_container_width=True)
+    st.write('今日全部重大訊息')
+    st.dataframe(db_announce, use_container_width=True)
     
   with tab3:    
     # 3.	公司基本資料 
