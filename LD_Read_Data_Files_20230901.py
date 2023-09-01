@@ -68,7 +68,7 @@ st.info('**_長龍會議顧問 :以「專業委託書徵求機構」，協助各
 
 col1, col2 = st.columns([4,27], gap='small')
 with col1:
-  ID = st.text_input('輸入股票代號', '2330')
+  ID = st.text_input('輸入股票代號(代號或名稱皆可)', '2330')
   ID_code, ID_name, ID_mkt, ID_type, ID_Inds=Checking_ID(ID) 
   if ID_code=='0':
       st.write('查無此股票')
