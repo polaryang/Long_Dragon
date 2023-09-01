@@ -94,12 +94,11 @@ with col2:
     db_news_O=pd.read_csv(file_raw+'t187ap04_O.csv')
     db_news=pd.concat([db_news_L, db_news_O])
     collect_date=db_news.iloc[0,0]
-    db_news=db_news.drop(['出表日期'], axis=1)
     db_news['發言日期'] = db_news['發言日期'].astype(str)
     db_news['發言時間'] = db_news['發言時間'].astype(str)
     db_news['公司代號'] = db_news['公司代號'].astype(str)
-    #df_basic['Stock_ID']=str(df_basic['公司代號'])
     df_news=db_news[db_news['公司代號']==id]
+    df_news=df_news.drop(['出表日期'], axis=1)
     st.dataframe(df_news, use_container_width=True)
     st.write('今日全部重大訊息')
     st.dataframe(db_news, use_container_width=True)
@@ -112,7 +111,6 @@ with col2:
     db_announce_O=pd.read_csv(file_raw+'t187ap38_O.csv')
     db_announce=pd.concat([db_announce_L, db_announce_O])
     collect_date=db_announce.iloc[0,0]
-    db_announce=db_announce.drop(['出表日期'], axis=1)
     db_announce=db_announce.rename(columns={'股東常(臨時)會日期-常或臨時':'股東常(臨時)會'})
     db_announce=db_announce.rename(columns={'股東常(臨時)會日期-日期':'開會日期'})
     db_announce=db_announce.rename(columns={'停止過戶起訖日期-起':'停止過戶-起期'})
@@ -121,8 +119,8 @@ with col2:
     db_announce['開會日期'] = db_announce['開會日期'].astype(str)
     db_announce['停止過戶-起期'] = db_announce['停止過戶-起期'].astype(str)
     db_announce['停止過戶-訖期'] = db_announce['停止過戶-訖期'].astype(str)
-    #df_basic['Stock_ID']=str(df_basic['公司代號'])
     df_announce=db_announce[db_announce['公司代號']==id]
+    df_announce=df_announce.drop(['出表日期'], axis=1)
     st.dataframe(df_announce, use_container_width=True)
     st.write('今日全部重大訊息')
     st.dataframe(db_announce, use_container_width=True)
@@ -135,9 +133,9 @@ with col2:
     db_basic_O=pd.read_csv(file_raw+'t187ap03_O.csv')
     db_basic=pd.concat([db_basic_L, db_basic_O])
     collect_date=db_basic.iloc[0,0]
-    db_basic=db_basic.drop(['出表日期'], axis=1)
     #df_basic['Stock_ID']=str(df_basic['公司代號'])
     df_basic=db_basic[db_basic['公司代號']==id]
+    df_basic=df_basic.drop(['出表日期'], axis=1)
     df_basic_T=df_basic.T
     st.dataframe(df_basic_T, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
@@ -150,9 +148,9 @@ with col2:
     db_board_balance=pd.concat([db_board_balance_L, db_board_balance_O])
     db_board_balance['資料年月'] = db_board_balance['資料年月'].astype(str)
     collect_date=db_board_balance.iloc[0,0]
-    db_board_balance=db_board_balance.drop(['出表日期'], axis=1)
     df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
     df_board_balance=df_board_balance.drop(['公司代號'], axis=1)
+    df_board_balance=df_board_balance.drop(['出表日期'], axis=1)
     st.dataframe(df_board_balance, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
     
