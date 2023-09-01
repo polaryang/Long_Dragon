@@ -109,6 +109,7 @@ with col2:
     db_news['事實發生日'] = db_news['事實發生日'].astype(str)
     df_news=db_news[db_news['公司代號']==str(id)]
     df_news=df_news.drop(['出表日期'], axis=1)
+    df_news=df_news.reset_index(drop=True)
     st.dataframe(df_news, use_container_width=True)
     st.write('今日全部重大訊息')
     db_news1=db_news
@@ -137,6 +138,7 @@ with col2:
     db_announce['停止過戶-訖期'] = db_announce['停止過戶-訖期'].astype(str)
     df_announce=db_announce[db_announce['公司代號']==str(id)]
     df_announce=df_announce.drop(['出表日期'], axis=1)
+    df_announce=df_announce.reset_index(drop=True)
     st.dataframe(df_announce, use_container_width=True)
     st.write('今日全部重大訊息')
     db_announce1=db_announce
@@ -157,6 +159,7 @@ with col2:
     collect_date=db_basic.iloc[0,0]
     df_basic=db_basic[db_basic['公司代號']==id]
     df_basic=df_basic.drop(['出表日期'], axis=1)
+    df_basic=df_basic.reset_index(drop=True)
     df_basic_T=df_basic.T
     st.dataframe(df_basic_T, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
@@ -191,6 +194,10 @@ with col2:
     df_control=df_control.reset_index(drop=True)
     st.dataframe(df_control, use_container_width=True)
     st.write('持股人之控制別 : A=最終控制者、B=經理人、C=集團經理人、L=友好集團、X=外部人')
+    df_control['Control_ratio']=df_control['最終控制者個人持股%']+df_control['集團未上市公司持股%']+df_control['集團基金會持股%']+df_control['集團上市公司持股%']+df_control['經理人持股%']+df_control['外部個人持股%']+df_control['外部未上市公司持股%']+df_control['外部基金會持股%']+df_control['外部上市公司持股%']
+    df_control_class = df_control.groupby('控制別').sum()
+    df_control_results=df_control_class['Control_ratio']
+    st.bar_chart(df_control_results)
     st.write('資料截止日期: '+str(collect_date))
     
   with tab6:  
