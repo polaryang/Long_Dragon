@@ -151,6 +151,7 @@ with col2:
     df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
     df_board_balance=df_board_balance.drop(['公司代號'], axis=1)
     df_board_balance=df_board_balance.drop(['出表日期'], axis=1)
+    df_board_balance=df_board_balance.reset_index(drop=True)
     st.dataframe(df_board_balance, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
     
@@ -162,6 +163,7 @@ with col2:
     db_control=db_control.drop(['年月'], axis=1)
     df_control=db_control[db_control['公司']==id]
     df_control=df_control.drop(['公司'], axis=1)
+    df_control=df_control.reset_index(drop=True)
     st.dataframe(df_control, use_container_width=True)
     st.write('持股人之控制別 : A=最終控制者、B=經理人、C=集團經理人、L=友好集團、X=外部人')
     st.write('資料截止日期: '+str(collect_date))
@@ -205,6 +207,7 @@ with col2:
     df_stock_holder3.insert(4,"股東會時_人數",temp_person,True)
     collect_date=df_stock_holder3.iloc[0,0]
     df_stock_holder3=df_stock_holder3.drop(['資料日期','證券代號'], axis=1)
+    df_stock_holder3=df_stock_holder3.reset_index(drop=True)
     st.dataframe(df_stock_holder3, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
     
@@ -213,6 +216,7 @@ with col2:
     #https://mops.twse.com.tw/mops/web/t150sb04 可以出總表 每年一次
     db_share_meeting=pd.read_excel(file_raw+'share_meeting.xlsx')
     df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==id]
+    df_share_meeting=df_share_meeting.reset_index(drop=True)    
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
     st.dataframe(df_share_meeting, use_container_width=True)
   
