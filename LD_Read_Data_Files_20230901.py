@@ -69,7 +69,6 @@ st.info('**_長龍會議顧問 :以「專業委託書徵求機構」，協助各
 col1, col2 = st.columns([4,27], gap='small')
 with col1:
   ID = st.text_input('輸入股票代號', '2330')
-  id=int(ID)
   ID_code, ID_name, ID_mkt, ID_type, ID_Inds=Checking_ID(ID) 
   if ID_code=='0':
       st.write('查無此股票')
@@ -80,7 +79,8 @@ with col1:
         stock_ticker=ID_code+'.TWO'
       st.write(ID_name+' : '+stock_ticker)
       st.write(ID_mkt+' '+ID_Inds)
-
+      id=int(ID_code)
+    
 with col2:
     
   file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
