@@ -248,5 +248,5 @@ with col2:
     st.dataframe(df_share_meeting, use_container_width=True)
   
   #with tab8:   
-    image = Image.open('https://raw.githubusercontent.com/polaryang/Long_Dragon/main/workflow')
-    st.image(image, caption='股東常會徵求作業日程表')
+    #image = Image.open('https://raw.githubusercontent.com/polaryang/Long_Dragon/main/workflow')
+    #st.image(image, caption='股東常會徵求作業日程表')
