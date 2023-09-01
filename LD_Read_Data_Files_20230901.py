@@ -150,8 +150,8 @@ with col2:
     db_board_balance['資料年月'] = db_board_balance['資料年月'].astype(str)
     collect_date=db_board_balance.iloc[0,0]
     db_board_balance=db_board_balance.drop(['出表日期'], axis=1)
-    db_board_balance=db_board_balance.drop(['公司代號'], axis=1)
     df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
+    df_board_balance=df_board_balance.drop(['公司代號'], axis=1)
     st.dataframe(df_board_balance, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
     
