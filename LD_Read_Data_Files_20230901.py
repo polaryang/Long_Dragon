@@ -203,5 +203,5 @@ with col2:
     st.dataframe(df_share_meeting, use_container_width=True)
   
   with tab8:   
-    image = Image.open(file_raw+'workflow.png')
+    image = Image.open(file_raw+'workflow.jpg')
     st.image(image, caption='股東常會徵求作業日程表')
