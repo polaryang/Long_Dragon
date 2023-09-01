@@ -13,6 +13,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import requests
 from bs4 import BeautifulSoup
+from PIL import Image
 # ------------------------------------------------------------------
 def Checking_ID(ID):
   ID_code='0'
