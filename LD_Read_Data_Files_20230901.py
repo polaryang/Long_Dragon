@@ -83,7 +83,7 @@ with col1:
       id=int(ID_code)
     
 with col2:
-  @st.cache  
+ 
   file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
   #tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄","徵求作業日程表"])
   tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄"])
