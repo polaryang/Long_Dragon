@@ -72,20 +72,17 @@ with col1:
   id=int(ID)
   ID_code, ID_name, ID_mkt, ID_type, ID_Inds=Checking_ID(ID) 
   if ID_code=='0':
-      stock_ticker=ID
-  else:
-    stock_ticker=ID_code+'.TW'
+      st.write('查無此股票')
   if ID_mkt=='上市 ':
     stock_ticker=ID_code+'.TW'
   if ID_mkt=='上櫃 ':
     stock_ticker=ID_code+'.TWO'
-  #st.write('**您選擇的標的:**')
-  st.subheader(ID_name+' : '+stock_ticker+' : ['+ID_Inds+']')
+  st.write(ID_name+' : '+stock_ticker+' : ['+ID_Inds+']')
 
 with col2:
     
   file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
-  tab1, tab2, tab3, tab4, tab5 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額明細資料", "年報前十大股東相互間關係表"])
+  tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄"])
   with tab1:
     # 1.	重大訊息
     # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv 每日更新
@@ -96,6 +93,7 @@ with col2:
     df_news=db_news[db_news['公司代號']==id]
     st.dataframe(df_news, use_container_width=True)
     
+  with tab2:    
     # 2.	公告查詢 
     # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv 不定期更新
     db_announce_L=pd.read_csv(file_raw+'t187ap38_L.csv') #3.	公司基本資料
@@ -105,6 +103,7 @@ with col2:
     df_announce=db_announce[db_announce['公司代號']==id]
     st.dataframe(df_announce, use_container_width=True)
     
+  with tab3:    
     # 3.	公司基本資料 
     # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap03_L.csv 不定期更新
     db_basic_L=pd.read_csv(file_raw+'t187ap03_L.csv') #3.	公司基本資料
@@ -114,7 +113,7 @@ with col2:
     df_basic=db_basic[db_basic['公司代號']==id]
     st.dataframe(df_basic, use_container_width=True)
     
-    
+  with tab4:
     # 4.	董監事持股餘額明細資料
     # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap11_L.csv 不定期更新
     db_board_balance_L=pd.read_csv(file_raw+'t187ap11_L.csv') #4.	董監事持股餘額明細資料
@@ -123,16 +122,18 @@ with col2:
     df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
     st.dataframe(df_board_balance, use_container_width=True)
     
+  with tab5:    
     # 5.	年報前十大股東相互間關係表
     # 先到TEJ執行特殊轉檔 每年一次
     db_control=pd.read_excel(file_raw+'Control.xlsx') #4.	董監事持股餘額明細資料
     df_control=db_control[db_control['公司']==id]
     
+  with tab6:  
     # 6.	股權分散表(公開觀測站)
     # 先到TEJ執行特殊轉檔 每年一次
     db_stock_holder1=pd.read_excel(file_raw+'stock_holder_list.xlsx')
     df_stock_holder1=db_stock_holder1[db_stock_holder1['公司']==id]
-    
+     
     # 7.	集保戶股權分散表 TDCC_OD_1-5.csv
     # 先執行 https://opendata.tdcc.com.tw/getOD.ashx?id=1-5  每周更新
     db_stock_holder2=pd.read_csv(file_raw+'TDCC_OD_1-5.csv') #4.	董監事持股餘額明細資料
@@ -162,7 +163,8 @@ with col2:
     df_stock_holder2.insert(4,"股東會時_比率",temp_ratio,True)
     df_stock_holder2.insert(4,"股東會時_張數",temp_share,True)
     df_stock_holder2.insert(4,"股東會時_人數",temp_person,True)
-    
+   
+  with tab7:   
     #8.	議事錄
     #https://mops.twse.com.tw/mops/web/t150sb04 可以出總表 每年一次
     db_share_meeting=pd.read_excel(file_raw+'share_meeting.xlsx')
