@@ -63,7 +63,7 @@ def Checking_ID(ID):
 st.set_page_config(page_title='長龍股權數據分析儀表板', page_icon=':sparkles:', layout='wide')
 st.header(':sparkles: :blue[長龍股權數據分析]  :red[儀表板] :pencil:')
 st.markdown('**公司重要事情: 請小心颱風!**')
-st.info('**_The highest use of capital is not to make more money, but to make money do more for the betterment of life.     ~ Henry Ford_**')
+st.info('**_長龍會議顧問 :以「專業委託書徵求機構」，協助各公司順利完成股東會召開，同時兼顧股東行使權益_**')
 #today = datetime.date.today()
 
 col1, col2 = st.columns([4,27], gap='small')
@@ -73,12 +73,13 @@ with col1:
   ID_code, ID_name, ID_mkt, ID_type, ID_Inds=Checking_ID(ID) 
   if ID_code=='0':
       st.write('查無此股票')
-  if ID_mkt=='上市 ':
-    stock_ticker=ID_code+'.TW'
-  if ID_mkt=='上櫃 ':
-    stock_ticker=ID_code+'.TWO'
-  st.write(ID_name+' : '+stock_ticker)
-  st.write(ID_mkt+' '+ID_Inds)
+  else:  
+      if ID_mkt=='上市 ':
+        stock_ticker=ID_code+'.TW'
+      if ID_mkt=='上櫃 ':
+        stock_ticker=ID_code+'.TWO'
+      st.write(ID_name+' : '+stock_ticker)
+      st.write(ID_mkt+' '+ID_Inds)
 
 with col2:
     
