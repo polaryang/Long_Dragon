@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import streamlit.components.v1 as components
 file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
+
 id=2330
 st.write(id)
 # 1.	重大訊息
