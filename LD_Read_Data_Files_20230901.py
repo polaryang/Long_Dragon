@@ -18,6 +18,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
 id=2330
+st.write(id)
 # 1.	重大訊息
 # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv 每日更新
 db_news_L=pd.read_csv(file_raw+'t187ap04_L.csv') 
@@ -46,8 +47,8 @@ df_basic=db_basic[db_basic['公司代號']==id]
 
 # 4.	董監事持股餘額明細資料
 # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap11_L.csv 不定期更新
-db_board_balance_L=pd.read_csv('C:/Users/user/Desktop/Long_dragon/t187ap11_L.csv') #4.	董監事持股餘額明細資料
-db_board_balance_O=pd.read_csv('C:/Users/user/Desktop/Long_dragon/t187ap11_O.csv')
+db_board_balance_L=pd.read_csv(file_raw+'t187ap11_L.csv') #4.	董監事持股餘額明細資料
+db_board_balance_O=pd.read_csv(file_raw+'t187ap11_O.csv')
 db_board_balance=pd.concat([db_board_balance_L, db_board_balance_O])
 df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
 
@@ -58,12 +59,12 @@ df_control=db_control[db_control['公司']==id]
 
 # 6.	股權分散表(公開觀測站)
 # 先到TEJ執行特殊轉檔 每年一次
-db_stock_holder1=pd.read_excel('C:/Users/user/Desktop/Long_dragon/stock_holder_list.xlsx')
+db_stock_holder1=pd.read_excel(file_raw+'stock_holder_list.xlsx')
 df_stock_holder1=db_stock_holder1[db_stock_holder1['公司']==id]
 
 # 7.	集保戶股權分散表 TDCC_OD_1-5.csv
 # 先執行 https://opendata.tdcc.com.tw/getOD.ashx?id=1-5  每周更新
-db_stock_holder2=pd.read_csv('C:/Users/user/Desktop/Long_dragon/TDCC_OD_1-5.csv') #4.	董監事持股餘額明細資料
+db_stock_holder2=pd.read_csv(file_raw+'TDCC_OD_1-5.csv') #4.	董監事持股餘額明細資料
 db_stock_holder2=db_stock_holder2[db_stock_holder2['持股分級']!=16]
 df_stock_holder2=db_stock_holder2[db_stock_holder2['證券代號']==str(id)]
 #30~40 40~50 合併
@@ -93,5 +94,5 @@ df_stock_holder2.insert(4,"股東會時_人數",temp_person,True)
 
 #8.	議事錄
 #https://mops.twse.com.tw/mops/web/t150sb04 可以出總表 每年一次
-db_share_meeting=pd.read_excel('C:/Users/user/Desktop/Long_dragon/share_meeting.xlsx')
+db_share_meeting=pd.read_excel(file_raw+'share_meeting.xlsx')
 df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==id]
