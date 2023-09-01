@@ -242,7 +242,7 @@ with col2:
     collect_date=df_stock_holder3.iloc[0,0]
     df_stock_holder3=df_stock_holder3.drop(['資料日期','證券代號'], axis=1)
     df_stock_holder3=df_stock_holder3.reset_index(drop=True)
-    st.dataframe(df_stock_holder3, use_container_width=True)
+    st.dataframe(df_stock_holder3, width=5 , use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
     
   with tab7:   
