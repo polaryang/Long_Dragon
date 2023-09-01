@@ -106,6 +106,7 @@ with col2:
     db_news['發言日期'] = db_news['發言日期'].astype(str)
     db_news['發言時間'] = db_news['發言時間'].astype(str)
     db_news['公司代號'] = db_news['公司代號'].astype(str)
+    db_news['事實發生日'] = db_news['事實發生日'].astype(str)
     df_news=db_news[db_news['公司代號']==str(id)]
     df_news=df_news.drop(['出表日期'], axis=1)
     st.dataframe(df_news, use_container_width=True)
