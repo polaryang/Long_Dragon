@@ -105,7 +105,9 @@ with col2:
     df_news=df_news.drop(['出表日期'], axis=1)
     st.dataframe(df_news, use_container_width=True)
     st.write('今日全部重大訊息')
-    st.dataframe(db_news, use_container_width=True)
+    db_news1=db_news
+    db_news1=db_news1.drop(['出表日期'], axis=1)
+    st.dataframe(db_news1, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
     
   with tab2:    
@@ -133,7 +135,7 @@ with col2:
     st.write('今日全部重大訊息')
     db_announce1=db_announce
     db_announce1=db_announce1.drop(['出表日期'], axis=1)
-    st.dataframe(db_announce, use_container_width=True)
+    st.dataframe(db_announce1, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
     
   with tab3:    
