@@ -62,11 +62,11 @@ def Checking_ID(ID):
 
 st.set_page_config(page_title='長龍股權數據分析儀表板', page_icon=':sparkles:', layout='wide')
 st.header(':sparkles: :blue[長龍股權數據分析]  :red[儀表板] :pencil:')
-st.markdown('**公司重要事情**')
+st.markdown('**公司重要事情: 請小心颱風!**')
 st.info('**_The highest use of capital is not to make more money, but to make money do more for the betterment of life.     ~ Henry Ford_**')
 #today = datetime.date.today()
 
-col1, col2 = st.columns([6,30], gap='small')
+col1, col2 = st.columns([4,27], gap='small')
 with col1:
   ID = st.text_input('輸入股票代號', '2330')
   id=int(ID)
@@ -77,7 +77,8 @@ with col1:
     stock_ticker=ID_code+'.TW'
   if ID_mkt=='上櫃 ':
     stock_ticker=ID_code+'.TWO'
-  st.write(ID_name+' : '+stock_ticker+' : ['+ID_Inds+']')
+  st.write(ID_name+' : '+stock_ticker)
+  st.write(ID_mkt+' '+ID_Inds)
 
 with col2:
     
@@ -89,11 +90,14 @@ with col2:
     db_news_L=pd.read_csv(file_raw+'t187ap04_L.csv') 
     db_news_O=pd.read_csv(file_raw+'t187ap04_O.csv')
     db_news=pd.concat([db_news_L, db_news_O])
+    collect_date=db_news.iloc[0,0]
+    db_news=db_news.drop(['出表日期'], axis=1)
     #df_basic['Stock_ID']=str(df_basic['公司代號'])
     df_news=db_news[db_news['公司代號']==id]
     st.dataframe(df_news, use_container_width=True)
     st.write('今日全部重大訊息')
     st.dataframe(db_news, use_container_width=True)
+    st.write('資料收集日期: '+str(collect_date))
     
   with tab2:    
     # 2.	公告查詢 
@@ -101,11 +105,16 @@ with col2:
     db_announce_L=pd.read_csv(file_raw+'t187ap38_L.csv') #3.	公司基本資料
     db_announce_O=pd.read_csv(file_raw+'t187ap38_O.csv')
     db_announce=pd.concat([db_announce_L, db_announce_O])
+    collect_date=db_announce.iloc[0,0]
+    db_announce=db_announce.drop(['出表日期'], axis=1)
+    db_announce=db_announce.rename(columns={'股東常(臨時)會日期-常或臨時':'股東常(臨時)會'})
+    db_announce=db_announce.rename(columns={'股東常(臨時)會日期-日期':'開會日期'})
     #df_basic['Stock_ID']=str(df_basic['公司代號'])
     df_announce=db_announce[db_announce['公司代號']==id]
     st.dataframe(df_announce, use_container_width=True)
     st.write('今日全部重大訊息')
     st.dataframe(db_announce, use_container_width=True)
+    st.write('資料收集日期: '+str(collect_date))
     
   with tab3:    
     # 3.	公司基本資料 
@@ -113,9 +122,12 @@ with col2:
     db_basic_L=pd.read_csv(file_raw+'t187ap03_L.csv') #3.	公司基本資料
     db_basic_O=pd.read_csv(file_raw+'t187ap03_O.csv')
     db_basic=pd.concat([db_basic_L, db_basic_O])
+    collect_date=db_basic.iloc[0,0]
+    db_basic=db_basic.drop(['出表日期'], axis=1)
     #df_basic['Stock_ID']=str(df_basic['公司代號'])
     df_basic=db_basic[db_basic['公司代號']==id]
     st.dataframe(df_basic, use_container_width=True)
+    st.write('資料收集日期: '+str(collect_date))
     
   with tab4:
     # 4.	董監事持股餘額明細資料
@@ -123,8 +135,11 @@ with col2:
     db_board_balance_L=pd.read_csv(file_raw+'t187ap11_L.csv') #4.	董監事持股餘額明細資料
     db_board_balance_O=pd.read_csv(file_raw+'t187ap11_O.csv')
     db_board_balance=pd.concat([db_board_balance_L, db_board_balance_O])
+    collect_date=db_board_balance.iloc[0,0]
+    db_board_balance=db_board_balance.drop(['出表日期'], axis=1)
     df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
     st.dataframe(df_board_balance, use_container_width=True)
+    st.write('資料收集日期: '+str(collect_date))
     
   with tab5:    
     # 5.	年報前十大股東相互間關係表
@@ -168,7 +183,10 @@ with col2:
     df_stock_holder2.insert(4,"股東會時_比率",temp_ratio,True)
     df_stock_holder2.insert(4,"股東會時_張數",temp_share,True)
     df_stock_holder2.insert(4,"股東會時_人數",temp_person,True)
+    collect_date=df_stock_holder2.iloc[0,0]
+    df_stock_holder2=df_stock_holder2.drop(['資料日期','證券代號'], axis=1)
     st.dataframe(df_stock_holder2, use_container_width=True)
+    st.write('資料收集日期: '+str(collect_date))
     
   with tab7:   
     #8.	議事錄
