@@ -60,6 +60,10 @@ def Checking_ID(ID):
     return ID_code, ID_name, ID_mkt, ID_type, ID_Inds
     #return '0','0','0','0'
 # ------------------------------------------------------------------
+@st.cache_data
+def load_data(url):
+    df = pd.read_csv(url)
+    return df
 
 st.set_page_config(page_title='長龍股權數據分析儀表板', page_icon=':sparkles:', layout='wide')
 st.header(':sparkles: :blue[長龍股權*數據分析]  :red[儀表板] :pencil:')
@@ -107,8 +111,12 @@ with col2:
   with tab2:    
     # 2.	公告查詢 
     # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv 不定期更新
-    db_announce_L=pd.read_csv(file_raw+'t187ap38_L.csv') #3.	公司基本資料
-    db_announce_O=pd.read_csv(file_raw+'t187ap38_O.csv')
+    url='https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv'
+    db_announce_L = load_data(url)
+    #db_announce_L=pd.read_csv(file_raw+'t187ap38_L.csv') #3.	公司基本資料
+    url='https://mopsfin.twse.com.tw/opendata/t187ap38_O.csv'
+    db_announce_O = load_data(url)
+    #db_announce_O=pd.read_csv(file_raw+'t187ap38_O.csv')
     db_announce=pd.concat([db_announce_L, db_announce_O])
     collect_date=db_announce.iloc[0,0]
     db_announce=db_announce.rename(columns={'股東常(臨時)會日期-常或臨時':'股東常(臨時)會'})
