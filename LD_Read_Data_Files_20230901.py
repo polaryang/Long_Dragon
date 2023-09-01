@@ -145,8 +145,12 @@ with col2:
     # 5.	年報前十大股東相互間關係表
     # 先到TEJ執行特殊轉檔 每年一次
     db_control=pd.read_excel(file_raw+'Control.xlsx') #4.	董監事持股餘額明細資料
+    collect_date=db_control.iloc[0,2]
+    db_control=db_control.drop(['年月'], axis=1)
     df_control=db_control[db_control['公司']==id]
     st.dataframe(df_control, use_container_width=True)
+    st.write('持股人之控制別 : A=最終控制者、B=經理人、C=集團經理人、L=友好集團、X=外部人')
+    st.write('資料截止日期: '+str(collect_date))
     
   with tab6:  
     # 6.	股權分散表(公開觀測站)
