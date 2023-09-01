@@ -4,7 +4,7 @@ Created on Fri Sep  1 00:48:11 2023
 
 @author: user
 """
-
+import datetime
 import json
 import pandas as pd
 from datetime import datetime
@@ -13,6 +13,9 @@ import yfinance as yf
 # Import matplotlib and set the style for plotting
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
+import streamlit as st
+import streamlit.components.v1 as components
 
 id=2330
 # 1.	重大訊息
