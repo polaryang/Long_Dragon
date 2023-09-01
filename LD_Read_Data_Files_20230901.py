@@ -166,9 +166,9 @@ with col2:
     # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap11_L.csv 不定期更新
     #db_board_balance_L=pd.read_csv(file_raw+'t187ap11_L.csv') #4.	董監事持股餘額明細資料
     #db_board_balance_O=pd.read_csv(file_raw+'t187ap11_O.csv')
-    url='https://mopsfin.twse.com.tw/opendata/t187ap03_L.csv'
+    url='https://mopsfin.twse.com.tw/opendata/t187ap11_L.csv'
     db_board_balance_L = load_data(url)
-    url='https://mopsfin.twse.com.tw/opendata/t187ap03_O.csv'
+    url='https://mopsfin.twse.com.tw/opendata/t187ap11_O.csv'
     db_board_balance_O = load_data(url)
     db_board_balance=pd.concat([db_board_balance_L, db_board_balance_O])
     db_board_balance['資料年月'] = db_board_balance['資料年月'].astype(str)
