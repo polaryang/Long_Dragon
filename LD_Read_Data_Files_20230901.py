@@ -95,6 +95,8 @@ with col2:
     db_news=pd.concat([db_news_L, db_news_O])
     collect_date=db_news.iloc[0,0]
     db_news=db_news.drop(['出表日期'], axis=1)
+    db_news['發言日期'] = db_news['發言日期'].astype(str)
+    db_news['發言時間'] = db_news['發言時間'].astype(str)
     #df_basic['Stock_ID']=str(df_basic['公司代號'])
     df_news=db_news[db_news['公司代號']==id]
     st.dataframe(df_news, use_container_width=True)
@@ -112,6 +114,12 @@ with col2:
     db_announce=db_announce.drop(['出表日期'], axis=1)
     db_announce=db_announce.rename(columns={'股東常(臨時)會日期-常或臨時':'股東常(臨時)會'})
     db_announce=db_announce.rename(columns={'股東常(臨時)會日期-日期':'開會日期'})
+    db_announce=db_announce.rename(columns={'停止過戶起訖日期-起':'停止過戶-起期'})
+    db_announce=db_announce.rename(columns={'停止過戶起訖日期-訖':'停止過戶-訖期'})
+    db_announce['公司代號'] = db_announce['公司代號'].astype(str)
+    db_announce['開會日期'] = db_announce['開會日期'].astype(str)
+    db_announce['停止過戶-起期'] = db_announce['停止過戶-起期'].astype(str)
+    db_announce['停止過戶-訖期'] = db_announce['停止過戶-訖期'].astype(str)
     #df_basic['Stock_ID']=str(df_basic['公司代號'])
     df_announce=db_announce[db_announce['公司代號']==id]
     st.dataframe(df_announce, use_container_width=True)
@@ -139,8 +147,10 @@ with col2:
     db_board_balance_L=pd.read_csv(file_raw+'t187ap11_L.csv') #4.	董監事持股餘額明細資料
     db_board_balance_O=pd.read_csv(file_raw+'t187ap11_O.csv')
     db_board_balance=pd.concat([db_board_balance_L, db_board_balance_O])
+    db_board_balance['資料年月'] = db_board_balance['資料年月'].astype(str)
     collect_date=db_board_balance.iloc[0,0]
     db_board_balance=db_board_balance.drop(['出表日期'], axis=1)
+    db_board_balance=db_board_balance.drop(['公司代號'], axis=1)
     df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
     st.dataframe(df_board_balance, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
@@ -152,6 +162,7 @@ with col2:
     collect_date=db_control.iloc[0,2]
     db_control=db_control.drop(['年月'], axis=1)
     df_control=db_control[db_control['公司']==id]
+    df_control=df_control.drop(['公司'], axis=1)
     st.dataframe(df_control, use_container_width=True)
     st.write('持股人之控制別 : A=最終控制者、B=經理人、C=集團經理人、L=友好集團、X=外部人')
     st.write('資料截止日期: '+str(collect_date))
@@ -202,6 +213,7 @@ with col2:
     #https://mops.twse.com.tw/mops/web/t150sb04 可以出總表 每年一次
     db_share_meeting=pd.read_excel(file_raw+'share_meeting.xlsx')
     df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==id]
+    df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
     st.dataframe(df_share_meeting, use_container_width=True)
   
   #with tab8:   
