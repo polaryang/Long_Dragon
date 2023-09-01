@@ -16,28 +16,28 @@ import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
 import streamlit.components.v1 as components
-
+file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
 id=2330
 # 1.	重大訊息
 # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv 每日更新
-db_news_L=pd.read_csv('C:/Users/user/Desktop/Long_dragon/t187ap04_L.csv') 
-db_news_O=pd.read_csv('C:/Users/user/Desktop/Long_dragon/t187ap04_O.csv')
+db_news_L=pd.read_csv(file_raw+'t187ap04_L.csv') 
+db_news_O=pd.read_csv(file_raw+'t187ap04_O.csv')
 db_news=pd.concat([db_news_L, db_news_O])
 #df_basic['Stock_ID']=str(df_basic['公司代號'])
 df_news=db_news[db_news['公司代號']==id]
 
 # 2.	公告查詢 
 # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv 不定期更新
-db_announce_L=pd.read_csv('C:/Users/user/Desktop/Long_dragon/t187ap38_L.csv') #3.	公司基本資料
-db_announce_O=pd.read_csv('C:/Users/user/Desktop/Long_dragon/t187ap38_O.csv')
+db_announce_L=pd.read_csv(file_raw+'t187ap38_L.csv') #3.	公司基本資料
+db_announce_O=pd.read_csv(file_raw+'t187ap38_O.csv')
 db_announce=pd.concat([db_announce_L, db_announce_O])
 #df_basic['Stock_ID']=str(df_basic['公司代號'])
 df_announce=db_announce[db_announce['公司代號']==id]
 
 # 3.	公司基本資料 
 # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap03_L.csv 不定期更新
-db_basic_L=pd.read_csv('C:/Users/user/Desktop/Long_dragon/t187ap03_L.csv') #3.	公司基本資料
-db_basic_O=pd.read_csv('C:/Users/user/Desktop/Long_dragon/t187ap03_O.csv')
+db_basic_L=pd.read_csv(file_raw+'t187ap03_L.csv') #3.	公司基本資料
+db_basic_O=pd.read_csv(file_raw+'t187ap03_O.csv')
 db_basic=pd.concat([db_basic_L, db_basic_O])
 #df_basic['Stock_ID']=str(df_basic['公司代號'])
 df_basic=db_basic[db_basic['公司代號']==id]
