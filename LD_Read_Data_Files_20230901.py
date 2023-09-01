@@ -54,7 +54,7 @@ df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
 
 # 5.	年報前十大股東相互間關係表
 # 先到TEJ執行特殊轉檔 每年一次
-db_control=pd.read_excel('C:/Users/user/Desktop/Long_dragon/Control.xlsx') #4.	董監事持股餘額明細資料
+db_control=pd.read_excel(file_raw+'Control.xlsx') #4.	董監事持股餘額明細資料
 df_control=db_control[db_control['公司']==id]
 
 # 6.	股權分散表(公開觀測站)
