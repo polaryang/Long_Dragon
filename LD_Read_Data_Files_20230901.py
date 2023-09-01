@@ -64,7 +64,7 @@ st.set_page_config(page_title='長龍股權數據分析儀表板', page_icon=':s
 st.header(':sparkles: :blue[長龍股權數據分析]  :red[儀表板] :pencil:')
 st.markdown('**財富自由 = 被動收入 > 生活支出；  藉由存股的穩定配息，增加被動收入，達成財富自由；  財富自由不是提早退休，而是活出人生命的價值**')
 st.info('**_The highest use of capital is not to make more money, but to make money do more for the betterment of life.     ~ Henry Ford_**')
-today = datetime.date.today()
+#today = datetime.date.today()
 
 col1, col2 = st.columns([12,30], gap='large')
 with col1:
