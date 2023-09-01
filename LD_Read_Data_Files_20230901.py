@@ -129,7 +129,8 @@ with col2:
     db_basic=db_basic.drop(['出表日期'], axis=1)
     #df_basic['Stock_ID']=str(df_basic['公司代號'])
     df_basic=db_basic[db_basic['公司代號']==id]
-    st.dataframe(df_basic, use_container_width=True)
+    df_basic_T=df_basic.T
+    st.dataframe(df_basic_T, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
     
   with tab4:
