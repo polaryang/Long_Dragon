@@ -68,19 +68,19 @@ today = datetime.date.today()
 
 col1, col2 = st.columns([12,30], gap='large')
 with col1:
-ID = st.text_input('輸入股票代號', '2330')
-id=int(ID)
-ID_code, ID_name, ID_mkt, ID_type, ID_Inds=Checking_ID(ID) 
-  if ID_code=='0':
-    stock_ticker=ID
-  else:
-    stock_ticker=ID_code+'.TW'
-  if ID_mkt=='上市 ':
-    stock_ticker=ID_code+'.TW'
-  if ID_mkt=='上櫃 ':
-    stock_ticker=ID_code+'.TWO'
-  #st.write('**您選擇的標的:**')
-  st.subheader(ID_name+' : '+stock_ticker+' : ['+ID_Inds+']')
+  ID = st.text_input('輸入股票代號', '2330')
+  id=int(ID)
+  ID_code, ID_name, ID_mkt, ID_type, ID_Inds=Checking_ID(ID) 
+    if ID_code=='0':
+      stock_ticker=ID
+    else:
+      stock_ticker=ID_code+'.TW'
+    if ID_mkt=='上市 ':
+      stock_ticker=ID_code+'.TW'
+    if ID_mkt=='上櫃 ':
+      stock_ticker=ID_code+'.TWO'
+    #st.write('**您選擇的標的:**')
+    st.subheader(ID_name+' : '+stock_ticker+' : ['+ID_Inds+']')
 
 with col2:
     
