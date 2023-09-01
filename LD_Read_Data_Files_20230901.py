@@ -131,6 +131,8 @@ with col2:
     df_announce=df_announce.drop(['出表日期'], axis=1)
     st.dataframe(df_announce, use_container_width=True)
     st.write('今日全部重大訊息')
+    db_announce1=db_announce
+    db_announce1=db_announce1.drop(['出表日期'], axis=1)
     st.dataframe(db_announce, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
     
