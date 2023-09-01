@@ -201,12 +201,13 @@ with col2:
     for i in range(14):
         temp_ratio.append(df_stock_holder1.iloc[0,56+i*3])
     temp_ratio.append(sum(temp_ratio))
-    df_stock_holder2.insert(4,"股東會時_比率",temp_ratio,True)
-    df_stock_holder2.insert(4,"股東會時_張數",temp_share,True)
-    df_stock_holder2.insert(4,"股東會時_人數",temp_person,True)
-    collect_date=df_stock_holder2.iloc[0,0]
-    df_stock_holder2=df_stock_holder2.drop(['資料日期','證券代號'], axis=1)
-    st.dataframe(df_stock_holder2, use_container_width=True)
+    df_stock_holder3=df_stock_holder2
+    df_stock_holder3.insert(4,"股東會時_比率",temp_ratio,True)
+    df_stock_holder3.insert(4,"股東會時_張數",temp_share,True)
+    df_stock_holder3.insert(4,"股東會時_人數",temp_person,True)
+    collect_date=df_stock_holder3.iloc[0,0]
+    df_stock_holder3=df_stock_holder3.drop(['資料日期','證券代號'], axis=1)
+    st.dataframe(df_stock_holder3, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
     
   with tab7:   
