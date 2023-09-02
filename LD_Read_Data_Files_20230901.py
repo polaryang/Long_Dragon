@@ -15,7 +15,7 @@ import requests
 from bs4 import BeautifulSoup
 from PIL import Image
 # ------------------------------------------------------------------
-@st.cache_data
+st.cache_data
 def load_data(url):
     df = pd.read_csv(url)
     return df
