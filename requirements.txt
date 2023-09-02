@@ -17,3 +17,4 @@ webdriver-manager
 tejapi
 openpyxl
 graphviz
+python-graphviz
