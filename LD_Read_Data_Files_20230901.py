@@ -257,7 +257,7 @@ with col2:
     st.dataframe(df_share_meeting, use_container_width=True)
   #with tab8:   
     #image = Image.open('https://raw.githubusercontent.com/polaryang/Long_Dragon/main/workflow')
-    image = Image.open('https://imgur.com/9IruizF')
+    image = Image.open('https://i.imgur.com/9IruizF.png')
     st.image(image, caption='股東常會徵求作業日程表')    
 st.info('© 2023 長龍會議顧問股份有限公司  100 台北市中正區博愛路80號10樓')
 st.write(':gem: *POWERED by*  :dragon_face: :red[長龍會議顧問  X  銘傳大學] :dove_of_peace: :blue[財務金融學系 金融科技實驗室 團隊學生: 黃冠斌、姚岱均] :mailbox_with_mail:')
