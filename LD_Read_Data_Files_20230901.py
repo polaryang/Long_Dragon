@@ -72,6 +72,8 @@ st.markdown('**公司重要事情 : 颱風來襲，請同仁注意安全 !**')
 st.info('**_長龍會議顧問 :以「專業委託書徵求機構」，協助各公司順利完成股東會召開，同時兼顧股東行使權益_**')
 #today = datetime.date.today()
 # ------------------------------------------------------------------
+#資料下載
+file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
 # 1.	重大訊息
 url='https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv'
 db_news_L = load_data(url)
@@ -138,7 +140,6 @@ with col1:
     
 with col2:
  
-  file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
   #tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄","徵求作業日程表"])
   tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
   with tab1:
