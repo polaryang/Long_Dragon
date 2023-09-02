@@ -83,6 +83,10 @@ db_news_O = load_data(url)
 #db_news_L=pd.read_csv(file_raw+'t187ap04_L.csv') 
 #db_news_O=pd.read_csv(file_raw+'t187ap04_O.csv')
 db_news=pd.concat([db_news_L, db_news_O])
+db_news['發言日期'] = db_news['發言日期'].astype(str)
+db_news['發言時間'] = db_news['發言時間'].astype(str)
+db_news['公司代號'] = db_news['公司代號'].astype(str)
+db_news['事實發生日'] = db_news['事實發生日'].astype(str)
 # 2.	公告查詢 db_announce
 url='https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv'
 db_announce_L = load_data(url)
@@ -92,6 +96,14 @@ db_announce=pd.concat([db_announce_L, db_announce_O])
 # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv 不定期更新
 #db_announce_L=pd.read_csv(file_raw+'t187ap38_L.csv') 
 #db_announce_O=pd.read_csv(file_raw+'t187ap38_O.csv')
+db_announce=db_announce.rename(columns={'股東常(臨時)會日期-常或臨時':'股東常(臨時)會'})
+db_announce=db_announce.rename(columns={'股東常(臨時)會日期-日期':'開會日期'})
+db_announce=db_announce.rename(columns={'停止過戶起訖日期-起':'停止過戶-起期'})
+db_announce=db_announce.rename(columns={'停止過戶起訖日期-訖':'停止過戶-訖期'})
+db_announce['公司代號'] = db_announce['公司代號'].astype(str)
+db_announce['開會日期'] = db_announce['開會日期'].astype(str)
+db_announce['停止過戶-起期'] = db_announce['停止過戶-起期'].astype(str)
+db_announce['停止過戶-訖期'] = db_announce['停止過戶-訖期'].astype(str)
 # 3.	公司基本資料 db_basic
 url='https://mopsfin.twse.com.tw/opendata/t187ap03_L.csv'
 db_basic_L = load_data(url)
@@ -110,9 +122,11 @@ db_board_balance_O = load_data(url)
 #db_board_balance_L=pd.read_csv(file_raw+'t187ap11_L.csv') #4.	董監事持股餘額明細資料
 #db_board_balance_O=pd.read_csv(file_raw+'t187ap11_O.csv')
 db_board_balance=pd.concat([db_board_balance_L, db_board_balance_O])
+db_board_balance['資料年月'] = db_board_balance['資料年月'].astype(str)
 # 5.	年報前十大股東相互間關係表
 # 先到TEJ執行特殊轉檔 每年一次
 db_control=pd.read_excel(file_raw+'Control.xlsx') 
+db_control=db_control.drop(['年月'], axis=1)
 # 6.	股權分散表(公開觀測站)
 # 先到TEJ執行特殊轉檔 每年一次
 db_stock_holder1=pd.read_excel(file_raw+'stock_holder_list.xlsx')
@@ -149,10 +163,6 @@ with col2:
   with tab1:
     # 1.	重大訊息 db_news
     collect_date=db_news.iloc[0,0]
-    db_news['發言日期'] = db_news['發言日期'].astype(str)
-    db_news['發言時間'] = db_news['發言時間'].astype(str)
-    db_news['公司代號'] = db_news['公司代號'].astype(str)
-    db_news['事實發生日'] = db_news['事實發生日'].astype(str)
     df_news=db_news[db_news['公司代號']==str(id)]
     df_news=df_news.drop(['出表日期'], axis=1)
     df_news=df_news.reset_index(drop=True)
@@ -166,14 +176,6 @@ with col2:
   with tab2:    
     # 2.	公告查詢 db_announce 
     collect_date=db_announce.iloc[0,0]
-    db_announce=db_announce.rename(columns={'股東常(臨時)會日期-常或臨時':'股東常(臨時)會'})
-    db_announce=db_announce.rename(columns={'股東常(臨時)會日期-日期':'開會日期'})
-    db_announce=db_announce.rename(columns={'停止過戶起訖日期-起':'停止過戶-起期'})
-    db_announce=db_announce.rename(columns={'停止過戶起訖日期-訖':'停止過戶-訖期'})
-    db_announce['公司代號'] = db_announce['公司代號'].astype(str)
-    db_announce['開會日期'] = db_announce['開會日期'].astype(str)
-    db_announce['停止過戶-起期'] = db_announce['停止過戶-起期'].astype(str)
-    db_announce['停止過戶-訖期'] = db_announce['停止過戶-訖期'].astype(str)
     df_announce=db_announce[db_announce['公司代號']==str(id)]
     df_announce=df_announce.drop(['出表日期'], axis=1)
     df_announce=df_announce.reset_index(drop=True)
@@ -196,7 +198,6 @@ with col2:
     
   with tab4:
     # 4.	董監事持股餘額明細資料 db_board_balance
-    db_board_balance['資料年月'] = db_board_balance['資料年月'].astype(str)
     collect_date=db_board_balance.iloc[0,0]
     df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
     df_board_balance=df_board_balance.drop(['公司代號'], axis=1)
@@ -208,7 +209,6 @@ with col2:
   with tab5:    
     # 5.	年報前十大股東相互間關係表
     collect_date=db_control.iloc[0,2]
-    db_control=db_control.drop(['年月'], axis=1)
     df_control=db_control[db_control['公司']==id]
     df_control=df_control.drop(['公司'], axis=1)
     df_control=df_control.reset_index(drop=True)
@@ -242,6 +242,7 @@ with col2:
     df_stock_holder1=db_stock_holder1[db_stock_holder1['公司']==id]
      
     # 7.	集保戶股權分散表 TDCC_OD_1-5.csv
+    collect_date=db_stock_holder2.iloc[0,1]
     df_stock_holder2=db_stock_holder2[db_stock_holder2['證券代號']==str(id)]
     #30~40 40~50 合併
     df_stock_holder2.iloc[6,3:5]=df_stock_holder2.iloc[6,3:5]+df_stock_holder2.iloc[7,3:5]
