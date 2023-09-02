@@ -142,8 +142,9 @@ db_stock_holder2=db_stock_holder2[db_stock_holder2['持股分級']!=16]
 #db_stock_holder2=pd.read_csv(file_raw+'TDCC_OD_1-5.csv') 
 #8.	議事錄
 #https://mops.twse.com.tw/mops/web/t150sb04 可以出總表 每年一次
-db_share_meeting=pd.read_excel(file_raw+'share_meeting.xlsx')
-
+db_share_meeting_L=pd.read_excel(file_raw+'share_meeting_L.xlsx')
+db_share_meeting_O=pd.read_excel(file_raw+'share_meeting_O.xlsx')
+db_share_meeting=pd.concat([db_share_meeting_L, db_share_meeting_O])
 # ------------------------------------------------------------------
 col1, col2 = st.columns([4,27], gap='small')
 with col1:
@@ -258,8 +259,7 @@ with col2:
     df_stock_holder2=df_stock_holder2.rename(columns={'占集保庫存數比例%':'比率'})
     stock_holder_class=['1張以下','1~5張','5~10張','10~15張','15~20張','20~30張','30~50張','50~100張','100~200張','200~400張','400~600張','600~800張','800~1000張','1000以上張','合計']
     df_stock_holder2.insert(3,"持股分級_說明",stock_holder_class,True)
-    st.dataframe(df_stock_holder2, hide_index=True , use_container_width=True) 
-    st.dataframe(df_stock_holder1, hide_index=True , use_container_width=True)
+
     temp_person=[]
     for i in range(14):
         temp_person.append(df_stock_holder1.iloc[0,54+i*3])
@@ -280,8 +280,7 @@ with col2:
     df_stock_holder3=df_stock_holder3.reset_index(drop=True)
     st.dataframe(df_stock_holder3, width=5, hide_index=True , use_container_width=True)
     df_stock_holder3=df_stock_holder2[df_stock_holder2['持股分級']!=15]
-    st.line_chart(df_stock_holder3, x='持股分級', y=['股東會時_比率', '比率'], color = ['#00008B', '#8B0000'], use_container_width=True)
-    #, color = ['#FF0000', '#0000FF']    
+    st.line_chart(df_stock_holder3, x='持股分級', y=['股東會時_比率', '比率'], color = ['#00008B', '#8B0000'], use_container_width=True) 
     st.write('資料收集日期: '+str(collect_date))
     
   with tab7:   
