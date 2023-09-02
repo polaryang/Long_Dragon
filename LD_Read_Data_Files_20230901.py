@@ -273,7 +273,8 @@ with col2:
     df_stock_holder3=df_stock_holder3.drop(['資料日期','證券代號'], axis=1)
     df_stock_holder3=df_stock_holder3.reset_index(drop=True)
     st.dataframe(df_stock_holder3, width=5, hide_index=True , use_container_width=True)
-    st.area_chart(df_stock_holder3, x='持股分級', y=['股東會時_比率', '比率'],color=['#FF0000','#0000FF'])
+    df_stock_holder3=df_stock_holder2[df_stock_holder2['持股分級']!=15]
+    st.area_chart(df_stock_holder3, x='持股分級', y=['股東會時_比率', '比率'],color=['#FFFF00','#0000FF'])
     
     st.write('資料收集日期: '+str(collect_date))
     
