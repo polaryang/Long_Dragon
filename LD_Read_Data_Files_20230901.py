@@ -223,6 +223,7 @@ with col2:
     if option=='持股人集團別':
       df_control_class = df_control.groupby('持股人集團名').sum()
       df_control_results=df_control_class['持股占比']
+      df_control_results.rename(index={'                     ':'其他'}, inplace=True)
     if option=='持股人身分別':
       df_control_class = df_control.groupby('身份別').sum()
       df_control_results=df_control_class['持股占比']
