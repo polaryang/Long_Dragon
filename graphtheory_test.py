@@ -14,6 +14,7 @@ import streamlit.components.v1 as components
 import requests
 from bs4 import BeautifulSoup
 from PIL import Image
+import graphviz
 # ------------------------------------------------------------------
 def Checking_ID(ID):
   ID_code='0'
@@ -125,3 +126,21 @@ db_stock_holder2=db_stock_holder2[db_stock_holder2['持股分級']!=16]
 #8.	議事錄
 #https://mops.twse.com.tw/mops/web/t150sb04 可以出總表 每年一次
 db_share_meeting=pd.read_excel(file_raw+'share_meeting.xlsx')
+
+# Create a graphlib graph object
+graph = graphviz.Digraph()
+graph.edge('run', 'intr')
+graph.edge('intr', 'runbl')
+graph.edge('runbl', 'run')
+graph.edge('run', 'kernel')
+graph.edge('kernel', 'zombie')
+graph.edge('kernel', 'sleep')
+graph.edge('kernel', 'runmem')
+graph.edge('sleep', 'swap')
+graph.edge('swap', 'runswap')
+graph.edge('runswap', 'new')
+graph.edge('runswap', 'runmem')
+graph.edge('new', 'runmem')
+graph.edge('sleep', 'runmem')
+
+st.graphviz_chart(graph)
