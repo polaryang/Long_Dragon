@@ -195,9 +195,9 @@ with col2:
   with tab2:    
     # 2.	公告查詢 db_announce 
     collect_date=db_announce.iloc[0,0]
+    db_announce=db_announce.drop(['出表日期'], axis=1)
     df_announce=db_announce[db_announce['公司代號']==str(id)]
-    df_announce=df_announce.drop(['出表日期'], axis=1)
-    df_announce=df_announce.reset_index(drop=True)
+    #df_announce=df_announce.reset_index(drop=True)
     if len(df_announce)>0:
       seq=range(1,len(df_announce)+1)
       df_announce.insert(0,"序號",seq,True)
@@ -205,22 +205,22 @@ with col2:
     else:
       st.dataframe(df_announce, use_container_width=True,hide_index=True)
     st.write('今日全部重大訊息')
-    db_announce1=db_announce
-    db_announce1=db_announce1.drop(['出表日期'], axis=1)
-    if len(db_announce1)>0:
-      seq=range(1,len(db_announce1)+1)
-      db_announce1.insert(0,"序號",seq,True)
-      st.dataframe(db_announce1, use_container_width=True,hide_index=True)
+    #db_announce1=db_announce
+    db_announce=db_announce.drop(['出表日期'], axis=1)
+    if len(db_announce)>0:
+      seq=range(1,len(db_announce)+1)
+      db_announce.insert(0,"序號",seq,True)
+      st.dataframe(db_announce, use_container_width=True,hide_index=True)
     else:
-      st.dataframe(db_announce1, use_container_width=True,hide_index=True)
+      st.dataframe(db_announce, use_container_width=True,hide_index=True)
     st.write('資料收集日期: '+str(collect_date))
     
   with tab3:    
     # 3.	公司基本資料 db_basic
     collect_date=db_basic.iloc[0,0]
+    db_basic=db_basic.drop(['出表日期'], axis=1)
     df_basic=db_basic[db_basic['公司代號']==id]
-    df_basic=df_basic.drop(['出表日期'], axis=1)
-    df_basic=df_basic.reset_index(drop=True)
+    #df_basic=df_basic.reset_index(drop=True)
     #df_basic.rename(index={'0':'公司基本資料'}, inplace=True)
     df_basic_T=df_basic.T
     st.dataframe(df_basic_T, use_container_width=True)
@@ -229,10 +229,10 @@ with col2:
   with tab4:
     # 4.	董監事持股餘額明細資料 db_board_balance
     collect_date=db_board_balance.iloc[0,0]
+    db_board_balance=db_board_balance.drop(['出表日期'], axis=1)
     df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
     df_board_balance=df_board_balance.drop(['公司代號'], axis=1)
-    df_board_balance=df_board_balance.drop(['出表日期'], axis=1)
-    df_board_balance=df_board_balance.reset_index(drop=True)
+    #df_board_balance=df_board_balance.reset_index(drop=True)
     if len(df_board_balance)>0:
       seq=range(1,len(df_board_balance)+1)
       df_board_balance.insert(0,"序號",seq,True)
@@ -247,7 +247,7 @@ with col2:
     df_control=db_control[db_control['公司']==id]
     df_control=df_control.drop(['公司'], axis=1)
     df_control=df_control.drop(['年月'], axis=1)
-    df_control=df_control.reset_index(drop=True)
+    #df_control=df_control.reset_index(drop=True)
     if len(df_control)>0:
       seq=range(1,len(df_control)+1)
       df_control.insert(0,"序號",seq,True)
