@@ -15,13 +15,13 @@ import requests
 from bs4 import BeautifulSoup
 from PIL import Image
 # ------------------------------------------------------------------
-st.cache_data
+#@st.cache_data
 def load_data(url):
     df = pd.read_csv(url)
     return df
 # ------------------------------------------------------------------
 # DB資料下載 與 處理 [開始] 
-@st.cache_data
+#@st.cache_data
 def load_data_process():
     file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
     # 1.	重大訊息 db_news
