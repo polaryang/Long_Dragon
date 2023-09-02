@@ -224,6 +224,7 @@ with col2:
     df_basic=db_basic[db_basic['公司代號']==id]
     df_basic=df_basic.drop(['出表日期'], axis=1)
     df_basic=df_basic.reset_index(drop=True)
+    df_control_results.rename(index={'0':'公司基本資料'}, inplace=True)
     df_basic_T=df_basic.T
     st.dataframe(df_basic_T, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
