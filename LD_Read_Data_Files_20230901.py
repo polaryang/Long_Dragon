@@ -102,6 +102,7 @@ def load_data_process():
     db_share_meeting_O=pd.read_excel(file_raw+'share_meeting_O.xlsx')
     db_share_meeting=pd.concat([db_share_meeting_L, db_share_meeting_O])
     # DB資料下載 與 處理 [結束] 
+    return db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting
 # ------------------------------------------------------------------
 def Checking_ID(ID):
   ID_code='0'
