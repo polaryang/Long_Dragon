@@ -221,17 +221,17 @@ with col2:
     with T5col2:  
         if option=='持股人控制別':
           df_control_class = df_control.groupby('控制別').sum()
-          df_control_class.sort_values(by='持股占比', ascending=False)
+          df_control_class=df_control_class.sort_values(by='持股占比', ascending=False)
           df_control_results=df_control_class['持股占比']
           df_control_results.rename(index={'A':'最終控制者A', 'B':'經理人B', 'C':'集團經理人C', 'L':'友好集團L', 'X':'外部人X'}, inplace=True)
         if option=='持股人集團別':
           df_control_class = df_control.groupby('持股人集團名').sum()
-          df_control_class.sort_values(by='持股占比', ascending=False)
+          df_control_class=df_control_class.sort_values(by='持股占比', ascending=False)
           df_control_results=df_control_class['持股占比']
           df_control_results.rename(index={'                     ':'其他'}, inplace=True)
         if option=='持股人身分別':
           df_control_class = df_control.groupby('身份別').sum()
-          df_control_class.sort_values(by='持股占比', ascending=False)
+          df_control_class=df_control_class.sort_values(by='持股占比', ascending=False)
           df_control_results=df_control_class['持股占比']  
         st.dataframe(df_control_results, use_container_width=True)  
         st.bar_chart(df_control_results, use_container_width=True)
