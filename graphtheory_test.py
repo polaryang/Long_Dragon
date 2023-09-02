@@ -14,7 +14,8 @@ import streamlit.components.v1 as components
 import requests
 from bs4 import BeautifulSoup
 from PIL import Image
-import graphviz
+#import graphviz
+from graphviz import Digraph
 # ------------------------------------------------------------------
 def Checking_ID(ID):
   ID_code='0'
