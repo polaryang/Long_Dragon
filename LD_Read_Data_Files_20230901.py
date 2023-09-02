@@ -155,7 +155,7 @@ st.header(':sparkles: :blue[長龍股權*數據分析]  :red[儀表板] :pencil:
 st.markdown('**公司重要事情 : 颱風來襲，請同仁注意安全 !**')
 st.info('**_長龍會議顧問 :以「專業委託書徵求機構」，協助各公司順利完成股東會召開，同時兼顧股東行使權益_**')
 #today = datetime.date.today()
-load_data_process()
+db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process()
 col1, col2 = st.columns([4,27], gap='small')
 with col1:
   ID = st.text_input('輸入股票代號(代號或名稱皆可)', '2330')
