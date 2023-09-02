@@ -160,11 +160,7 @@ with col1:
   if ID_code=='0':
       st.write('查無此股票')
   else:  
-      if ID_mkt=='上市 ':
-        stock_ticker=ID_code+'.TW'
-      if ID_mkt=='上櫃 ':
-        stock_ticker=ID_code+'.TWO'
-      st.write(ID_name+' : '+stock_ticker)
+      st.write(ID_name+' : '+ID_code)
       st.write(ID_mkt+' '+ID_Inds)
       id=int(ID_code)
     
@@ -175,9 +171,10 @@ with col2:
   with tab1:
     # 1.	重大訊息 db_news
     collect_date=db_news.iloc[0,0]
+    db_news=db_news.drop(['出表日期'], axis=1)
     df_news=db_news[db_news['公司代號']==str(id)]
-    df_news=df_news.drop(['出表日期'], axis=1)
-    df_news=df_news.reset_index(drop=True)
+    #df_news=df_news.drop(['出表日期'], axis=1)
+    #df_news=df_news.reset_index(drop=True)
     if len(df_news)>0:
       seq=range(1,len(df_news)+1)
       df_news.insert(0,"序號",seq,True)
@@ -185,14 +182,14 @@ with col2:
     else:
       st.dataframe(df_news, use_container_width=True,hide_index=True)
     st.write('今日全部重大訊息')
-    db_news1=db_news
-    db_news1=db_news1.drop(['出表日期'], axis=1)
-    if len(db_news1)>0:
-      seq=range(1,len(db_news1)+1)
-      db_news1.insert(0,"序號",seq,True)
-      st.dataframe(db_news1, use_container_width=True,hide_index=True)
+    #db_news1=db_news
+    #db_news1=db_news1.drop(['出表日期'], axis=1)
+    if len(db_news)>0:
+      seq=range(1,len(db_news)+1)
+      db_news.insert(0,"序號",seq,True)
+      st.dataframe(db_news, use_container_width=True,hide_index=True)
     else:
-      st.dataframe(db_news1, use_container_width=True,hide_index=True)
+      st.dataframe(db_news, use_container_width=True,hide_index=True)
     st.write('資料收集日期: '+str(collect_date))
     
   with tab2:    
@@ -224,7 +221,7 @@ with col2:
     df_basic=db_basic[db_basic['公司代號']==id]
     df_basic=df_basic.drop(['出表日期'], axis=1)
     df_basic=df_basic.reset_index(drop=True)
-    df_basic.rename(index={'0':'公司基本資料'}, inplace=True)
+    #df_basic.rename(index={'0':'公司基本資料'}, inplace=True)
     df_basic_T=df_basic.T
     st.dataframe(df_basic_T, use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
