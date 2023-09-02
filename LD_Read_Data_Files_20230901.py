@@ -261,4 +261,5 @@ st.write(':gem: *POWERED by*  :dragon_face: :red[長龍會議顧問  X  銘傳�
 
   #with tab8:   
     #image = Image.open('https://raw.githubusercontent.com/polaryang/Long_Dragon/main/workflow')
-    #st.image(image, caption='股東常會徵求作業日程表')
+    image = Image.open('https://static.wixstatic.com/media/d89a3a_578b9900f19c44bba75a961ad436dfcc~mv2.png/v1/fill/w_940,h_503,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/%E8%82%A1%E6%9D%B1%E8%87%A8%E6%9C%83%E6%97%A5%E7%A8%8B%E8%A1%A8.png')
+    st.image(image, caption='股東常會徵求作業日程表')
