@@ -14,8 +14,7 @@ import streamlit.components.v1 as components
 import requests
 from bs4 import BeautifulSoup
 from PIL import Image
-#import graphviz
-from graphviz import Digraph
+from streamlit_agraph import agraph, Node, Edge, Config
 # ------------------------------------------------------------------
 def Checking_ID(ID):
   ID_code='0'
@@ -130,20 +129,46 @@ db_share_meeting=pd.read_excel(file_raw+'share_meeting.xlsx')
 
 st.write('test')
 
-# Create a graphlib graph object
-graph = graphviz.Digraph()
-graph.edge('run', 'intr')
-graph.edge('intr', 'runbl')
-graph.edge('runbl', 'run')
-graph.edge('run', 'kernel')
-graph.edge('kernel', 'zombie')
-graph.edge('kernel', 'sleep')
-graph.edge('kernel', 'runmem')
-graph.edge('sleep', 'swap')
-graph.edge('swap', 'runswap')
-graph.edge('runswap', 'new')
-graph.edge('runswap', 'runmem')
-graph.edge('new', 'runmem')
-graph.edge('sleep', 'runmem')
 
-st.graphviz_chart(graph)
+nodes = []
+edges = []
+nodes.append( Node(id="Spiderman", 
+                   label="Peter Parker", 
+                   size=25, 
+                   shape="circularImage",
+                   image="http://marvel-force-chart.surge.sh/marvel_force_chart_img/top_spiderman.png") 
+            ) # includes **kwargs
+nodes.append( Node(id="Captain_Marvel", 
+                   size=25,
+                   shape="circularImage",
+                   image="http://marvel-force-chart.surge.sh/marvel_force_chart_img/top_captainmarvel.png") 
+            )
+edges.append( Edge(source="Captain_Marvel", 
+                   label="friend_of", 
+                   target="Spiderman", 
+                   # **kwargs
+                   ) 
+            ) 
+
+config = Config(width=750,
+                height=950,
+                directed=True, 
+                physics=True, 
+                hierarchical=False,
+                # **kwargs
+                )
+
+return_value = agraph(nodes=nodes, 
+                      edges=edges, 
+                      config=config)
+from streamlit_agraph.config import Config, ConfigBuilder
+
+# 1. Build the config (with sidebar to play with options) .
+config_builder = ConfigBuilder(nodes)
+config = config_builder.build()
+
+# 2. If your done, save the config to a file.
+config.save("config.json")
+
+# 3. Simple reload from json file (you can bump the builder at this point.)
+config = Config(from_json="config.json")
