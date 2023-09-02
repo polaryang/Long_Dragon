@@ -20,6 +20,89 @@ def load_data(url):
     df = pd.read_csv(url)
     return df
 # ------------------------------------------------------------------
+# DB資料下載 與 處理 [開始] 
+@st.cache_data
+def load_data_process():
+    file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
+    # 1.	重大訊息 db_news
+    url='https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv'
+    db_news_L = load_data(url)
+    url='https://mopsfin.twse.com.tw/opendata/t187ap04_O.csv'
+    db_news_O = load_data(url)
+    # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv 每日更新
+    #db_news_L=pd.read_csv(file_raw+'t187ap04_L.csv') 
+    #db_news_O=pd.read_csv(file_raw+'t187ap04_O.csv')
+    db_news=pd.concat([db_news_L, db_news_O])
+    db_news['發言日期'] = db_news['發言日期'].astype(str)
+    db_news['發言時間'] = db_news['發言時間'].astype(str)
+    db_news['公司代號'] = db_news['公司代號'].astype(str)
+    db_news['事實發生日'] = db_news['事實發生日'].astype(str)
+    
+    # 2.	公告查詢 db_announce
+    url='https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv'
+    db_announce_L = load_data(url)
+    url='https://mopsfin.twse.com.tw/opendata/t187ap38_O.csv'
+    db_announce_O = load_data(url)
+    db_announce=pd.concat([db_announce_L, db_announce_O])
+    # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv 不定期更新
+    #db_announce_L=pd.read_csv(file_raw+'t187ap38_L.csv') 
+    #db_announce_O=pd.read_csv(file_raw+'t187ap38_O.csv')
+    db_announce=db_announce.rename(columns={'股東常(臨時)會日期-常或臨時':'股東常(臨時)會'})
+    db_announce=db_announce.rename(columns={'股東常(臨時)會日期-日期':'開會日期'})
+    db_announce=db_announce.rename(columns={'停止過戶起訖日期-起':'停止過戶-起期'})
+    db_announce=db_announce.rename(columns={'停止過戶起訖日期-訖':'停止過戶-訖期'})
+    db_announce['公司代號'] = db_announce['公司代號'].astype(str)
+    db_announce['開會日期'] = db_announce['開會日期'].astype(str)
+    db_announce['停止過戶-起期'] = db_announce['停止過戶-起期'].astype(str)
+    db_announce['停止過戶-訖期'] = db_announce['停止過戶-訖期'].astype(str)
+    
+    # 3.	公司基本資料 db_basic
+    url='https://mopsfin.twse.com.tw/opendata/t187ap03_L.csv'
+    db_basic_L = load_data(url)
+    url='https://mopsfin.twse.com.tw/opendata/t187ap03_O.csv'
+    db_basic_O = load_data(url)
+    # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap03_L.csv 不定期更新
+    #db_basic_L=pd.read_csv(file_raw+'t187ap03_L.csv') 
+    #db_basic_O=pd.read_csv(file_raw+'t187ap03_O.csv')
+    db_basic=pd.concat([db_basic_L, db_basic_O])
+    
+    # 4.	董監事持股餘額明細資料 db_board_balance
+    url='https://mopsfin.twse.com.tw/opendata/t187ap11_L.csv'
+    db_board_balance_L = load_data(url)
+    url='https://mopsfin.twse.com.tw/opendata/t187ap11_O.csv'
+    db_board_balance_O = load_data(url)
+    # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap11_L.csv 不定期更新
+    #db_board_balance_L=pd.read_csv(file_raw+'t187ap11_L.csv') #4.	董監事持股餘額明細資料
+    #db_board_balance_O=pd.read_csv(file_raw+'t187ap11_O.csv')
+    db_board_balance=pd.concat([db_board_balance_L, db_board_balance_O])
+    db_board_balance['資料年月'] = db_board_balance['資料年月'].astype(str)
+    
+    # 5.	年報前十大股東相互間關係表
+    # 先到TEJ執行特殊轉檔 TEJ 公司治理 TCGI 1 股權結構 控制持股與董監結構明細 每年一次
+    db_control_L=pd.read_excel(file_raw+'Control_L.xlsx') 
+    db_control_O=pd.read_excel(file_raw+'Control_O.xlsx') 
+    db_control=pd.concat([db_control_L, db_control_O])
+    
+    # 6.	股權分散表(公開觀測站)
+    # 先到TEJ執行特殊轉檔 TEJ Company DB 股權結構 每年一次
+    db_stock_holder1_L=pd.read_excel(file_raw+'stock_holder_list_L.xlsx')
+    db_stock_holder1_O=pd.read_excel(file_raw+'stock_holder_list_O.xlsx')
+    db_stock_holder1=pd.concat([db_stock_holder1_L, db_stock_holder1_O])
+    db_stock_holder1['公司'] = db_stock_holder1['公司'].astype(str)
+    # 7.	集保戶股權分散表 TDCC_OD_1-5.csv
+    url='https://opendata.tdcc.com.tw/getOD.ashx?id=1-5'
+    db_stock_holder2 = load_data(url)
+    db_stock_holder2=db_stock_holder2[db_stock_holder2['持股分級']!=16]
+    # 先執行 https://opendata.tdcc.com.tw/getOD.ashx?id=1-5  每周更新
+    #db_stock_holder2=pd.read_csv(file_raw+'TDCC_OD_1-5.csv') 
+    
+    #8.	議事錄
+    #https://mops.twse.com.tw/mops/web/t150sb04 可以出總表 每年一次
+    db_share_meeting_L=pd.read_excel(file_raw+'share_meeting_L.xlsx')
+    db_share_meeting_O=pd.read_excel(file_raw+'share_meeting_O.xlsx')
+    db_share_meeting=pd.concat([db_share_meeting_L, db_share_meeting_O])
+    # DB資料下載 與 處理 [結束] 
+# ------------------------------------------------------------------
 def Checking_ID(ID):
   ID_code='0'
   ID_name='0'
@@ -71,88 +154,7 @@ st.header(':sparkles: :blue[長龍股權*數據分析]  :red[儀表板] :pencil:
 st.markdown('**公司重要事情 : 颱風來襲，請同仁注意安全 !**')
 st.info('**_長龍會議顧問 :以「專業委託書徵求機構」，協助各公司順利完成股東會召開，同時兼顧股東行使權益_**')
 #today = datetime.date.today()
-# ------------------------------------------------------------------
-# DB資料下載 與 處理 [開始] 
-file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
-# 1.	重大訊息 db_news
-url='https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv'
-db_news_L = load_data(url)
-url='https://mopsfin.twse.com.tw/opendata/t187ap04_O.csv'
-db_news_O = load_data(url)
-# 先執行 https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv 每日更新
-#db_news_L=pd.read_csv(file_raw+'t187ap04_L.csv') 
-#db_news_O=pd.read_csv(file_raw+'t187ap04_O.csv')
-db_news=pd.concat([db_news_L, db_news_O])
-db_news['發言日期'] = db_news['發言日期'].astype(str)
-db_news['發言時間'] = db_news['發言時間'].astype(str)
-db_news['公司代號'] = db_news['公司代號'].astype(str)
-db_news['事實發生日'] = db_news['事實發生日'].astype(str)
-
-# 2.	公告查詢 db_announce
-url='https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv'
-db_announce_L = load_data(url)
-url='https://mopsfin.twse.com.tw/opendata/t187ap38_O.csv'
-db_announce_O = load_data(url)
-db_announce=pd.concat([db_announce_L, db_announce_O])
-# 先執行 https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv 不定期更新
-#db_announce_L=pd.read_csv(file_raw+'t187ap38_L.csv') 
-#db_announce_O=pd.read_csv(file_raw+'t187ap38_O.csv')
-db_announce=db_announce.rename(columns={'股東常(臨時)會日期-常或臨時':'股東常(臨時)會'})
-db_announce=db_announce.rename(columns={'股東常(臨時)會日期-日期':'開會日期'})
-db_announce=db_announce.rename(columns={'停止過戶起訖日期-起':'停止過戶-起期'})
-db_announce=db_announce.rename(columns={'停止過戶起訖日期-訖':'停止過戶-訖期'})
-db_announce['公司代號'] = db_announce['公司代號'].astype(str)
-db_announce['開會日期'] = db_announce['開會日期'].astype(str)
-db_announce['停止過戶-起期'] = db_announce['停止過戶-起期'].astype(str)
-db_announce['停止過戶-訖期'] = db_announce['停止過戶-訖期'].astype(str)
-
-# 3.	公司基本資料 db_basic
-url='https://mopsfin.twse.com.tw/opendata/t187ap03_L.csv'
-db_basic_L = load_data(url)
-url='https://mopsfin.twse.com.tw/opendata/t187ap03_O.csv'
-db_basic_O = load_data(url)
-# 先執行 https://mopsfin.twse.com.tw/opendata/t187ap03_L.csv 不定期更新
-#db_basic_L=pd.read_csv(file_raw+'t187ap03_L.csv') 
-#db_basic_O=pd.read_csv(file_raw+'t187ap03_O.csv')
-db_basic=pd.concat([db_basic_L, db_basic_O])
-
-# 4.	董監事持股餘額明細資料 db_board_balance
-url='https://mopsfin.twse.com.tw/opendata/t187ap11_L.csv'
-db_board_balance_L = load_data(url)
-url='https://mopsfin.twse.com.tw/opendata/t187ap11_O.csv'
-db_board_balance_O = load_data(url)
-# 先執行 https://mopsfin.twse.com.tw/opendata/t187ap11_L.csv 不定期更新
-#db_board_balance_L=pd.read_csv(file_raw+'t187ap11_L.csv') #4.	董監事持股餘額明細資料
-#db_board_balance_O=pd.read_csv(file_raw+'t187ap11_O.csv')
-db_board_balance=pd.concat([db_board_balance_L, db_board_balance_O])
-db_board_balance['資料年月'] = db_board_balance['資料年月'].astype(str)
-
-# 5.	年報前十大股東相互間關係表
-# 先到TEJ執行特殊轉檔 TEJ 公司治理 TCGI 1 股權結構 控制持股與董監結構明細 每年一次
-db_control_L=pd.read_excel(file_raw+'Control_L.xlsx') 
-db_control_O=pd.read_excel(file_raw+'Control_O.xlsx') 
-db_control=pd.concat([db_control_L, db_control_O])
-
-# 6.	股權分散表(公開觀測站)
-# 先到TEJ執行特殊轉檔 TEJ Company DB 股權結構 每年一次
-db_stock_holder1_L=pd.read_excel(file_raw+'stock_holder_list_L.xlsx')
-db_stock_holder1_O=pd.read_excel(file_raw+'stock_holder_list_O.xlsx')
-db_stock_holder1=pd.concat([db_stock_holder1_L, db_stock_holder1_O])
-db_stock_holder1['公司'] = db_stock_holder1['公司'].astype(str)
-# 7.	集保戶股權分散表 TDCC_OD_1-5.csv
-url='https://opendata.tdcc.com.tw/getOD.ashx?id=1-5'
-db_stock_holder2 = load_data(url)
-db_stock_holder2=db_stock_holder2[db_stock_holder2['持股分級']!=16]
-# 先執行 https://opendata.tdcc.com.tw/getOD.ashx?id=1-5  每周更新
-#db_stock_holder2=pd.read_csv(file_raw+'TDCC_OD_1-5.csv') 
-
-#8.	議事錄
-#https://mops.twse.com.tw/mops/web/t150sb04 可以出總表 每年一次
-db_share_meeting_L=pd.read_excel(file_raw+'share_meeting_L.xlsx')
-db_share_meeting_O=pd.read_excel(file_raw+'share_meeting_O.xlsx')
-db_share_meeting=pd.concat([db_share_meeting_L, db_share_meeting_O])
-# DB資料下載 與 處理 [結束] 
-# ------------------------------------------------------------------
+load_data_process()
 col1, col2 = st.columns([4,27], gap='small')
 with col1:
   ID = st.text_input('輸入股票代號(代號或名稱皆可)', '2330')
