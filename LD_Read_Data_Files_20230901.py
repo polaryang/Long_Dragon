@@ -242,7 +242,7 @@ with col2:
     df_stock_holder1=db_stock_holder1[db_stock_holder1['公司']==id]
      
     # 7.	集保戶股權分散表 TDCC_OD_1-5.csv
-    collect_date=db_stock_holder2.iloc[0,1]
+    collect_date=db_stock_holder2.iloc[0,0]
     df_stock_holder2=db_stock_holder2[db_stock_holder2['證券代號']==str(id)]
     #30~40 40~50 合併
     df_stock_holder2.iloc[6,3:5]=df_stock_holder2.iloc[6,3:5]+df_stock_holder2.iloc[7,3:5]
