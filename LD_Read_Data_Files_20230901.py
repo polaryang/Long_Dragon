@@ -181,9 +181,9 @@ with col2:
     if len(df_news)>0:
       seq=range(1,len(df_news)+1)
       df_news.insert(0,"序號",seq,True)
-      st.dataframe(df_news, use_container_width=True)
+      st.dataframe(df_news, use_container_width=True,hide_index=True)
     else:
-      st.dataframe(df_news, use_container_width=True)
+      st.dataframe(df_news, use_container_width=True,hide_index=True)
     st.write('今日全部重大訊息')
     db_news1=db_news
     db_news1=db_news1.drop(['出表日期'], axis=1)
@@ -201,11 +201,21 @@ with col2:
     df_announce=db_announce[db_announce['公司代號']==str(id)]
     df_announce=df_announce.drop(['出表日期'], axis=1)
     df_announce=df_announce.reset_index(drop=True)
-    st.dataframe(df_announce, use_container_width=True)
+    if len(df_announce)>0:
+      seq=range(1,len(df_announce)+1)
+      df_announce.insert(0,"序號",seq,True)
+      st.dataframe(df_announce, use_container_width=True,hide_index=True)
+    else:
+      st.dataframe(df_announce, use_container_width=True,hide_index=True)
     st.write('今日全部重大訊息')
     db_announce1=db_announce
     db_announce1=db_announce1.drop(['出表日期'], axis=1)
-    st.dataframe(db_announce1, use_container_width=True)
+    if len(db_announce1)>0:
+      seq=range(1,len(db_announce1)+1)
+      db_announce1.insert(0,"序號",seq,True)
+      st.dataframe(db_announce1, use_container_width=True,hide_index=True)
+    else:
+      st.dataframe(db_announce1, use_container_width=True,hide_index=True)
     st.write('資料收集日期: '+str(collect_date))
     
   with tab3:    
@@ -225,7 +235,12 @@ with col2:
     df_board_balance=df_board_balance.drop(['公司代號'], axis=1)
     df_board_balance=df_board_balance.drop(['出表日期'], axis=1)
     df_board_balance=df_board_balance.reset_index(drop=True)
-    st.dataframe(df_board_balance, use_container_width=True)
+    if len(df_board_balance)>0:
+      seq=range(1,len(df_board_balance)+1)
+      df_board_balance.insert(0,"序號",seq,True)
+      st.dataframe(df_board_balance, use_container_width=True,hide_index=True)
+    else:
+      st.dataframe(df_board_balance, use_container_width=True,hide_index=True)
     st.write('資料收集日期: '+str(collect_date))
     
   with tab5:    
@@ -235,7 +250,12 @@ with col2:
     df_control=df_control.drop(['公司'], axis=1)
     df_control=df_control.drop(['年月'], axis=1)
     df_control=df_control.reset_index(drop=True)
-    st.dataframe(df_control, use_container_width=True)
+    if len(df_control)>0:
+      seq=range(1,len(df_control)+1)
+      df_control.insert(0,"序號",seq,True)
+      st.dataframe(df_control, use_container_width=True,hide_index=True)
+    else:
+      st.dataframe(df_control, use_container_width=True,hide_index=True)
     st.write('持股人之控制別說明 : :red[A=最終控制者、B=經理人、C=集團經理人、L=友好集團、X=外部人]')
     df_control['持股占比']=df_control['最終控制者個人持股%']+df_control['集團未上市公司持股%']+df_control['集團基金會持股%']+df_control['集團上市公司持股%']+df_control['經理人持股%']+df_control['外部個人持股%']+df_control['外部未上市公司持股%']+df_control['外部基金會持股%']+df_control['外部上市公司持股%']
     T5col1, T5col2 = st.columns([1,3], gap='small')
@@ -303,7 +323,7 @@ with col2:
     df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==id]
     df_share_meeting=df_share_meeting.reset_index(drop=True)    
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
-    st.dataframe(df_share_meeting, use_container_width=True)
+    st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
   #with tab8:   
     #image = Image.open('https://raw.githubusercontent.com/polaryang/Long_Dragon/main/workflow')
     #image = Image.open('https://i.imgur.com/LeIxkt9.jpg')
