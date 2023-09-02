@@ -324,7 +324,7 @@ with col2:
     st.write('請重新載入此頁')
     if st.button("Clear All in-memory and on-disk data Caches"):
     # i.e. clear values from both square and cube
-    st.cache_data.clear()
+        st.cache_data.clear()
     #image = Image.open('https://raw.githubusercontent.com/polaryang/Long_Dragon/main/workflow')
     #image = Image.open('https://i.imgur.com/LeIxkt9.jpg')
     #st.image(image, caption='股東常會徵求作業日程表')    
