@@ -222,7 +222,7 @@ with col2:
         if option=='持股人控制別':
           df_control_class = df_control.groupby('控制別').sum()
           df_control_results=df_control_class['持股占比']
-          df_control_results.rename(index={'A':'最終控制者', 'B':'經理人', 'C':'集團經理人', 'L':'友好集團', 'X':'外部人'}, inplace=True)
+          df_control_results.rename(index={'A':'最終控制者A', 'B':'經理人B', 'C':'集團經理人C', 'L':'友好集團L', 'X':'外部人X'}, inplace=True)
         if option=='持股人集團別':
           df_control_class = df_control.groupby('持股人集團名').sum()
           df_control_results=df_control_class['持股占比']
@@ -230,7 +230,8 @@ with col2:
         if option=='持股人身分別':
           df_control_class = df_control.groupby('身份別').sum()
           df_control_results=df_control_class['持股占比']
-        st.dataframe(df_control_results, use_container_width=True)  
+      df_control_results.sort_values(by='持股占比', ascending=True)  
+      st.dataframe(df_control_results, use_container_width=True)  
         st.bar_chart(df_control_results, use_container_width=True)
         st.write('資料截止日期: '+str(collect_date))
     
@@ -269,7 +270,7 @@ with col2:
     collect_date=df_stock_holder3.iloc[0,0]
     df_stock_holder3=df_stock_holder3.drop(['資料日期','證券代號'], axis=1)
     df_stock_holder3=df_stock_holder3.reset_index(drop=True)
-    st.dataframe(df_stock_holder3, width=5 , use_container_width=True)
+    st.dataframe(df_stock_holder3, width=5, hide_index=True , use_container_width=True)
     st.write('資料收集日期: '+str(collect_date))
     
   with tab7:   
