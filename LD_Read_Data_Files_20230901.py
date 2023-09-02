@@ -133,6 +133,7 @@ db_control=pd.concat([db_control_L, db_control_O])
 db_stock_holder1_L=pd.read_excel(file_raw+'stock_holder_list.xlsx')
 db_stock_holder1_O=pd.read_excel(file_raw+'stock_holder_list.xlsx')
 db_stock_holder1=pd.concat([db_stock_holder1_L, db_stock_holder1_O])
+db_board_balance['公司'] = db_board_balance['公司'].astype(str)
 # 7.	集保戶股權分散表 TDCC_OD_1-5.csv
 url='https://opendata.tdcc.com.tw/getOD.ashx?id=1-5'
 db_stock_holder2 = load_data(url)
@@ -243,7 +244,7 @@ with col2:
     
   with tab6:  
     # 6.	股權分散表(公開觀測站)
-    df_stock_holder1=db_stock_holder1[db_stock_holder1['公司']==id]
+    df_stock_holder1=db_stock_holder1[db_stock_holder1['公司']==str(id)]
      
     # 7.	集保戶股權分散表 TDCC_OD_1-5.csv
     collect_date=db_stock_holder2.iloc[0,0]
