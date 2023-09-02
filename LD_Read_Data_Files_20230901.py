@@ -213,19 +213,19 @@ with col2:
     df_control=df_control.drop(['公司'], axis=1)
     df_control=df_control.reset_index(drop=True)
     st.dataframe(df_control, use_container_width=True)
-    st.write('持股人之控制別 : A=最終控制者、B=經理人、C=集團經理人、L=友好集團、X=外部人')
-    df_control['Control_ratio']=df_control['最終控制者個人持股%']+df_control['集團未上市公司持股%']+df_control['集團基金會持股%']+df_control['集團上市公司持股%']+df_control['經理人持股%']+df_control['外部個人持股%']+df_control['外部未上市公司持股%']+df_control['外部基金會持股%']+df_control['外部上市公司持股%']
+    st.write('持股人之控制別說明 : :red[A=最終控制者、B=經理人、C=集團經理人、L=友好集團、X=外部人]')
+    df_control['持股占比']=df_control['最終控制者個人持股%']+df_control['集團未上市公司持股%']+df_control['集團基金會持股%']+df_control['集團上市公司持股%']+df_control['經理人持股%']+df_control['外部個人持股%']+df_control['外部未上市公司持股%']+df_control['外部基金會持股%']+df_control['外部上市公司持股%']
     option = st.selectbox('控制分析依據角度 : ',('持股人控制別', '持股人集團別', '持股人身分別'))
     if option=='持股人控制別':
       df_control_class = df_control.groupby('控制別').sum()
-      df_control_results=df_control_class['Control_ratio']
+      df_control_results=df_control_class['持股占比']
       df_control_results.rename(index={'A':'最終控制者', 'B':'經理人', 'C':'集團經理人', 'L':'友好集團', 'X':'外部人'}, inplace=True)
     if option=='持股人集團別':
       df_control_class = df_control.groupby('持股人集團名').sum()
-      df_control_results=df_control_class['Control_ratio']
+      df_control_results=df_control_class['持股占比']
     if option=='持股人身分別':
       df_control_class = df_control.groupby('身份別').sum()
-      df_control_results=df_control_class['Control_ratio']
+      df_control_results=df_control_class['持股占比']
     st.table(df_control_results)  
     st.bar_chart(df_control_results, use_container_width=True)
     st.write('資料截止日期: '+str(collect_date))
