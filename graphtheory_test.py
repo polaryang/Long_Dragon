@@ -127,6 +127,8 @@ db_stock_holder2=db_stock_holder2[db_stock_holder2['持股分級']!=16]
 #https://mops.twse.com.tw/mops/web/t150sb04 可以出總表 每年一次
 db_share_meeting=pd.read_excel(file_raw+'share_meeting.xlsx')
 
+st.write('test')
+
 # Create a graphlib graph object
 graph = graphviz.Digraph()
 graph.edge('run', 'intr')
