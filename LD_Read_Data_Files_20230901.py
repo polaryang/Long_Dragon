@@ -191,7 +191,7 @@ with col2:
     df_basic=df_basic.drop(['出表日期'], axis=1)
     df_basic=df_basic.reset_index(drop=True)
     df_basic_T=df_basic.T
-    st.dataframe(df_basic_T, use_container_width=True)
+    st.dataframe(df_basic_T, use_container_width=True, hide_index=True)
     st.write('資料收集日期: '+str(collect_date))
     
   with tab4:
@@ -215,21 +215,24 @@ with col2:
     st.dataframe(df_control, use_container_width=True)
     st.write('持股人之控制別說明 : :red[A=最終控制者、B=經理人、C=集團經理人、L=友好集團、X=外部人]')
     df_control['持股占比']=df_control['最終控制者個人持股%']+df_control['集團未上市公司持股%']+df_control['集團基金會持股%']+df_control['集團上市公司持股%']+df_control['經理人持股%']+df_control['外部個人持股%']+df_control['外部未上市公司持股%']+df_control['外部基金會持股%']+df_control['外部上市公司持股%']
-    option = st.selectbox('控制分析依據角度 : ',('持股人控制別', '持股人集團別', '持股人身分別'))
-    if option=='持股人控制別':
-      df_control_class = df_control.groupby('控制別').sum()
-      df_control_results=df_control_class['持股占比']
-      df_control_results.rename(index={'A':'最終控制者', 'B':'經理人', 'C':'集團經理人', 'L':'友好集團', 'X':'外部人'}, inplace=True)
-    if option=='持股人集團別':
-      df_control_class = df_control.groupby('持股人集團名').sum()
-      df_control_results=df_control_class['持股占比']
-      df_control_results.rename(index={'                     ':'其他'}, inplace=True)
-    if option=='持股人身分別':
-      df_control_class = df_control.groupby('身份別').sum()
-      df_control_results=df_control_class['持股占比']
-    st.dataframe(df_control_results, use_container_width=False, hide_index=False)  
-    st.bar_chart(df_control_results, use_container_width=True)
-    st.write('資料截止日期: '+str(collect_date))
+    T5col1, T5col2 = st.columns([4,27], gap='small')
+    with T5col1:
+        option = st.radio('控制分析依據角度 : ', ['持股人控制別', '持股人集團別', '持股人身分別'])
+    with T5col2:  
+        if option=='持股人控制別':
+          df_control_class = df_control.groupby('控制別').sum()
+          df_control_results=df_control_class['持股占比']
+          df_control_results.rename(index={'A':'最終控制者', 'B':'經理人', 'C':'集團經理人', 'L':'友好集團', 'X':'外部人'}, inplace=True)
+        if option=='持股人集團別':
+          df_control_class = df_control.groupby('持股人集團名').sum()
+          df_control_results=df_control_class['持股占比']
+          df_control_results.rename(index={'                     ':'其他'}, inplace=True)
+        if option=='持股人身分別':
+          df_control_class = df_control.groupby('身份別').sum()
+          df_control_results=df_control_class['持股占比']
+        st.dataframe(df_control_results, use_container_width=False, hide_index=False)  
+        st.bar_chart(df_control_results, use_container_width=True)
+        st.write('資料截止日期: '+str(collect_date))
     
   with tab6:  
     # 6.	股權分散表(公開觀測站)
