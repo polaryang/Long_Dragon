@@ -16,3 +16,4 @@ seleniumbase
 webdriver-manager
 tejapi
 openpyxl
+graphviz
