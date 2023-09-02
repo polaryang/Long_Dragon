@@ -206,7 +206,7 @@ with col2:
       st.dataframe(df_announce, use_container_width=True,hide_index=True)
     st.write('今日全部重大訊息')
     #db_announce1=db_announce
-    db_announce=db_announce.drop(['出表日期'], axis=1)
+    #db_announce=db_announce.drop(['出表日期'], axis=1)
     if len(db_announce)>0:
       seq=range(1,len(db_announce)+1)
       db_announce.insert(0,"序號",seq,True)
