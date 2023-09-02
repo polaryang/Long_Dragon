@@ -16,5 +16,4 @@ seleniumbase
 webdriver-manager
 tejapi
 openpyxl
-graphviz
-python3-graphviz
+streamlit_agraph
