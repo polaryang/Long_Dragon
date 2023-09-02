@@ -124,8 +124,10 @@ db_board_balance_O = load_data(url)
 db_board_balance=pd.concat([db_board_balance_L, db_board_balance_O])
 db_board_balance['資料年月'] = db_board_balance['資料年月'].astype(str)
 # 5.	年報前十大股東相互間關係表
-# 先到TEJ執行特殊轉檔 每年一次
-db_control=pd.read_excel(file_raw+'Control.xlsx') 
+# 先到TEJ執行特殊轉檔 TEJ 公司治理 TCGI 1 股權結構 控制持股與董監結構明細 每年一次
+db_control_L=pd.read_excel(file_raw+'Control_L.xlsx') 
+db_control_O=pd.read_excel(file_raw+'Control_O.xlsx') 
+db_control=pd.concat([db_control_L, db_control_O])
 # 6.	股權分散表(公開觀測站)
 # 先到TEJ執行特殊轉檔 每年一次
 db_stock_holder1=pd.read_excel(file_raw+'stock_holder_list.xlsx')
