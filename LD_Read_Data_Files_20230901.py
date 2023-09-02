@@ -255,11 +255,11 @@ with col2:
     df_share_meeting=df_share_meeting.reset_index(drop=True)    
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
     st.dataframe(df_share_meeting, use_container_width=True)
-    
-st.info('© 2023 長龍會議顧問股份有限公司  100 台北市中正區博愛路80號10樓')
-st.write(':gem: *POWERED by*  :dragon_face: :red[長龍會議顧問  X  銘傳大學] :dove_of_peace: :blue[財務金融學系 金融科技實驗室 團隊學生: 黃冠斌、姚岱均] :mailbox_with_mail:')
-
   #with tab8:   
     #image = Image.open('https://raw.githubusercontent.com/polaryang/Long_Dragon/main/workflow')
     image = Image.open('https://static.wixstatic.com/media/d89a3a_578b9900f19c44bba75a961ad436dfcc~mv2.png/v1/fill/w_940,h_503,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/%E8%82%A1%E6%9D%B1%E8%87%A8%E6%9C%83%E6%97%A5%E7%A8%8B%E8%A1%A8.png')
-    st.image(image, caption='股東常會徵求作業日程表')
+    st.image(image, caption='股東常會徵求作業日程表')    
+st.info('© 2023 長龍會議顧問股份有限公司  100 台北市中正區博愛路80號10樓')
+st.write(':gem: *POWERED by*  :dragon_face: :red[長龍會議顧問  X  銘傳大學] :dove_of_peace: :blue[財務金融學系 金融科技實驗室 團隊學生: 黃冠斌、姚岱均] :mailbox_with_mail:')
+
+
