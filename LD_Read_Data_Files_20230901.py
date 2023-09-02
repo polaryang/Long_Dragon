@@ -224,7 +224,7 @@ with col2:
       df_control_class = df_control.groupby('持股人集團名').sum()
       df_control_results=df_control_class['Control_ratio']
     if option=='持股人身分別':
-      df_control_class = df_control.groupby('身分別').sum()
+      df_control_class = df_control.groupby('身份別').sum()
       df_control_results=df_control_class['Control_ratio']
     st.table(df_control_results)  
     st.bar_chart(df_control_results, use_container_width=True)
