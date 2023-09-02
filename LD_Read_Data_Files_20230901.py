@@ -60,7 +60,7 @@ def Checking_ID(ID):
     return ID_code, ID_name, ID_mkt, ID_type, ID_Inds
     #return '0','0','0','0'
 # ------------------------------------------------------------------
-#@st.cache_data
+@st.cache_data
 def load_data(url):
     df = pd.read_csv(url)
     return df
