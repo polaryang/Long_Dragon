@@ -220,7 +220,7 @@ with col2:
     collect_date=db_basic.iloc[0,0]
     db_basic=db_basic.drop(['出表日期'], axis=1)
     df_basic=db_basic[db_basic['公司代號']==id]
-    #df_basic=df_basic.reset_index(drop=True)
+    df_basic=df_basic.reset_index(drop=True)
     #df_basic.rename(index={'0':'公司基本資料'}, inplace=True)
     df_basic_T=df_basic.T
     st.dataframe(df_basic_T, use_container_width=True)
@@ -310,16 +310,16 @@ with col2:
     df_stock_holder3.insert(4,"股東會時_張數",temp_share,True)
     df_stock_holder3.insert(4,"股東會時_人數",temp_person,True)
     df_stock_holder3=df_stock_holder3.drop(['資料日期','證券代號'], axis=1)
-    df_stock_holder3=df_stock_holder3.reset_index(drop=True)
+    #df_stock_holder3=df_stock_holder3.reset_index(drop=True)
     st.dataframe(df_stock_holder3, width=5, hide_index=True , use_container_width=True)
-    df_stock_holder3=df_stock_holder2[df_stock_holder2['持股分級']!=15]
+    df_stock_holder3=df_stock_holder3[df_stock_holder3['持股分級']!=15]
     st.line_chart(df_stock_holder3, x='持股分級', y=['股東會時_比率', '比率'], color = ['#00008B', '#8B0000'], use_container_width=True) 
     st.write('資料收集日期: '+str(collect_date))
     
   with tab7:   
     #8.	議事錄
     df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==id]
-    df_share_meeting=df_share_meeting.reset_index(drop=True)    
+    #df_share_meeting=df_share_meeting.reset_index(drop=True)    
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
     st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
   #with tab8:   
