@@ -126,7 +126,6 @@ db_board_balance['資料年月'] = db_board_balance['資料年月'].astype(str)
 # 5.	年報前十大股東相互間關係表
 # 先到TEJ執行特殊轉檔 每年一次
 db_control=pd.read_excel(file_raw+'Control.xlsx') 
-db_control=db_control.drop(['年月'], axis=1)
 # 6.	股權分散表(公開觀測站)
 # 先到TEJ執行特殊轉檔 每年一次
 db_stock_holder1=pd.read_excel(file_raw+'stock_holder_list.xlsx')
@@ -211,6 +210,7 @@ with col2:
     collect_date=db_control.iloc[0,2]
     df_control=db_control[db_control['公司']==id]
     df_control=df_control.drop(['公司'], axis=1)
+    df_control=df_control.drop(['年月'], axis=1)
     df_control=df_control.reset_index(drop=True)
     st.dataframe(df_control, use_container_width=True)
     st.write('持股人之控制別說明 : :red[A=最終控制者、B=經理人、C=集團經理人、L=友好集團、X=外部人]')
@@ -270,7 +270,6 @@ with col2:
     df_stock_holder3.insert(4,"股東會時_比率",temp_ratio,True)
     df_stock_holder3.insert(4,"股東會時_張數",temp_share,True)
     df_stock_holder3.insert(4,"股東會時_人數",temp_person,True)
-    collect_date=df_stock_holder3.iloc[0,0]
     df_stock_holder3=df_stock_holder3.drop(['資料日期','證券代號'], axis=1)
     df_stock_holder3=df_stock_holder3.reset_index(drop=True)
     st.dataframe(df_stock_holder3, width=5, hide_index=True , use_container_width=True)
