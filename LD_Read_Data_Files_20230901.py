@@ -149,7 +149,8 @@ def Checking_ID(ID):
     return ID_code, ID_name, ID_mkt, ID_type, ID_Inds
     #return '0','0','0','0'
 # ------------------------------------------------------------------
-
+# 程式開始
+# ------------------------------------------------------------------
 st.set_page_config(page_title='長龍股權*數據分析儀表板', page_icon=':sparkles:', layout='wide')
 st.header(':sparkles: :blue[長龍股權*數據分析]  :red[儀表板] :pencil:')
 st.markdown('**公司重要事情 : 颱風來襲，請同仁注意安全 !**')
@@ -169,8 +170,8 @@ with col1:
     
 with col2:
   db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
-  #tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄","徵求作業日程表"])
-  tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
+  tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄","系統維護"])
+  #tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
   with tab1:
     # 1.	重大訊息 db_news
     collect_date=db_news.iloc[0,0]
@@ -316,7 +317,14 @@ with col2:
     #df_share_meeting=df_share_meeting.reset_index(drop=True)    
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
     st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
-  #with tab8:   
+      
+  with tab8:   
+    st.write('第一次使用時，系統會使用較多的時間把所需要的資料下載完成')
+    st.write('如果有錯誤訊息，通常是因為連線中斷造成的')
+    st.write('請重新載入此頁')
+    if st.button("Clear All in-memory and on-disk data Caches"):
+    # i.e. clear values from both square and cube
+    st.cache_data.clear()
     #image = Image.open('https://raw.githubusercontent.com/polaryang/Long_Dragon/main/workflow')
     #image = Image.open('https://i.imgur.com/LeIxkt9.jpg')
     #st.image(image, caption='股東常會徵求作業日程表')    
