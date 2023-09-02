@@ -230,8 +230,8 @@ with col2:
         if option=='持股人身分別':
           df_control_class = df_control.groupby('身份別').sum()
           df_control_results=df_control_class['持股占比']
-      df_control_results.sort_values(by='持股占比', ascending=True)  
-      st.dataframe(df_control_results, use_container_width=True)  
+        df_control_results.sort_values(by='持股占比', ascending=True)  
+        st.dataframe(df_control_results, use_container_width=True)  
         st.bar_chart(df_control_results, use_container_width=True)
         st.write('資料截止日期: '+str(collect_date))
     
