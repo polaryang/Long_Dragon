@@ -190,13 +190,13 @@ with col1:
       id=int(ID_code)
   db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
   st.write('')
-  st.markdown('**資料更新狀態 : **')
+  st.markdown('** 資料更新狀態 : **')
   #with st.container():
   collect_date=db_news.iloc[0,0]
   st.text('重大訊息:')
   st.text('   '+ Dateform(collect_date))
   collect_date=db_announce.iloc[0,0]
-  st.text('公告:')
+  st.text('公告查詢:')
   st.text('   '+ Dateform(collect_date))
   collect_date=db_basic.iloc[0,0]
   st.text('公司基本資料:')
@@ -251,7 +251,7 @@ with col2:
       st.dataframe(df_announce, use_container_width=True,hide_index=True)
     else:
       st.dataframe(df_announce, use_container_width=True,hide_index=True)
-    st.write('今日全部重大訊息')
+    st.write('今日全部公告')
     if len(db_announce)>0:
       seq=range(1,len(db_announce)+1)
       db_announce.insert(0,"序號",seq,True)
