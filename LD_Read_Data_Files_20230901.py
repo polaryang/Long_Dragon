@@ -385,6 +385,18 @@ with col2:
     fig.add_trace(go.Candlestick(x=stock_data["Date"], open=stock_data["Open"], high=stock_data["High"],
                     low=stock_data["Low"], close=stock_data["Close"], showlegend=False , name="", increasing_line_color= 'red', decreasing_line_color= 'green'), 
                     row=1, col=1 )
+    fig.update_xaxes(
+    title_text = 'date',
+    rangeslider_visible = True, # 下方滑动条缩放
+    rangeselector = dict(
+        # 增加固定范围选择
+        buttons = list([
+            dict(count = 1, label = '1M', step = 'month', stepmode = 'backward'),
+            dict(count = 6, label = '6M', step = 'month', stepmode = 'backward'),
+            dict(count = 1, label = '1Y', step = 'year', stepmode = 'backward'),
+            dict(count = 1, label = 'YTD', step = 'year', stepmode = 'todate'),
+            dict(step = 'all')])))
+
     # 繪製 成交量 線圖
     fig.add_trace(go.Bar(x=stock_data['Date'], y=stock_data['Volume'], showlegend=False), row=2, col=1)
     fig.update_layout(xaxis_rangeslider_visible=False)
