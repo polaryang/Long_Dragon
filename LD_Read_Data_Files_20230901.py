@@ -5,15 +5,16 @@ import pandas as pd
 from datetime import datetime
 import datetime as dt
 import yfinance as yf
-# Import matplotlib and set the style for plotting
 import matplotlib.pyplot as plt
 import numpy as np
-import matplotlib.pyplot as plt
 import streamlit as st
 import streamlit.components.v1 as components
 import requests
 from bs4 import BeautifulSoup
 from PIL import Image
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
 # ------------------------------------------------------------------
 #@st.cache_data
 def load_data(url):
