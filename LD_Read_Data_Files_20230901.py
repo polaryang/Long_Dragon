@@ -204,7 +204,7 @@ with col1:
       st.text('十大股東資訊:'+ str(collect_date)[0:4] +'/'+str(collect_date)[4:6])
       collect_date=db_stock_holder2.iloc[0,0]
       st.text('集保戶股權分散:'+ Dateform(collect_date))
-      stock_data=yf.download(stock_ticker, period='10y')
+      stock_data=yf.download(stock_ticker, period='5y')
     
 with col2:
   tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股價趨勢圖", "股東會徵求日程", "系統維護"])
@@ -364,11 +364,11 @@ with col2:
     fig = make_subplots(rows=2, cols=1, shared_xaxes=True, 
                    vertical_spacing=0.03, subplot_titles=('', '成交量'), row_width=[0.2, 0.7])
     # 绘制k数据
-    fig.add_trace(go.Candlestick(x=data["Date"], open=data["Open"], high=data["High"],
-                    low=data["Low"], close=data["Close"], name=""), 
+    fig.add_trace(go.Candlestick(x=stock_data["Date"], open=stock_data["Open"], high=stock_data["High"],
+                    low=stock_data["Low"], close=stock_data["Close"], name=""), 
                     row=1, col=1 )
     # 绘制成交量数据
-    fig.add_trace(go.Bar(x=data['Date'], y=data['Volume'], showlegend=False), row=2, col=1)
+    fig.add_trace(go.Bar(x=stock_data['Date'], y=stock_data['Volume'], showlegend=False), row=2, col=1)
     st.plotly_chart(fig, use_container_width=True)  
     st.dataframe(stock_data)
       
