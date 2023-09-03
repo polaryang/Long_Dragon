@@ -210,7 +210,7 @@ with col1:
   collect_date=db_stock_holder2.iloc[0,0]
   st.text('集保戶股權分散:')
   st.text('   '+ Dateform(collect_date))
-  stock_data=yf.download(stock_ticker, period='3y')
+  stock_data=yf.download(stock_ticker, period='5y')
   st.text('股價線圖:')
   st.text('   '+ stock_data.index[-1].strftime("%Y-%m-%d"))
     
@@ -394,6 +394,7 @@ with col2:
             dict(count = 1, label = '1M', step = 'month', stepmode = 'backward'),
             dict(count = 6, label = '6M', step = 'month', stepmode = 'backward'),
             dict(count = 1, label = '1Y', step = 'year', stepmode = 'backward'),
+            dict(count = 3, label = '1Y', step = 'year', stepmode = 'backward'),
             dict(count = 1, label = 'YTD', step = 'year', stepmode = 'todate'),
             dict(step = 'all')])))
     fig.update_layout(xaxis_rangeslider_visible=False)
