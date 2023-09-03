@@ -174,7 +174,7 @@ st.markdown('**公司重要事情 : 颱風來襲，請同仁注意安全 !**')
 st.info('**_長龍會議顧問 :以「專業委託書徵求機構」，協助各公司順利完成股東會召開，同時兼顧股東行使權益_**')
 today_s =datetime.today().strftime('%Y-%m-%d')
 
-col1, col2 = st.columns([4,24], gap='small')
+col1, col2 = st.columns([4,28], gap='small')
 with col1:
   ID = st.text_input('輸入股票代號(代號或名稱皆可)', '2330')
   ID_code, ID_name, ID_mkt, ID_type, ID_Inds=Checking_ID(ID) 
@@ -383,7 +383,7 @@ with col2:
                    vertical_spacing=0.03, subplot_titles=('股價', '成交量'), row_width=[0.2, 0.7])
     # 繪製 股價 線圖
     fig.add_trace(go.Candlestick(x=stock_data["Date"], open=stock_data["Open"], high=stock_data["High"],
-                    low=stock_data["Low"], close=stock_data["Close"], showlegend=False , name=""), 
+                    low=stock_data["Low"], close=stock_data["Close"], showlegend=False , name="", increasing_line_color= 'red', decreasing_line_color= 'green'), 
                     row=1, col=1 )
     # 繪製 成交量 線圖
     fig.add_trace(go.Bar(x=stock_data['Date'], y=stock_data['Volume'], showlegend=False), row=2, col=1)
