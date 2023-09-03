@@ -149,17 +149,17 @@ def Checking_ID(ID):
     return ID_code, ID_name, ID_mkt, ID_type, ID_Inds
     #return '0','0','0','0'
 # ------------------------------------------------------------------
-def Dateform(datestring):
-    if len(datestring)==8:
-        year_s=datestring[0:3]
-        month_s=datestring[4:5]
-        day_s=datestring[6:7]
-    if len(datestring)==7:
-        year_s=datestring[0:2]
-        month_s=datestring[3:4]
-        day_s=datestring[5:6]
-    dated_string=date(year_s,month_s,day_s).strftime('%Y-%m-%d')
-    return dated_string     
+#def Dateform(datestring):
+#    if len(datestring)==8:
+#        year_s=datestring[0:3]
+#        month_s=datestring[4:5]
+#        day_s=datestring[6:7]
+#    if len(datestring)==7:
+#        year_s=datestring[0:2]
+#        month_s=datestring[3:4]
+#        day_s=datestring[5:6]
+#    dated_string=date(year_s,month_s,day_s).strftime('%Y-%m-%d')
+#    return dated_string     
 # ------------------------------------------------------------------
 # 程式開始
 # ------------------------------------------------------------------
