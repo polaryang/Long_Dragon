@@ -184,7 +184,7 @@ with col1:
   st.write('資料更新狀態 : ')
   with st.container():
       collect_date=db_news.iloc[0,0]
-      st.text('重大訊息: '+ Dateform(collect_date))
+      st.text('重大訊息: '+ str(Dateform(collect_date))
       collect_date=db_announce.iloc[0,0]
       st.text('公告: '+str(collect_date))
       collect_date=db_basic.iloc[0,0]
