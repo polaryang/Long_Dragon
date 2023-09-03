@@ -168,18 +168,20 @@ with col1:
       st.write(ID_mkt+' '+ID_Inds)
       id=int(ID_code)
   db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
+  st.write('')
+  st.write('資料更新狀態 : ')
   collect_date=db_news.iloc[0,0]
-  st.write('重大訊息更新日:'+str(collect_date))
+  st.write('重大訊息更新日: '+str(collect_date))
   collect_date=db_announce.iloc[0,0]
-  st.write('公告更新日:'+str(collect_date))
+  st.write('公告更新日: '+str(collect_date))
   collect_date=db_basic.iloc[0,0]
-  st.write('公司基本資料更新日:'+str(collect_date))
+  st.write('公司基本資料更新日: '+str(collect_date))
   collect_date=db_board_balance.iloc[0,0]
-  st.write('董監事持股明細更新日:'+str(collect_date))
+  st.write('董監事持股明細更新日: '+str(collect_date))
   collect_date=db_control.iloc[0,2]
-  st.write('十大股東資訊更新日:'+str(collect_date))
+  st.write('十大股東資訊更新日: '+str(collect_date))
   collect_date=db_stock_holder2.iloc[0,0]
-  st.write('集保戶股權分散更新日:'+str(collect_date))
+  st.write('集保戶股權分散更新日: '+str(collect_date))
     
 with col2:
   tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股東會徵求日程", "系統維護"])
