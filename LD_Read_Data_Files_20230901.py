@@ -149,17 +149,20 @@ def Checking_ID(ID):
     return ID_code, ID_name, ID_mkt, ID_type, ID_Inds
     #return '0','0','0','0'
 # ------------------------------------------------------------------
-#def Dateform(datestring):
-#    if len(datestring)==8:
-#        year_s=datestring[0:3]
-#        month_s=datestring[4:5]
-#        day_s=datestring[6:7]
-#    if len(datestring)==7:
-#        year_s=datestring[0:2]
-#        month_s=datestring[3:4]
-#        day_s=datestring[5:6]
-#    dated_string=date(year_s,month_s,day_s).strftime('%Y-%m-%d')
-#    return dated_string     
+def Dateform(datestring):
+    if len(datestring)==8:
+        year_s=datestring[0:3]
+        month_s=datestring[4:5]
+        day_s=datestring[6:7]
+        dated_string=year_s+'/'+month_s+'/'+day_s
+    if len(datestring)==7:
+        year_s=int(datestring[0:2])
+        year_s=str(year_s+1911)
+        month_s=datestring[3:4]
+        day_s=datestring[5:6]
+        dated_string=year_s+'/'+month_s+'/'+day_s
+    dated_string=date(year_s,month_s,day_s).strftime('%Y-%m-%d')
+    return dated_string     
 # ------------------------------------------------------------------
 # 程式開始
 # ------------------------------------------------------------------
@@ -184,7 +187,7 @@ with col1:
   st.write('資料更新狀態 : ')
   with st.container():
       collect_date=db_news.iloc[0,0]
-      st.text('重大訊息: '+str(collect_date))
+      st.text('重大訊息:'+Dateform(collect_date))
       collect_date=db_announce.iloc[0,0]
       st.text('公告: '+str(collect_date))
       collect_date=db_basic.iloc[0,0]
