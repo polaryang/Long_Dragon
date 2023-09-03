@@ -329,7 +329,7 @@ with col2:
     st.write(':fire: 如確認進行資料更新，請按以下 :red[清除Caches並資料更新] 鍵')
     if st.button("清除Caches並資料更新"):
         st.cache_data.clear()
-    image = Image.open('./workflow')
+    image = Image.open('./workflow.png')
     #image = Image.open('https://i.imgur.com/LeIxkt9.jpg')
     st.image(image, caption='股東常會徵求作業日程表')    
 # ------------------------------------------------------------------
