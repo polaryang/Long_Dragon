@@ -388,8 +388,7 @@ with col2:
 
     # 繪製 成交量 線圖
     fig.add_trace(go.Bar(x=stock_data['Date'], y=stock_data['Volume'], showlegend=False), row=2, col=1)
-    fig.update_xaxes(title_text = '範圍調整', rangeslider_visible = True, # 下方滑动条缩放
-        rangeselector = dict(
+    fig.update_xaxes( rangeselector = dict(
         # 增加固定范围选择
         buttons = list([
             dict(count = 1, label = '1M', step = 'month', stepmode = 'backward'),
