@@ -187,18 +187,17 @@ with col1:
   st.write('資料更新狀態 : ')
   with st.container():
       collect_date=db_news.iloc[0,0]
-      st.text('重大訊息:'+ str(collect_date))
       st.text('重大訊息:'+ Dateform(collect_date))
       collect_date=db_announce.iloc[0,0]
-      st.text('公告: '+str(collect_date))
+      st.text('公告:'+ Dateform(collect_date))
       collect_date=db_basic.iloc[0,0]
-      st.text('公司基本資料: '+str(collect_date))
+      st.text('公司基本資料:'+ Dateform(collect_date))
       collect_date=db_board_balance.iloc[0,0]
-      st.text('董監事持股明細: '+str(collect_date))
+      st.text('董監事持股明細:'+ Dateform(collect_date))
       collect_date=db_control.iloc[0,2]
-      st.text('十大股東資訊: '+str(collect_date))
+      st.text('十大股東資訊:'+ Dateform(collect_date))
       collect_date=db_stock_holder2.iloc[0,0]
-      st.text('集保戶股權分散: '+str(collect_date))
+      st.text('集保戶股權分散:'+ Dateform(collect_date))
     
 with col2:
   tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股東會徵求日程", "系統維護"])
