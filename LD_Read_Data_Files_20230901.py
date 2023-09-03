@@ -359,7 +359,9 @@ with col2:
       
   with tab8:   
     # 繪製 k 線圖
-    stock_data['Date']=stock_data.index.strftime("%Y-%m-%d")
+    st.subheader('近三年股價走勢圖')
+    Date_s=stock_data.index.strftime("%Y-%m-%d")
+    stock_data.insert(0,"Date",Date_s,True)
     #fig = go.Figure(data=[go.Candlestick(x=stock_data['Date'], open=stock_data['Open'], high=stock_data['High'],low=stock_data['Low'], close=stock_data['Close'])])
     #fig.update_layout(xaxis_rangeslider_visible=False)  
     fig = make_subplots(rows=2, cols=1, shared_xaxes=True, 
@@ -370,8 +372,9 @@ with col2:
                     row=1, col=1 )
     # 繪製 成交量 線圖
     fig.add_trace(go.Bar(x=stock_data['Date'], y=stock_data['Volume'], showlegend=False), row=2, col=1)
+    fig.update_layout(xaxis_rangeslider_visible=False)
     st.plotly_chart(fig, use_container_width=True)  
-    st.dataframe(stock_data)
+    st.dataframe(stock_data,hide_index=True)
       
   with tab9:
     image = Image.open('./workflow.png')
