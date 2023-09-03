@@ -191,27 +191,29 @@ with col1:
   db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
   st.write('')
   st.write('資料更新狀態 : ')
-  with st.container():
-      collect_date=db_news.iloc[0,0]
-      st.text('重大訊息:'+ Dateform(collect_date))
-      collect_date=db_announce.iloc[0,0]
-      st.text('公告:'+ Dateform(collect_date))
-      collect_date=db_basic.iloc[0,0]
-      st.text('公司基本資料:'+ Dateform(collect_date))
-      collect_date=db_board_balance.iloc[0,0]
-      st.text('董監事持股明細:'+ Dateform(collect_date))
-      collect_date=db_control.iloc[0,2]
-      st.text('十大股東資訊:'+ str(collect_date)[0:4] +'/'+str(collect_date)[4:6])
-      collect_date=db_stock_holder2.iloc[0,0]
-      st.text('集保戶股權分散:'+ Dateform(collect_date))
-      stock_data=yf.download(stock_ticker, period='3y')
+  #with st.container():
+  collect_date=db_news.iloc[0,0]
+  st.text('重大訊息:'+ Dateform(collect_date))
+  collect_date=db_announce.iloc[0,0]
+  st.text('公告:'+ Dateform(collect_date))
+  collect_date=db_basic.iloc[0,0]
+  st.text('公司基本資料:'+ Dateform(collect_date))
+  collect_date=db_board_balance.iloc[0,0]
+  st.text('董監事持股明細:'+ Dateform(collect_date))
+  collect_date=db_control.iloc[0,2]
+  st.text('十大股東資訊:'+ str(collect_date)[0:4] +'/'+str(collect_date)[4:6])
+  collect_date=db_stock_holder2.iloc[0,0]
+  st.text('集保戶股權分散:'+ Dateform(collect_date))
+  stock_data=yf.download(stock_ticker, period='3y')
+  st.text('股價:'+ data.index[-1].strftime("%Y-%m-%d"))
     
 with col2:
   tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股價趨勢圖", "股東會徵求日程", "系統維護"])
   #tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
   with tab1:
     # 1.	重大訊息 db_news
-    collect_date=db_news.iloc[0,0]
+    #collect_date=db_news.iloc[0,0]
+    st.subheader('重大訊息')
     db_news=db_news.drop(['出表日期'], axis=1)
     df_news=db_news[db_news['公司代號']==str(id)]
     if len(df_news)>0:
@@ -232,6 +234,7 @@ with col2:
   with tab2:    
     # 2.	公告查詢 db_announce 
     #collect_date=db_announce.iloc[0,0]
+    st.subheader('股東會公告查詢')
     db_announce=db_announce.drop(['出表日期'], axis=1)
     df_announce=db_announce[db_announce['公司代號']==str(id)]
     #df_announce=df_announce.reset_index(drop=True)
@@ -253,6 +256,7 @@ with col2:
   with tab3:    
     # 3.	公司基本資料 db_basic
     #collect_date=db_basic.iloc[0,0]
+    st.subheader('公司基本資料')
     db_basic=db_basic.drop(['出表日期'], axis=1)
     df_basic=db_basic[db_basic['公司代號']==id]
     df_basic=df_basic.reset_index(drop=True)
@@ -263,6 +267,7 @@ with col2:
   with tab4:
     # 4.	董監事持股餘額明細資料 db_board_balance
     #collect_date=db_board_balance.iloc[0,0]
+    st.subheader('董監事持股餘額明細資料')
     db_board_balance=db_board_balance.drop(['出表日期'], axis=1)
     df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
     df_board_balance=df_board_balance.drop(['公司代號'], axis=1)
@@ -277,6 +282,7 @@ with col2:
   with tab5:    
     # 5.	年報前十大股東相互間關係表
     #collect_date=db_control.iloc[0,2]
+    st.subheader('年報前十大股東相互間關係表')
     df_control=db_control[db_control['公司']==id]
     df_control=df_control.drop(['公司'], axis=1)
     df_control=df_control.drop(['年月'], axis=1)
@@ -314,6 +320,7 @@ with col2:
     
   with tab6:  
     # 6.	股權分散表(公開觀測站)
+    st.subheader('股權分散表')
     df_stock_holder1=db_stock_holder1[db_stock_holder1['公司']==str(id)]  
     # 7.	集保戶股權分散表 TDCC_OD_1-5.csv
     #collect_date=db_stock_holder2.iloc[0,0]
@@ -352,6 +359,7 @@ with col2:
 
   with tab7: 
     #8.	議事錄
+    st.subheader('議事錄')
     df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==id]
     #df_share_meeting=df_share_meeting.reset_index(drop=True)    
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
@@ -377,10 +385,12 @@ with col2:
     st.dataframe(stock_data,hide_index=True)
       
   with tab9:
+    st.subheader('股東常會徵求作業日程表')
     image = Image.open('./workflow.png')
-    st.image(image, caption='股東常會徵求作業日程表')  
+    st.image(image)  
       
   with tab10:
+    st.subheader('系統維護說明')
     st.write(':one: 資料更新後首次使用，系統會先把所需要的資料下載')
     st.write(':two: 因此系統會較慢，等資料全部下載完成後速度就恢復正常')
     st.write(':three: 更新中如有錯誤訊息，通常是資料抓取時連線中斷造成的')
