@@ -319,11 +319,14 @@ with col2:
     st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
       
   with tab8:   
-    st.write('第一次使用時，系統會使用較多的時間把所需要的資料下載完成')
-    st.write('如果有錯誤訊息，通常是因為連線中斷造成的')
-    st.write('請重新載入此頁')
-    if st.button("Clear All in-memory and on-disk data Caches"):
-    # i.e. clear values from both square and cube
+    st.write('資料更新後第一次使用時，系統會先把所需要的資料下載')
+    st.write('因此系統會較慢，等資料全部下載完成後速度就恢復正常')
+    st.write('更新中如果有錯誤訊息，通常是因為資料抓取時連線中斷造成的')
+    st.write('請執行 :blue[重新載入此頁] 或 :blue[離開系統重新執行] !')
+    st.write('')
+    st.write('')
+    st.write('如果要進行資料更新，請按以下 :red[清除Caches並資料更新]')
+    if st.button("清除Caches並資料更新"):
         st.cache_data.clear()
     #image = Image.open('https://raw.githubusercontent.com/polaryang/Long_Dragon/main/workflow')
     #image = Image.open('https://i.imgur.com/LeIxkt9.jpg')
