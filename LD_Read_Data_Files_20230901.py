@@ -206,7 +206,7 @@ with col1:
       stock_data=yf.download(stock_ticker, period='10y')
     
 with col2:
-  tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股東會徵求日程", "系統維護"])
+  tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股價趨勢圖", "股東會徵求日程", "系統維護"])
   #tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
   with tab1:
     # 1.	重大訊息 db_news
@@ -348,27 +348,30 @@ with col2:
     df_stock_holder3=df_stock_holder3[df_stock_holder3['持股分級']!=15]
     st.line_chart(df_stock_holder3, x='持股分級', y=['股東會時_比率', '比率'], color = ['#00008B', '#8B0000'], use_container_width=True) 
     #st.write('資料收集日期: '+str(collect_date))
-    
-  with tab7:   
-    #8.	議事錄
-    df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==id]
-    #df_share_meeting=df_share_meeting.reset_index(drop=True)    
-    df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
-    st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
-    st.dataframe(stock_data)
+
+  with tab7: 
     stock_data['Date']=stock_data.index
     fig = go.Figure(data=[go.Candlestick(x=stock_data['Date'],
                 open=stock_data['Open'],
                 high=stock_data['High'],
                 low=stock_data['Low'],
                 close=stock_data['Close'])])
-    st.plotly_chart(fig)
       
-  with tab8:
+    st.plotly_chart(fig, use_container_width=True)  
+    st.dataframe(stock_data)
+      
+  with tab8:   
+    #8.	議事錄
+    df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==id]
+    #df_share_meeting=df_share_meeting.reset_index(drop=True)    
+    df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
+    st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
+      
+  with tab9:
     image = Image.open('./workflow.png')
     st.image(image, caption='股東常會徵求作業日程表')  
       
-  with tab9:
+  with tab10:
     st.write(':one: 資料更新後首次使用，系統會先把所需要的資料下載')
     st.write(':two: 因此系統會較慢，等資料全部下載完成後速度就恢復正常')
     st.write(':three: 更新中如有錯誤訊息，通常是資料抓取時連線中斷造成的')
