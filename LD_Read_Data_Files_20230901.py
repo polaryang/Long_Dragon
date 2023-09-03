@@ -170,7 +170,7 @@ with col1:
     
 with col2:
   db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
-  tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄","系統維護"])
+  tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股東會徵求日程", "系統維護"])
   #tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
   with tab1:
     # 1.	重大訊息 db_news
@@ -318,7 +318,11 @@ with col2:
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
     st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
       
-  with tab8:   
+  with tab8:
+    image = Image.open('./workflow.png')
+    st.image(image, caption='股東常會徵求作業日程表')  
+      
+  with tab9:
     st.write(':one: 資料更新後首次使用，系統會先把所需要的資料下載')
     st.write(':two: 因此系統會較慢，等資料全部下載完成後速度就恢復正常')
     st.write(':three: 更新中如有錯誤訊息，通常是資料抓取時連線中斷造成的')
@@ -329,9 +333,7 @@ with col2:
     st.write(':fire: 如確認進行資料更新，請按以下 :red[清除Caches並資料更新] 鍵')
     if st.button("清除Caches並資料更新"):
         st.cache_data.clear()
-    image = Image.open('./workflow.png')
-    #image = Image.open('https://i.imgur.com/LeIxkt9.jpg')
-    st.image(image, caption='股東常會徵求作業日程表')    
+  
 # ------------------------------------------------------------------
 
 st.info('© 2023 長龍會議顧問股份有限公司  100 台北市中正區博愛路80號10樓')
