@@ -149,7 +149,7 @@ def Checking_ID(ID):
     return ID_code, ID_name, ID_mkt, ID_type, ID_Inds
     #return '0','0','0','0'
 # ------------------------------------------------------------------
-def Dateform(date string):
+def Dateform(datestring):
     if datestring.isalpha()~=True:
         datestring=str(datestring)
     if len(datestring)==8:
