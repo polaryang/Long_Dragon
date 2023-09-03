@@ -356,6 +356,13 @@ with col2:
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
     st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
     st.dataframe(stock_data)
+    stock_data['Date']=stock_data.index
+    fig = go.Figure(data=[go.Candlestick(x=stock_data['Date'],
+                open=stock_data['Open'],
+                high=stock_data['High'],
+                low=stock_data['Low'],
+                close=stock_data['Close'])])
+    st.plotly_chart(fig)
       
   with tab8:
     image = Image.open('./workflow.png')
