@@ -362,11 +362,11 @@ with col2:
     stock_data['Date']=stock_data.index
     #fig = go.Figure(data=[go.Candlestick(x=stock_data['Date'], open=stock_data['Open'], high=stock_data['High'],low=stock_data['Low'], close=stock_data['Close'])])
     #fig.update_layout(xaxis_rangeslider_visible=False)  
-    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, showlegend=False ,
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, 
                    vertical_spacing=0.05, subplot_titles=('股價', '成交量'), row_width=[0.7, 0.5])
     # 繪製 股價 線圖
     fig.add_trace(go.Candlestick(x=stock_data["Date"], open=stock_data["Open"], high=stock_data["High"],
-                    low=stock_data["Low"], close=stock_data["Close"], name=""), 
+                    low=stock_data["Low"], close=stock_data["Close"], showlegend=False , name=""), 
                     row=1, col=1 )
     # 繪製 成交量 線圖
     fig.add_trace(go.Bar(x=stock_data['Date'], y=stock_data['Volume'], showlegend=False), row=2, col=1)
