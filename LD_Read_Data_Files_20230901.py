@@ -205,7 +205,7 @@ with col1:
   collect_date=db_stock_holder2.iloc[0,0]
   st.text('集保戶股權分散:'+ Dateform(collect_date))
   stock_data=yf.download(stock_ticker, period='3y')
-  st.text('股價:'+ data.index[-1].strftime("%Y-%m-%d"))
+  st.text('股價:'+ stock_data.index[-1].strftime("%Y-%m-%d"))
     
 with col2:
   tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股價趨勢圖", "股東會徵求日程", "系統維護"])
