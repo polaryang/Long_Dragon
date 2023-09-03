@@ -273,6 +273,9 @@ with col2:
     df_control=db_control[db_control['公司']==id]
     df_control=df_control.drop(['公司'], axis=1)
     df_control=df_control.drop(['年月'], axis=1)
+    #df_control['持股占比']=df_control['最終控制者個人持股%']+df_control['集團未上市公司持股%']+df_control['集團基金會持股%']+df_control['集團上市公司持股%']+df_control['經理人持股%']+df_control['外部個人持股%']+df_control['外部未上市公司持股%']+df_control['外部基金會持股%']+df_control['外部上市公司持股%']
+    share_holded_all=df_control['最終控制者個人持股%']+df_control['集團未上市公司持股%']+df_control['集團基金會持股%']+df_control['集團上市公司持股%']+df_control['經理人持股%']+df_control['外部個人持股%']+df_control['外部未上市公司持股%']+df_control['外部基金會持股%']+df_control['外部上市公司持股%']
+    df_control.insert(5,"持股占比",share_holded_all,True)
     if len(df_control)>0:
       seq=range(1,len(df_control)+1)
       df_control.insert(0,"序號",seq,True)
@@ -280,8 +283,7 @@ with col2:
     else:
       st.dataframe(df_control, use_container_width=True,hide_index=True)
     st.write('持股人之控制別說明 : :red[A=最終控制者、B=經理人、C=集團經理人、L=友好集團、X=外部人]')
-    df_control['持股占比']=df_control['最終控制者個人持股%']+df_control['集團未上市公司持股%']+df_control['集團基金會持股%']+df_control['集團上市公司持股%']+df_control['經理人持股%']+df_control['外部個人持股%']+df_control['外部未上市公司持股%']+df_control['外部基金會持股%']+df_control['外部上市公司持股%']
-    T5col1, T5col2 = st.columns([1,3], gap='small')
+      T5col1, T5col2 = st.columns([1,3], gap='small')
     with T5col1:
         option = st.radio('控制分析依據角度 : ', ['持股人控制別', '持股人集團別', '持股人身分別'])
     with T5col2:  
