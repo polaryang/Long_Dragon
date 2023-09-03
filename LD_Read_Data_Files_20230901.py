@@ -153,14 +153,14 @@ def Dateform(datestring):
     if type(datestring)!=str:
         datestring=str(datestring)
     if len(datestring)==8:
-        year_s=datestring[0:3]
-        month_s=datestring[4:5]
-        day_s=datestring[6:7]
+        year_s=datestring[0:4]
+        month_s=datestring[4:6]
+        day_s=datestring[6:8]
     if len(datestring)==7:
-        year_s=int(datestring[0:2])
+        year_s=int(datestring[0:3])
         year_s=str(year_s+1911)
-        month_s=datestring[3:4]
-        day_s=datestring[5:6]
+        month_s=datestring[3:5]
+        day_s=datestring[5:7]
     dated_string=year_s+'/'+month_s+'/'+day_s
     return dated_string     
 # ------------------------------------------------------------------
