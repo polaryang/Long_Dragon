@@ -319,18 +319,19 @@ with col2:
     st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
       
   with tab8:   
-    st.write('資料更新後第一次使用時，系統會先把所需要的資料下載')
-    st.write('因此系統會較慢，等資料全部下載完成後速度就恢復正常')
-    st.write('更新中如果有錯誤訊息，通常是因為資料抓取時連線中斷造成的')
-    st.write('請執行 :blue[重新載入此頁] 或 :blue[離開系統重新執行] !')
+    st.write(':one: 資料更新後首次使用，系統會先把所需要的資料下載')
+    st.write(':two: 因此系統會較慢，等資料全部下載完成後速度就恢復正常')
+    st.write(':three: 更新中如有錯誤訊息，通常是資料抓取時連線中斷造成的')
+    st.write(':four: 請執行 :blue[重新載入此頁] 或 :blue[離開系統重新執行] !')
+    st.write(':question: 有問題請 :envelope_with_arrow: 楊老師 cjyang@mail.mail.mcu.edu.tw')
     st.write('')
     st.write('')
-    st.write('如果要進行資料更新，請按以下 :red[清除Caches並資料更新]')
+    st.write(':fire: 如確認進行資料更新，請按以下 :red[清除Caches並資料更新] 鍵')
     if st.button("清除Caches並資料更新"):
         st.cache_data.clear()
-    #image = Image.open('https://raw.githubusercontent.com/polaryang/Long_Dragon/main/workflow')
+    image = Image.open('./workflow')
     #image = Image.open('https://i.imgur.com/LeIxkt9.jpg')
-    #st.image(image, caption='股東常會徵求作業日程表')    
+    st.image(image, caption='股東常會徵求作業日程表')    
 # ------------------------------------------------------------------
 
 st.info('© 2023 長龍會議顧問股份有限公司  100 台北市中正區博愛路80號10樓')
