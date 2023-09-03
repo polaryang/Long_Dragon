@@ -165,6 +165,7 @@ def Dateform(datestring):
     dated_string=year_s+'/'+month_s+'/'+day_s
     return dated_string     
 # ------------------------------------------------------------------
+
 # 程式開始
 # ------------------------------------------------------------------
 st.set_page_config(page_title='長龍股權*數據分析儀表板', page_icon=':sparkles:', layout='wide')
@@ -350,22 +351,26 @@ with col2:
     #st.write('資料收集日期: '+str(collect_date))
 
   with tab7: 
-    stock_data['Date']=stock_data.index
-    fig = go.Figure(data=[go.Candlestick(x=stock_data['Date'],
-                open=stock_data['Open'],
-                high=stock_data['High'],
-                low=stock_data['Low'],
-                close=stock_data['Close'])])
-      
-    st.plotly_chart(fig, use_container_width=True)  
-    st.dataframe(stock_data)
-      
-  with tab8:   
     #8.	議事錄
     df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==id]
     #df_share_meeting=df_share_meeting.reset_index(drop=True)    
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
     st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
+      
+  with tab8:   
+    stock_data['Date']=stock_data.index
+    #fig = go.Figure(data=[go.Candlestick(x=stock_data['Date'], open=stock_data['Open'], high=stock_data['High'],low=stock_data['Low'], close=stock_data['Close'])])
+    #fig.update_layout(xaxis_rangeslider_visible=False)  
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, 
+                   vertical_spacing=0.03, subplot_titles=('', '成交量'), row_width=[0.2, 0.7])
+    # 绘制k数据
+    fig.add_trace(go.Candlestick(x=data["Date"], open=data["Open"], high=data["High"],
+                    low=data["Low"], close=data["Close"], name=""), 
+                    row=1, col=1 )
+    # 绘制成交量数据
+    fig.add_trace(go.Bar(x=data['Date'], y=data['Volume'], showlegend=False), row=2, col=1)
+    st.plotly_chart(fig, use_container_width=True)  
+    st.dataframe(stock_data)
       
   with tab9:
     image = Image.open('./workflow.png')
