@@ -171,7 +171,7 @@ def Dateform(datestring):
 st.set_page_config(page_title='長龍股權*數據分析儀表板', page_icon=':sparkles:', layout='wide')
 st.header(':sparkles: :blue[長龍股權*數據分析]  :red[儀表板] :pencil:')
 st.markdown('**公司重要事情 : 颱風來襲，請同仁注意安全 !**')
-st.info('**_長龍會議顧問 :以「專業委託書徵求機構」，協助各公司順利完成股東會召開，同時兼顧股東行使權益_**')
+st.info('**_長龍會議顧問 : 以「專業委託書徵求機構」，協助各公司順利完成股東會召開，同時兼顧股東行使權益_**')
 today_s =datetime.today().strftime('%Y-%m-%d')
 
 col1, col2 = st.columns([4,28], gap='small')
@@ -185,12 +185,12 @@ with col1:
         stock_ticker=ID_code+'.TW'
       if ID_mkt=='上櫃 ':
         stock_ticker=ID_code+'.TWO'
-      st.write(ID_name+' : '+ID_code)
+      st.markdown('**'+ID_name+' : '+ID_code+'**')
       st.write(ID_mkt+' '+ID_Inds)
       id=int(ID_code)
   db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
   st.write('')
-  st.write('資料更新狀態 : ')
+  st.markdown('**資料更新狀態 : **')
   #with st.container():
   collect_date=db_news.iloc[0,0]
   st.text('重大訊息:')
