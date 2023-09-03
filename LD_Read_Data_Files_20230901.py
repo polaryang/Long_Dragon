@@ -170,7 +170,7 @@ st.set_page_config(page_title='長龍股權*數據分析儀表板', page_icon=':
 st.header(':sparkles: :blue[長龍股權*數據分析]  :red[儀表板] :pencil:')
 st.markdown('**公司重要事情 : 颱風來襲，請同仁注意安全 !**')
 st.info('**_長龍會議顧問 :以「專業委託書徵求機構」，協助各公司順利完成股東會召開，同時兼顧股東行使權益_**')
-#today = datetime.date.today()
+today_s =datetime.today().strftime('%Y-%m-%d')
 
 col1, col2 = st.columns([4,27], gap='small')
 with col1:
@@ -179,6 +179,10 @@ with col1:
   if ID_code=='0':
       st.write('查無此股票')
   else:  
+      if ID_mkt=='上市 ':
+        stock_ticker=ID_code+'.TW'
+      if ID_mkt=='上櫃 ':
+        stock_ticker=ID_code+'.TWO'
       st.write(ID_name+' : '+ID_code)
       st.write(ID_mkt+' '+ID_Inds)
       id=int(ID_code)
@@ -198,6 +202,7 @@ with col1:
       st.text('十大股東資訊:'+ str(collect_date)[0:4] +'/'+str(collect_date)[4:6])
       collect_date=db_stock_holder2.iloc[0,0]
       st.text('集保戶股權分散:'+ Dateform(collect_date))
+      stock_data=yf.download(stock_ticker, period='10y')
     
 with col2:
   tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股東會徵求日程", "系統維護"])
@@ -349,6 +354,7 @@ with col2:
     #df_share_meeting=df_share_meeting.reset_index(drop=True)    
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
     st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
+    st.dataframe(stock_data)
       
   with tab8:
     image = Image.open('./workflow.png')
