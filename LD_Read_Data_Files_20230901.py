@@ -195,7 +195,7 @@ with col1:
       collect_date=db_board_balance.iloc[0,0]
       st.text('董監事持股明細:'+ Dateform(collect_date))
       collect_date=db_control.iloc[0,2]
-      st.text('十大股東資訊:'+ Dateform(collect_date))
+      st.text('十大股東資訊:'+ str(collect_date)[0:4] +'/'+str(collect_date)[4:6])
       collect_date=db_stock_holder2.iloc[0,0]
       st.text('集保戶股權分散:'+ Dateform(collect_date))
     
