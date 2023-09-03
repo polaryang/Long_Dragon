@@ -168,7 +168,19 @@ with col1:
       st.write(ID_mkt+' '+ID_Inds)
       id=int(ID_code)
   db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
-  
+  collect_date=db_news.iloc[0,0]
+  st.write('重大訊息更新日:'+str(collect_date))
+  collect_date=db_announce.iloc[0,0]
+  st.write('公告更新日:'+str(collect_date))
+  collect_date=db_basic.iloc[0,0]
+  st.write('公司基本資料更新日:'+str(collect_date))
+  collect_date=db_board_balance.iloc[0,0]
+  st.write('董監事持股明細更新日:'+str(collect_date))
+  collect_date=db_control.iloc[0,2]
+  st.write('十大股東資訊更新日:'+str(collect_date))
+  collect_date=db_stock_holder2.iloc[0,0]
+  st.write('集保戶股權分散更新日:'+str(collect_date))
+    
 with col2:
   tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股東會徵求日程", "系統維護"])
   #tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
@@ -190,11 +202,11 @@ with col2:
       st.dataframe(db_news, use_container_width=True,hide_index=True)
     else:
       st.dataframe(db_news, use_container_width=True,hide_index=True)
-    st.write('資料收集日期: '+str(collect_date))
+    #st.write('資料收集日期: '+str(collect_date))
     
   with tab2:    
     # 2.	公告查詢 db_announce 
-    collect_date=db_announce.iloc[0,0]
+    #collect_date=db_announce.iloc[0,0]
     db_announce=db_announce.drop(['出表日期'], axis=1)
     df_announce=db_announce[db_announce['公司代號']==str(id)]
     #df_announce=df_announce.reset_index(drop=True)
@@ -211,21 +223,21 @@ with col2:
       st.dataframe(db_announce, use_container_width=True,hide_index=True)
     else:
       st.dataframe(db_announce, use_container_width=True,hide_index=True)
-    st.write('資料收集日期: '+str(collect_date))
+    #st.write('資料收集日期: '+str(collect_date))
     
   with tab3:    
     # 3.	公司基本資料 db_basic
-    collect_date=db_basic.iloc[0,0]
+    #collect_date=db_basic.iloc[0,0]
     db_basic=db_basic.drop(['出表日期'], axis=1)
     df_basic=db_basic[db_basic['公司代號']==id]
     df_basic=df_basic.reset_index(drop=True)
     df_basic_T=df_basic.T
     st.dataframe(df_basic_T, use_container_width=True)
-    st.write('資料收集日期: '+str(collect_date))
+    #st.write('資料收集日期: '+str(collect_date))
     
   with tab4:
     # 4.	董監事持股餘額明細資料 db_board_balance
-    collect_date=db_board_balance.iloc[0,0]
+    #collect_date=db_board_balance.iloc[0,0]
     db_board_balance=db_board_balance.drop(['出表日期'], axis=1)
     df_board_balance=db_board_balance[db_board_balance['公司代號']==id]
     df_board_balance=df_board_balance.drop(['公司代號'], axis=1)
@@ -235,11 +247,11 @@ with col2:
       st.dataframe(df_board_balance, use_container_width=True,hide_index=True)
     else:
       st.dataframe(df_board_balance, use_container_width=True,hide_index=True)
-    st.write('資料收集日期: '+str(collect_date))
+    #st.write('資料收集日期: '+str(collect_date))
     
   with tab5:    
     # 5.	年報前十大股東相互間關係表
-    collect_date=db_control.iloc[0,2]
+    #collect_date=db_control.iloc[0,2]
     df_control=db_control[db_control['公司']==id]
     df_control=df_control.drop(['公司'], axis=1)
     df_control=df_control.drop(['年月'], axis=1)
@@ -271,13 +283,13 @@ with col2:
           df_control_results=df_control_class['持股占比']  
         st.dataframe(df_control_results, use_container_width=True)  
         st.bar_chart(df_control_results, use_container_width=True)
-        st.write('資料截止日期: '+str(collect_date))
+        #st.write('資料截止日期: '+str(collect_date))
     
   with tab6:  
     # 6.	股權分散表(公開觀測站)
     df_stock_holder1=db_stock_holder1[db_stock_holder1['公司']==str(id)]  
     # 7.	集保戶股權分散表 TDCC_OD_1-5.csv
-    collect_date=db_stock_holder2.iloc[0,0]
+    #collect_date=db_stock_holder2.iloc[0,0]
     df_stock_holder2=db_stock_holder2[db_stock_holder2['證券代號']==str(id)]
     #30~40 40~50 合併
     df_stock_holder2.iloc[6,3:5]=df_stock_holder2.iloc[6,3:5]+df_stock_holder2.iloc[7,3:5]
@@ -309,7 +321,7 @@ with col2:
     st.dataframe(df_stock_holder3, width=5, hide_index=True , use_container_width=True)
     df_stock_holder3=df_stock_holder3[df_stock_holder3['持股分級']!=15]
     st.line_chart(df_stock_holder3, x='持股分級', y=['股東會時_比率', '比率'], color = ['#00008B', '#8B0000'], use_container_width=True) 
-    st.write('資料收集日期: '+str(collect_date))
+    #st.write('資料收集日期: '+str(collect_date))
     
   with tab7:   
     #8.	議事錄
