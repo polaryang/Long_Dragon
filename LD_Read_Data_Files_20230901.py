@@ -167,9 +167,9 @@ with col1:
       st.write(ID_name+' : '+ID_code)
       st.write(ID_mkt+' '+ID_Inds)
       id=int(ID_code)
-    
-with col2:
   db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
+  
+with col2:
   tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股東會徵求日程", "系統維護"])
   #tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
   with tab1:
