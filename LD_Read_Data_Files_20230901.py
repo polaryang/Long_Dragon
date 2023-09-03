@@ -150,7 +150,7 @@ def Checking_ID(ID):
     #return '0','0','0','0'
 # ------------------------------------------------------------------
 def Dateform(datestring):
-    if datestring.isalpha()~=True:
+    if datestring.isalpha()!=True:
         datestring=str(datestring)
     if len(datestring)==8:
         year_s=datestring[0:3]
