@@ -373,6 +373,7 @@ with col2:
     st.write('全部公司議事錄')
     seq=range(1,len(db_share_meeting)+1)
     db_share_meeting.insert(0,"序號",seq,True)  
+    db_share_meeting['公司代號'] = db_share_meeting['公司代號'].astype(str)
     st.dataframe(db_share_meeting, use_container_width=True,hide_index=True)
       
   with tab8:   
