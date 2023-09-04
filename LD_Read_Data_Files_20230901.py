@@ -24,7 +24,6 @@ def load_data(url):
 # DB資料下載 與 處理 [開始] 
 @st.cache_data
 def load_data_process():
-    with st.status("資料更新中...", expanded=True) as status:
         file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
         # 1.	重大訊息 db_news
         st.write("重大訊息...")
@@ -111,7 +110,7 @@ def load_data_process():
         db_share_meeting_L=pd.read_excel(file_raw+'share_meeting_L.xlsx')
         db_share_meeting_O=pd.read_excel(file_raw+'share_meeting_O.xlsx')
         db_share_meeting=pd.concat([db_share_meeting_L, db_share_meeting_O])
-    status.update(label="資料更新完成!", state="complete", expanded=False)
+    
     # DB資料下載 與 處理 [結束] 
     return db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting
 # ------------------------------------------------------------------
