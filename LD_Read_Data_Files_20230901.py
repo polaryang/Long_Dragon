@@ -21,10 +21,25 @@ def load_data(url):
     df = pd.read_csv(url)
     return df
 # ------------------------------------------------------------------
-# DB資料下載 與 處理 [開始] 
+def Dateform(datestring):
+    if type(datestring)!=str:
+        datestring=str(datestring)
+    if len(datestring)==8:
+        year_s=datestring[0:4]
+        month_s=datestring[4:6]
+        day_s=datestring[6:8]
+    if len(datestring)==7:
+        year_s=int(datestring[0:3])
+        year_s=str(year_s+1911)
+        month_s=datestring[3:5]
+        day_s=datestring[5:7]
+    dated_string=year_s+'/'+month_s+'/'+day_s
+    return dated_string     
+# ------------------------------------------------------------------# DB資料下載 與 處理 [開始] 
 @st.cache_data
 def load_data_process():
     file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
+    st.markdown('** 資料更新狀態 : **')
     # 1.	重大訊息 db_news
     st.write("重大訊息...")
     url='https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv'
@@ -39,6 +54,9 @@ def load_data_process():
     db_news['發言時間'] = db_news['發言時間'].astype(str)
     db_news['公司代號'] = db_news['公司代號'].astype(str)
     db_news['事實發生日'] = db_news['事實發生日'].astype(str)
+    collect_date=db_news.iloc[0,0]
+    #st.text('重大訊息:')
+    st.text('   '+ Dateform(collect_date))
     
     # 2.	公告查詢 db_announce
     st.write("公告查詢...")
@@ -58,6 +76,9 @@ def load_data_process():
     db_announce['開會日期'] = db_announce['開會日期'].astype(str)
     db_announce['停止過戶-起期'] = db_announce['停止過戶-起期'].astype(str)
     db_announce['停止過戶-訖期'] = db_announce['停止過戶-訖期'].astype(str)
+    collect_date=db_announce.iloc[0,0]
+    st.text('公告查詢:')
+    st.text('   '+ Dateform(collect_date))
     
     # 3.	公司基本資料 db_basic
     st.write("公司基本資料...")
@@ -159,21 +180,6 @@ def Checking_ID(ID):
     return ID_code, ID_name, ID_mkt, ID_type, ID_Inds
     #return '0','0','0','0'
 # ------------------------------------------------------------------
-def Dateform(datestring):
-    if type(datestring)!=str:
-        datestring=str(datestring)
-    if len(datestring)==8:
-        year_s=datestring[0:4]
-        month_s=datestring[4:6]
-        day_s=datestring[6:8]
-    if len(datestring)==7:
-        year_s=int(datestring[0:3])
-        year_s=str(year_s+1911)
-        month_s=datestring[3:5]
-        day_s=datestring[5:7]
-    dated_string=year_s+'/'+month_s+'/'+day_s
-    return dated_string     
-# ------------------------------------------------------------------
 
 # 程式開始
 # ------------------------------------------------------------------
@@ -201,12 +207,8 @@ with col1:
   st.write('')
   st.markdown('** 資料更新狀態 : **')
   #with st.container():
-  collect_date=db_news.iloc[0,0]
-  st.text('重大訊息:')
-  st.text('   '+ Dateform(collect_date))
-  collect_date=db_announce.iloc[0,0]
-  st.text('公告查詢:')
-  st.text('   '+ Dateform(collect_date))
+  
+  
   collect_date=db_basic.iloc[0,0]
   st.text('公司基本資料:')
   st.text('   '+ Dateform(collect_date))
