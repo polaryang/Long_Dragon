@@ -41,7 +41,7 @@ def load_data_process():
     file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
     st.markdown('** 資料更新狀態 : **')
     # 1.	重大訊息 db_news
-    st.text('**重大訊息:**')
+    st.text('重大訊息...')
     url='https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv'
     db_news_L = load_data(url)
     url='https://mopsfin.twse.com.tw/opendata/t187ap04_O.csv'
@@ -58,7 +58,7 @@ def load_data_process():
     st.text('   '+ Dateform(collect_date))
     
     # 2.	公告查詢 db_announce
-    st.text("**公告查詢:**")
+    st.text("公告查詢...")
     url='https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv'
     db_announce_L = load_data(url)
     url='https://mopsfin.twse.com.tw/opendata/t187ap38_O.csv'
@@ -79,7 +79,7 @@ def load_data_process():
     st.text('   '+ Dateform(collect_date))
     
     # 3.	公司基本資料 db_basic
-    st.text('**公司基本資料:**')
+    st.text('公司基本資料...')
     url='https://mopsfin.twse.com.tw/opendata/t187ap03_L.csv'
     db_basic_L = load_data(url)
     url='https://mopsfin.twse.com.tw/opendata/t187ap03_O.csv'
@@ -92,7 +92,7 @@ def load_data_process():
     st.text('   '+ Dateform(collect_date))
     
     # 4.	董監事持股餘額明細資料 db_board_balance
-    st.text('**董監事持股明細:**')
+    st.text('董監事持股明細...')
     url='https://mopsfin.twse.com.tw/opendata/t187ap11_L.csv'
     db_board_balance_L = load_data(url)
     url='https://mopsfin.twse.com.tw/opendata/t187ap11_O.csv'
@@ -107,7 +107,7 @@ def load_data_process():
 
     # 5.	年報前十大股東相互間關係表
     # 先到TEJ執行特殊轉檔 TEJ 公司治理 TCGI 1 股權結構 控制持股與董監結構明細 每年一次
-    st.text('**十大股東資訊:**')
+    st.text('十大股東資訊...')
     db_control_L=pd.read_excel(file_raw+'Control_L.xlsx') 
     db_control_O=pd.read_excel(file_raw+'Control_O.xlsx') 
     db_control=pd.concat([db_control_L, db_control_O])
@@ -121,7 +121,7 @@ def load_data_process():
     db_stock_holder1=pd.concat([db_stock_holder1_L, db_stock_holder1_O])
     db_stock_holder1['公司'] = db_stock_holder1['公司'].astype(str)
     # 7.	集保戶股權分散表 TDCC_OD_1-5.csv
-    st.text("**股權分散表-集保:**")
+    st.text("股權分散表-集保...")
     url='https://opendata.tdcc.com.tw/getOD.ashx?id=1-5'
     db_stock_holder2 = load_data(url)
     db_stock_holder2=db_stock_holder2[db_stock_holder2['持股分級']!=16]
@@ -132,7 +132,6 @@ def load_data_process():
 
     #8.	議事錄
     #https://mops.twse.com.tw/mops/web/t150sb04 可以出總表 每年一次
-    st.write("議事錄...")
     db_share_meeting_L=pd.read_excel(file_raw+'share_meeting_L.xlsx')
     db_share_meeting_O=pd.read_excel(file_raw+'share_meeting_O.xlsx')
     db_share_meeting=pd.concat([db_share_meeting_L, db_share_meeting_O])
@@ -213,7 +212,7 @@ with col1:
   st.markdown('** 資料更新狀態 : **')
   #with st.container():
   stock_data=yf.download(stock_ticker, period='5y')
-  st.text('**股價線圖:**')
+  st.text('股價線圖...')
   st.text('   '+ stock_data.index[-1].strftime("%Y-%m-%d"))
     
 with col2:
