@@ -369,6 +369,10 @@ with col2:
     #df_share_meeting=df_share_meeting.reset_index(drop=True)    
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
     st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
+    st.write('全部公司議事錄')
+    seq=range(1,len(db_share_meeting)+1)
+    db_share_meeting.insert(0,"序號",seq,True)  
+    st.dataframe(db_share_meeting, use_container_width=True,hide_index=True)
       
   with tab8:   
     # 繪製 k 線圖
