@@ -113,6 +113,7 @@ def load_data_process():
         db_share_meeting=pd.concat([db_share_meeting_L, db_share_meeting_O])
     status.update(label="資料更新完成!", state="complete", expanded=False)
     # DB資料下載 與 處理 [結束] 
+    st.button('Rerun')
     return db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting
 # ------------------------------------------------------------------
 def Checking_ID(ID):
