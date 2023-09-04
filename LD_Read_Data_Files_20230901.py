@@ -217,7 +217,7 @@ with col1:
   st.text('   '+ stock_data.index[-1].strftime("%Y-%m-%d"))
     
 with col2:
-  tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股價趨勢圖", "股東會徵求日程", "系統維護"])
+  tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股價趨勢圖", "徵求作業流程圖", "系統維護"])
   #tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
   with tab1:
     # 1.	重大訊息 db_news
@@ -411,7 +411,10 @@ with col2:
       
   with tab9:
     st.subheader('股東常會徵求作業日程表')
-    image = Image.open('./workflow.png')
+    image = Image.open('./workflow_常會.png')
+    st.image(image)  
+    st.subheader('股東臨時會徵求作業日程表')
+    image = Image.open('./workflow_臨時會.png')
     st.image(image)  
       
   with tab10:
