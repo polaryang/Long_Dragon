@@ -194,7 +194,7 @@ def Checking_ID(ID):
 st.set_page_config(page_title='長龍股權*數據分析儀表板', page_icon=':sparkles:', layout='wide')
 st.header(':sparkles: :blue[長龍股權*數據分析]  :red[儀表板] :pencil:')
 st.markdown('**公司重要事情 : 颱風來襲，請同仁注意安全 !**')
-st.info('**_長龍會議顧問 : 以「專業委託書徵求機構」，協助各公司順利完成股東會召開，同時兼顧股東行使權益_**')
+st.info('**_長龍會議顧問 : 為一家「專業委託書徵求機構」，透過徵求委託書出席的方式，協助各公司順利完成股東會，並兼顧股東權益_**')
 today_s =datetime.today().strftime('%Y-%m-%d')
 
 col1, col2 = st.columns([4,28], gap='small')
