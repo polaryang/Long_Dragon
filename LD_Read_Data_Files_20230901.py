@@ -61,6 +61,7 @@ def load_data_process():
         db_announce['停止過戶-訖期'] = db_announce['停止過戶-訖期'].astype(str)
         
         # 3.	公司基本資料 db_basic
+        st.write("公司基本資料...")
         url='https://mopsfin.twse.com.tw/opendata/t187ap03_L.csv'
         db_basic_L = load_data(url)
         url='https://mopsfin.twse.com.tw/opendata/t187ap03_O.csv'
@@ -71,6 +72,7 @@ def load_data_process():
         db_basic=pd.concat([db_basic_L, db_basic_O])
         
         # 4.	董監事持股餘額明細資料 db_board_balance
+        st.write("董監事持股餘額...")
         url='https://mopsfin.twse.com.tw/opendata/t187ap11_L.csv'
         db_board_balance_L = load_data(url)
         url='https://mopsfin.twse.com.tw/opendata/t187ap11_O.csv'
@@ -83,17 +85,20 @@ def load_data_process():
         
         # 5.	年報前十大股東相互間關係表
         # 先到TEJ執行特殊轉檔 TEJ 公司治理 TCGI 1 股權結構 控制持股與董監結構明細 每年一次
+        st.write("十大股東...")
         db_control_L=pd.read_excel(file_raw+'Control_L.xlsx') 
         db_control_O=pd.read_excel(file_raw+'Control_O.xlsx') 
         db_control=pd.concat([db_control_L, db_control_O])
         
         # 6.	股權分散表(公開觀測站)
         # 先到TEJ執行特殊轉檔 TEJ Company DB 股權結構 每年一次
+        st.write("股權分散表 公開觀測站...")
         db_stock_holder1_L=pd.read_excel(file_raw+'stock_holder_list_L.xlsx')
         db_stock_holder1_O=pd.read_excel(file_raw+'stock_holder_list_O.xlsx')
         db_stock_holder1=pd.concat([db_stock_holder1_L, db_stock_holder1_O])
         db_stock_holder1['公司'] = db_stock_holder1['公司'].astype(str)
         # 7.	集保戶股權分散表 TDCC_OD_1-5.csv
+        st.write("股權分散表(集保)...")
         url='https://opendata.tdcc.com.tw/getOD.ashx?id=1-5'
         db_stock_holder2 = load_data(url)
         db_stock_holder2=db_stock_holder2[db_stock_holder2['持股分級']!=16]
@@ -102,10 +107,11 @@ def load_data_process():
         
         #8.	議事錄
         #https://mops.twse.com.tw/mops/web/t150sb04 可以出總表 每年一次
+        st.write("議事錄...")
         db_share_meeting_L=pd.read_excel(file_raw+'share_meeting_L.xlsx')
         db_share_meeting_O=pd.read_excel(file_raw+'share_meeting_O.xlsx')
         db_share_meeting=pd.concat([db_share_meeting_L, db_share_meeting_O])
-    status.update(label="Download complete!", state="complete", expanded=False)
+    status.update(label="資料更新完成!", state="complete", expanded=False)
     # DB資料下載 與 處理 [結束] 
     return db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting
 # ------------------------------------------------------------------
