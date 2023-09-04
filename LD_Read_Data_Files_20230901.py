@@ -136,7 +136,7 @@ def load_data_process():
     db_share_meeting_O=pd.read_excel(file_raw+'share_meeting_O.xlsx')
     db_share_meeting=pd.concat([db_share_meeting_L, db_share_meeting_O])
     db_share_meeting['公司代號'] = db_share_meeting['公司代號'].astype(str)
-    
+    db_share_meeting1=db_share_meeting.dropna()
     # DB資料下載 與 處理 [結束] 
     return db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting
 # ------------------------------------------------------------------
@@ -366,7 +366,7 @@ with col2:
   with tab7: 
     #8.	議事錄
     st.subheader('議事錄')
-    df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==id]
+    df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==str(id)]
     #df_share_meeting=df_share_meeting.reset_index(drop=True)    
     df_share_meeting=df_share_meeting.drop(['公司代號'], axis=1)
     st.dataframe(df_share_meeting, use_container_width=True,hide_index=True)
