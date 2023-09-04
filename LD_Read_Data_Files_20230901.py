@@ -135,8 +135,8 @@ def load_data_process():
     db_share_meeting_L=pd.read_excel(file_raw+'share_meeting_L.xlsx')
     db_share_meeting_O=pd.read_excel(file_raw+'share_meeting_O.xlsx')
     db_share_meeting=pd.concat([db_share_meeting_L, db_share_meeting_O])
-    db_share_meeting['公司代號'] = db_share_meeting['公司代號'].astype(int)
     db_share_meeting=db_share_meeting.dropna()
+    db_share_meeting['公司代號'] = db_share_meeting['公司代號'].astype(int)
     # DB資料下載 與 處理 [結束] 
     return db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting
 # ------------------------------------------------------------------
