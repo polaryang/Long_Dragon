@@ -208,9 +208,6 @@ with col1:
       st.write(ID_mkt+' '+ID_Inds)
       id=int(ID_code)
   db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
-  st.write('')
-  st.markdown('** 資料更新狀態 : **')
-  #with st.container():
   stock_data=yf.download(stock_ticker, period='5y')
   st.text('股價線圖...')
   st.text('   '+ stock_data.index[-1].strftime("%Y-%m-%d"))
