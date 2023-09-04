@@ -85,20 +85,20 @@ def load_data_process():
         
         # 5.	年報前十大股東相互間關係表
         # 先到TEJ執行特殊轉檔 TEJ 公司治理 TCGI 1 股權結構 控制持股與董監結構明細 每年一次
-        st.write("十大股東...")
+        st.write("十大股東相互間關係表...")
         db_control_L=pd.read_excel(file_raw+'Control_L.xlsx') 
         db_control_O=pd.read_excel(file_raw+'Control_O.xlsx') 
         db_control=pd.concat([db_control_L, db_control_O])
         
         # 6.	股權分散表(公開觀測站)
         # 先到TEJ執行特殊轉檔 TEJ Company DB 股權結構 每年一次
-        st.write("股權分散表 公開觀測站...")
+        st.write("股權分散表-公開觀測站...")
         db_stock_holder1_L=pd.read_excel(file_raw+'stock_holder_list_L.xlsx')
         db_stock_holder1_O=pd.read_excel(file_raw+'stock_holder_list_O.xlsx')
         db_stock_holder1=pd.concat([db_stock_holder1_L, db_stock_holder1_O])
         db_stock_holder1['公司'] = db_stock_holder1['公司'].astype(str)
         # 7.	集保戶股權分散表 TDCC_OD_1-5.csv
-        st.write("股權分散表(集保)...")
+        st.write("股權分散表-集保...")
         url='https://opendata.tdcc.com.tw/getOD.ashx?id=1-5'
         db_stock_holder2 = load_data(url)
         db_stock_holder2=db_stock_holder2[db_stock_holder2['持股分級']!=16]
@@ -113,7 +113,6 @@ def load_data_process():
         db_share_meeting=pd.concat([db_share_meeting_L, db_share_meeting_O])
     status.update(label="資料更新完成!", state="complete", expanded=False)
     # DB資料下載 與 處理 [結束] 
-    st.button('Rerun')
     return db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting
 # ------------------------------------------------------------------
 def Checking_ID(ID):
@@ -385,7 +384,7 @@ with col2:
       
   with tab8:   
     # 繪製 k 線圖
-    st.subheader('近三年股價走勢圖')
+    st.subheader('近五年股價走勢圖')
     Date_s=stock_data.index.strftime("%Y-%m-%d")
     stock_data.insert(0,"Date",Date_s,True)
     #fig = go.Figure(data=[go.Candlestick(x=stock_data['Date'], open=stock_data['Open'], high=stock_data['High'],low=stock_data['Low'], close=stock_data['Close'])])
