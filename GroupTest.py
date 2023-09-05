@@ -310,7 +310,7 @@ with col2:
                   edges.append( Edge(source=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
 
   config = Config(width=1000, 
-                height=1000,
+                height=700,
                 directed=True, 
                 physics=True, 
                 hierarchical=False,
