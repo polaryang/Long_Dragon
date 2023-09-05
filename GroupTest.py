@@ -14,7 +14,8 @@ from bs4 import BeautifulSoup
 from PIL import Image
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import graphviz
+
+from streamlit_agraph import agraph, Node, Edge, Config
 
 # ------------------------------------------------------------------
 #@st.cache_data
