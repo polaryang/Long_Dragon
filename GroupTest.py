@@ -274,7 +274,7 @@ with col2:
   nodes.append( Node(id=ID_code, label=ID_name, size=20, color='blue') )   
   df_control_investor=df_control[df_control['持股人集團名']!="                     "]
   st.dataframe(df_control_investor)
-  #st.write(df_control_investor.iloc[0,5])  
+  st.write(df_control_investor.iloc[0,0])  
   for i in range(len(df_control_investor)):
       st.write(i)
       #st.dataframe(df_control_investor)
