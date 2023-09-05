@@ -309,12 +309,12 @@ with col2:
                   nodes_keep.append(str(investee_id))
                   edges.append( Edge(source=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
 
-  config = Config(width=500, 
-                height=700,
+  config = Config(width=1000, 
+                height=1000,
                 directed=True, 
                 physics=True, 
                 hierarchical=False,
-                collapsible=True  
+                nodeHighlightBehavior=True,  
                 # **kwargs
                 )
   #nodeHighlightBehavior=True,   highlightColor="#F7A7A6",   directed=True,   collapsible=True 
