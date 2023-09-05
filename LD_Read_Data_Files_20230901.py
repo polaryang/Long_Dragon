@@ -243,20 +243,24 @@ def K_bar(stock_data):
 # ------------------------------------------------------------------
 def group_graphy(id,ID_name ):
   df_control=db_control[db_control['公司']==id]
+  df_control=df_control.drop(['公司'], axis=1)
+  df_control=df_control.drop(['年月'], axis=1)
   share_holded_all=df_control['最終控制者個人持股%']+df_control['集團未上市公司持股%']+df_control['集團基金會持股%']+df_control['集團上市公司持股%']+df_control['經理人持股%']+df_control['外部個人持股%']+df_control['外部未上市公司持股%']+df_control['外部基金會持股%']+df_control['外部上市公司持股%']
   total_share_ratio=sum(share_holded_all)
   st.write(total_share_ratio)
-  df_control.insert(5,"持股占比",share_holded_all,True)  
-  st.dataframe(df_control)
+  df_control.insert(5,"持股占比",share_holded_all,True)
+  df_control=df_control[df_control['持股人集團名']!="                     "]  
+  df_control_investor = df_control.groupby('持股人集團名').sum()
+  df_control_investor=df_control_investor.sort_values(by='持股占比', ascending=False)
   nodes = []
   edges = []
   nodes_keep=[]
   nodes.append( Node(id=str(id), label=ID_name, size=25, color='blue') )   
   nodes_keep.append(str(id))  
-  df_control_investor=df_control[df_control['持股人集團名']!="                     "]
+  
   if  len(df_control_investor) > 0: 
       for i in range(len(df_control_investor)): # control_investor 持股人集團名 len(df_control_investor)
-          control_investor=df_control_investor.iloc[i,5]
+          control_investor=df_control_investor.index[i]
           if control_investor not in nodes_keep:
               nodes.append( Node(id=control_investor, label=control_investor, size=15, color='red') )
               edges.append( Edge(source=control_investor, target=str(id), type="CURVE_SMOOTH" ) )
@@ -425,6 +429,7 @@ with col2:
     
   with tab6:      
     # 集團控制之關聯圖
+    st.subheader('集團控制之關聯圖')   
     group_graphy(id,ID_name )
       
   with tab7:  
