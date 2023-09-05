@@ -270,14 +270,13 @@ with col1:
 with col2:
   nodes = []
   edges = []
-  nodes.append( Node(id="Spiderman", label="Peter Parker", size=10, color='red') ) 
-  nodes.append( Node(id="2330", label="台積電", size=25) ) 
-  nodes.append( Node(id="1711", label="永光", size=25) )   
-  nodes.append( Node(id="Captain_Marvel", 
-                   size=25,
-                   shape="circularImage",
-                   image="http://marvel-force-chart.surge.sh/marvel_force_chart_img/top_captainmarvel.png") 
-            )
+  df_control=db_control[db_control['公司']==id]
+  nodes.append( Node(id=ID_code, label=ID_name, size=20, color='blue') )   
+  for i in range(len(db_control)):
+      investor=df_control['持股人集團名'][i]
+      st.write(investor)
+      nodes.append( Node(id=investor, size=10, color='red') ) 
+
   edges.append( Edge(source="Captain_Marvel", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) )  
   edges.append( Edge(source="1101", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) )   
   edges.append( Edge(source="Captain_Marvel", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) ) 
