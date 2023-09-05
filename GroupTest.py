@@ -243,7 +243,7 @@ def K_bar(stock_data):
     return fig
 # ------------------------------------------------------------------
 def group_graphy(id,ID_name ):
-    df_control=db_control[db_control['公司']==id]
+  df_control=db_control[db_control['公司']==id]
   nodes = []
   edges = []
   nodes_keep=[]
