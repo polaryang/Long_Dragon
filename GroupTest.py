@@ -306,8 +306,10 @@ with col2:
               #if investee_id not in nodes:
               #    nodes.append( Node(id=str(investee_id), label=investee_name, size=15, color='green') )
               if str(investee_id) not in nodes_keep:
-                  nodes.append( Node(id=str(investee_id), size=10, color='red') )
+                  nodes.append( Node(id=str(investee_id), size=15, color='green') )
                   nodes_keep.append(str(investee_id))
+                  edges.append( Edge(source=str(id), label=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
+                  
           #st.dataframe(df_control_invested)
 
       #nodes.append( Node(id=df_control['持股人集團名'][i], size=10, color='red') ) 
