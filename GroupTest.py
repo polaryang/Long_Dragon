@@ -274,9 +274,10 @@ with col2:
   nodes.append( Node(id=ID_code, label=ID_name, size=20, color='blue') )   
   df_control_investor=df_control[df_control['持股人集團名']!="                     "]
   #st.dataframe(df_control_investor) 
-  for i in range(3): # control_investor 持股人集團名 len(df_control_investor)
+  for i in range(5): # control_investor 持股人集團名 len(df_control_investor)
+      st.write(id)
       st.write(i)
-      st.write(id, df_control_investor.iloc[i,5]) 
+      st.write(df_control_investor.iloc[i,5]) 
       control_investor=df_control_investor.iloc[i,5]
       if control_investor not in nodes:
           nodes.append( Node(id=control_investor, size=10, color='red') )
@@ -286,11 +287,14 @@ with col2:
       df_control_invested_name=df_control_invested['簡稱'] #被控制者 投資的 公司名稱
       df_control_invested_id=pd.unique(pd.Series(df_control_invested_id))
       df_control_invested_name=pd.unique(pd.Series(df_control_invested_name))
-      for j in range(1): #len(df_control_invested_name)
+      for j in range(3): #len(df_control_invested_name)
+          st.write('被投資者')
           st.write(j)
+          st.write(str(investee_id'))
           investee_id= pd.DataFrame(df_control_invested_id).iloc[j,0]
           investee_name= pd.DataFrame(df_control_invested_name).iloc[j,0]
-          st.write(investee_id,investee_name)
+          st.write(investee_id)
+          st.write(investee_name)
           #st.write(str(control_invested_id.iloc[j,0]), control_invested_name.iloc[j,1]) 
           #investor=df_control_investor.iloc[j,5]
           if investee_id not in nodes:
