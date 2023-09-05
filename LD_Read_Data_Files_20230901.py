@@ -51,7 +51,7 @@ def load_data_process():
         #db_news_L=pd.read_csv(file_raw+'t187ap04_L.csv') 
         #db_news_O=pd.read_csv(file_raw+'t187ap04_O.csv')
         db_news=pd.concat([db_news_L, db_news_O])
-        db_news.to_excel("./db_news.xlsx")
+        db_news.to_excel("db_news.xlsx")
         db_news['發言日期'] = db_news['發言日期'].astype(str)
         db_news['發言時間'] = db_news['發言時間'].astype(str)
         db_news['公司代號'] = db_news['公司代號'].astype(str)
