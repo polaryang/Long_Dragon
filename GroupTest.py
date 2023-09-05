@@ -298,8 +298,8 @@ with col2:
               #st.write(j)
               investee_id= pd.DataFrame(df_control_invested_id).iloc[j,0]
               investee_name= pd.DataFrame(df_control_invested_name).iloc[j,0]
-              st.write(investee_id)
-              st.write(investee_name)
+              #st.write(investee_id)
+              #st.write(investee_name)
               #st.write(str(control_invested_id.iloc[j,0]), control_invested_name.iloc[j,1]) 
               #investor=df_control_investor.iloc[j,5]
               #if investee_id not in nodes:
@@ -311,8 +311,8 @@ with col2:
 
 
   #edges.append( Edge(source="Captain_Marvel", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) )  
-  config = Config(width=750, 
-                height=950,
+  config = Config(width=1250, 
+                height=1250,
                 directed=True, 
                 physics=True, 
                 hierarchical=False,
