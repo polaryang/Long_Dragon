@@ -290,7 +290,7 @@ with col2:
       for j in range(3): #len(df_control_invested_name)
           st.write('被投資者')
           st.write(j)
-          st.write(str(investee_id'))
+          st.write(str(investee_id))
           investee_id= pd.DataFrame(df_control_invested_id).iloc[j,0]
           investee_name= pd.DataFrame(df_control_invested_name).iloc[j,0]
           st.write(investee_id)
