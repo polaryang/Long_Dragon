@@ -242,6 +242,41 @@ def K_bar(stock_data):
     fig.update_layout(xaxis_rangeslider_visible=False)
     return fig
 # ------------------------------------------------------------------
+def group_graphy(id,ID_name )
+    df_control=db_control[db_control['公司']==id]
+  nodes = []
+  edges = []
+  nodes_keep=[]
+  nodes.append( Node(id=str(id), label=ID_name, size=25, color='blue') )   
+  nodes_keep.append(str(id))  
+  df_control_investor=df_control[df_control['持股人集團名']!="                     "]
+  if  len(df_control_investor) > 0: 
+      for i in range(len(df_control_investor)): # control_investor 持股人集團名 len(df_control_investor)
+          control_investor=df_control_investor.iloc[i,5]
+          if control_investor not in nodes_keep:
+              nodes.append( Node(id=control_investor, label=control_investor, size=15, color='red') )
+              edges.append( Edge(source=control_investor, target=str(id), type="CURVE_SMOOTH" ) )
+              nodes_keep.append(control_investor)
+          df_control_invested=db_control[db_control['持股人集團名']==control_investor]
+          df_control_invested=df_control_invested[df_control_invested['公司']!=id]
+          df_control_invested_id=df_control_invested['公司'] #被控制者 投資的 公司代號
+          df_control_invested_name=df_control_invested['簡稱'] #被控制者 投資的 公司名稱
+          df_control_invested_id=pd.unique(pd.Series(df_control_invested_id))
+          df_control_invested_name=pd.unique(pd.Series(df_control_invested_name))
+          if len(df_control_invested_name) > 0:
+              for j in range(len(df_control_invested_name)): #len(df_control_invested_name)
+                  investee_id= pd.DataFrame(df_control_invested_id).iloc[j,0]
+                  investee_name= pd.DataFrame(df_control_invested_name).iloc[j,0]
+                  if str(investee_id) not in nodes_keep:
+                      nodes.append( Node(id=str(investee_id), label=investee_name, size=20, color='green') )
+                      nodes_keep.append(str(investee_id))
+                      edges.append( Edge(source=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
+  config = Config(width=1000, height=700, directed=True, physics=True, hierarchical=False,
+                nodeHighlightBehavior=True,  )  #nodeHighlightBehavior=True,   highlightColor="#F7A7A6",   directed=True,   collapsible=True 
+  return_value = agraph(nodes=nodes, 
+                      edges=edges, 
+                      config=config)
+# ------------------------------------------------------------------
 # 程式開始
 # ------------------------------------------------------------------
 st.set_page_config(page_title='長龍股權*數據分析儀表板', page_icon=':sparkles:', layout='wide')
@@ -268,52 +303,8 @@ with col1:
 
     
 with col2:
-  df_control=db_control[db_control['公司']==id]
-  nodes = []
-  edges = []
-  nodes_keep=[]
-  nodes.append( Node(id=str(id), label=ID_name, size=25, color='blue') )   
-  nodes_keep.append(str(id))  
-  df_control_investor=df_control[df_control['持股人集團名']!="                     "]
-  for i in range(len(df_control_investor)): # control_investor 持股人集團名 len(df_control_investor)
-      #st.write(id)
-      #st.write(i)
-      #st.write(df_control_investor.iloc[i,5]) 
-      control_investor=df_control_investor.iloc[i,5]
-      #if control_investor not in nodes:
-      #    nodes.append( Node(id=control_investor, size=10, color='red') )
-      if control_investor not in nodes_keep:
-          nodes.append( Node(id=control_investor, label=control_investor, size=15, color='red') )
-          edges.append( Edge(source=str(id), target=control_investor, type="CURVE_SMOOTH" ) )
-          nodes_keep.append(control_investor)
-      df_control_invested=db_control[db_control['持股人集團名']==control_investor]
-      df_control_invested=df_control_invested[df_control_invested['公司']!=id]
-      df_control_invested_id=df_control_invested['公司'] #被控制者 投資的 公司代號
-      df_control_invested_name=df_control_invested['簡稱'] #被控制者 投資的 公司名稱
-      df_control_invested_id=pd.unique(pd.Series(df_control_invested_id))
-      df_control_invested_name=pd.unique(pd.Series(df_control_invested_name))
-      if len(df_control_invested_name) > 0:
-          for j in range(len(df_control_invested_name)): #len(df_control_invested_name)
-              #st.write('被投資者')
-              #st.write(j)
-              investee_id= pd.DataFrame(df_control_invested_id).iloc[j,0]
-              investee_name= pd.DataFrame(df_control_invested_name).iloc[j,0]
-              #st.write(investee_id)
-              #st.write(investee_name)
-              #st.write(str(control_invested_id.iloc[j,0]), control_invested_name.iloc[j,1]) 
-              #investor=df_control_investor.iloc[j,5]
-              #if investee_id not in nodes:
-              #    nodes.append( Node(id=str(investee_id), label=investee_name, size=15, color='green') )
-              if str(investee_id) not in nodes_keep:
-                  nodes.append( Node(id=str(investee_id), label=investee_name, size=20, color='green') )
-                  nodes_keep.append(str(investee_id))
-                  edges.append( Edge(source=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
-  config = Config(width=1000, height=700, directed=True, physics=True, hierarchical=False,
-                nodeHighlightBehavior=True,  )  #nodeHighlightBehavior=True,   highlightColor="#F7A7A6",   directed=True,   collapsible=True 
-  return_value = agraph(nodes=nodes, 
-                      edges=edges, 
-                      config=config)
-                  
+
+  group_graphy(id,ID_name )                
   #from streamlit_agraph.config import Config, ConfigBuilder
   # 1. Build the config (with sidebar to play with options) .
   #config_builder = ConfigBuilder(nodes)
