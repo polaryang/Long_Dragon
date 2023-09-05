@@ -287,13 +287,12 @@ with col2:
       control_invested_name=pd.unique(pd.Series(df_control_invested_name))
       for j in range(len(control_invested_id)):
           st.write(j)
-          st.write(str(control_invested_id.iloc[j,0]), control_invested_name.iloc[j,1]) 
+          st.write(type(control_invested_id))
+          #st.write(str(control_invested_id.iloc[j,0]), control_invested_name.iloc[j,1]) 
           #investor=df_control_investor.iloc[j,5]
           nodes.append( Node(id=control_invested_id, label=control_invested_name, size=15, color='green') )
           #st.dataframe(df_control_invested)
       
-      
-      st.dataframe(invested2)
       
       #st.dataframe(df_control_investor)
       #st.write(df_control_investor.持股人集團名[i])
