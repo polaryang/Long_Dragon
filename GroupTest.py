@@ -281,6 +281,7 @@ with col2:
   edges.append( Edge(source="Captain_Marvel", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) ) 
   edges.append( Edge(source="Captain_Marvel", label="friend_of", target="2330", type="CURVE_SMOOTH" ) ) 
   edges.append( Edge(source="2330", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) ) 
+  edges.append( Edge(source="2330", label="investment", target="Spiderman", type="CURVE_SMOOTH" ) )   
     
   config = Config(width=750,
                 height=950,
