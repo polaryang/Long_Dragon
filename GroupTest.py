@@ -285,7 +285,7 @@ with col2:
       df_control_invested_name=df_control_invested['簡稱'] #被控制者 投資的 公司名稱
       control_invested_id=pd.unique(pd.Series(df_control_invested_id))
       control_invested_name=pd.unique(pd.Series(df_control_invested_name))
-      for j in range(len(invested2_id)):
+      for j in range(len(control_invested_id)):
           st.write(j)
           st.write(control_invested_id.iloc[j,0], control_invested_name.iloc[j,1]) 
           #investor=df_control_investor.iloc[j,5]
