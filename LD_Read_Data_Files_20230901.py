@@ -35,7 +35,8 @@ def Dateform(datestring):
         day_s=datestring[5:7]
     dated_string=year_s+'/'+month_s+'/'+day_s
     return dated_string     
-# ------------------------------------------------------------------# DB資料下載 與 處理 [開始] 
+# ------------------------------------------------------------------
+# DB資料下載 與 處理 [開始] 
 @st.cache_data
 def load_data_process():
     file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
@@ -216,7 +217,29 @@ def Checking_ID(ID):
     return ID_code, ID_name, ID_mkt, ID_type, ID_Inds
     #return '0','0','0','0'
 # ------------------------------------------------------------------
-
+def K_bar(stock_data):
+    #fig = go.Figure(data=[go.Candlestick(x=stock_data['Date'], open=stock_data['Open'], high=stock_data['High'],low=stock_data['Low'], close=stock_data['Close'])])
+    #fig.update_layout(xaxis_rangeslider_visible=False)  
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, 
+                   vertical_spacing=0.03, subplot_titles=('股價', '成交量'), row_width=[0.2, 0.7])
+    # 繪製 股價 線圖
+    fig.add_trace(go.Candlestick(x=stock_data["Date"], open=stock_data["Open"], high=stock_data["High"],
+                    low=stock_data["Low"], close=stock_data["Close"], showlegend=False , name="", increasing_line_color= 'red', decreasing_line_color= 'green'), 
+                    row=1, col=1 )
+    # 繪製 成交量 線圖
+    fig.add_trace(go.Bar(x=stock_data['Date'], y=stock_data['Volume'], showlegend=False), row=2, col=1)
+    fig.update_xaxes( rangeselector = dict(
+        # 增加固定范围选择
+        buttons = list([
+            dict(count = 1, label = '1M', step = 'month', stepmode = 'backward'),
+            dict(count = 6, label = '6M', step = 'month', stepmode = 'backward'),
+            dict(count = 1, label = 'YTD', step = 'year', stepmode = 'todate'),
+            dict(count = 1, label = '1Y', step = 'year', stepmode = 'backward'),
+            dict(count = 3, label = '3Y', step = 'year', stepmode = 'backward'),
+            dict(step = 'all')])))
+    fig.update_layout(xaxis_rangeslider_visible=False)
+    return fig
+# ------------------------------------------------------------------
 # 程式開始
 # ------------------------------------------------------------------
 st.set_page_config(page_title='長龍股權*數據分析儀表板', page_icon=':sparkles:', layout='wide')
@@ -416,27 +439,7 @@ with col2:
     st.subheader('近五年股價走勢圖')
     Date_s=stock_data.index.strftime("%Y-%m-%d")
     stock_data.insert(0,"Date",Date_s,True)
-    #fig = go.Figure(data=[go.Candlestick(x=stock_data['Date'], open=stock_data['Open'], high=stock_data['High'],low=stock_data['Low'], close=stock_data['Close'])])
-    #fig.update_layout(xaxis_rangeslider_visible=False)  
-    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, 
-                   vertical_spacing=0.03, subplot_titles=('股價', '成交量'), row_width=[0.2, 0.7])
-    # 繪製 股價 線圖
-    fig.add_trace(go.Candlestick(x=stock_data["Date"], open=stock_data["Open"], high=stock_data["High"],
-                    low=stock_data["Low"], close=stock_data["Close"], showlegend=False , name="", increasing_line_color= 'red', decreasing_line_color= 'green'), 
-                    row=1, col=1 )
-
-    # 繪製 成交量 線圖
-    fig.add_trace(go.Bar(x=stock_data['Date'], y=stock_data['Volume'], showlegend=False), row=2, col=1)
-    fig.update_xaxes( rangeselector = dict(
-        # 增加固定范围选择
-        buttons = list([
-            dict(count = 1, label = '1M', step = 'month', stepmode = 'backward'),
-            dict(count = 6, label = '6M', step = 'month', stepmode = 'backward'),
-            dict(count = 1, label = 'YTD', step = 'year', stepmode = 'todate'),
-            dict(count = 1, label = '1Y', step = 'year', stepmode = 'backward'),
-            dict(count = 3, label = '3Y', step = 'year', stepmode = 'backward'),
-            dict(step = 'all')])))
-    fig.update_layout(xaxis_rangeslider_visible=False)
+    fig=K_bar(stock_data)
     st.plotly_chart(fig, use_container_width=True)  
     st.dataframe(stock_data,hide_index=True)
       
