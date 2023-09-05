@@ -244,6 +244,8 @@ def K_bar(stock_data):
 def group_graphy(id,ID_name ):
   df_control=db_control[db_control['公司']==id]
   share_holded_all=df_control['最終控制者個人持股%']+df_control['集團未上市公司持股%']+df_control['集團基金會持股%']+df_control['集團上市公司持股%']+df_control['經理人持股%']+df_control['外部個人持股%']+df_control['外部未上市公司持股%']+df_control['外部基金會持股%']+df_control['外部上市公司持股%']
+  total_share_ratio=sum(share_holded_all)
+  st.write(total_share_ratio)
   df_control.insert(5,"持股占比",share_holded_all,True)  
   st.dataframe(df_control)
   nodes = []
