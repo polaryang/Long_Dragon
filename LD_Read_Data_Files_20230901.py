@@ -261,7 +261,7 @@ def group_graphy(id,ID_name ):
           control_investor=df_control_investor.index[i]
           if control_investor not in nodes_keep:
               nodes.append( Node(id=control_investor, label=control_investor, size=10+int(df_control_investor['持股占比'][i]/total_share_ratio*30), color='red') )
-              edges.append( Edge(source=control_investor, target=str(id), label=str(df_control_investor['持股占比'][i]*100), type="CURVE_SMOOTH" ) )
+              edges.append( Edge(source=control_investor, target=str(id), label=str(df_control_investor['持股占比'][i]), type="CURVE_SMOOTH" ) )
               nodes_keep.append(control_investor)
           df_control_invested=db_control[db_control['持股人集團名']==control_investor]
           df_control_invested=df_control_invested[df_control_invested['公司']!=id]
