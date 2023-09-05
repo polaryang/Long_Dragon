@@ -270,8 +270,10 @@ with col1:
 with col2:
   nodes = []
   edges = []
+  nodes_keep=[]
   df_control=db_control[db_control['公司']==id]
   nodes.append( Node(id=str(id), label=ID_name, size=20, color='blue') )   
+  nodes_keep.append(str(id))  
   df_control_investor=df_control[df_control['持股人集團名']!="                     "]
   #st.dataframe(df_control_investor) 
   for i in range(5): # control_investor 持股人集團名 len(df_control_investor)
@@ -279,8 +281,11 @@ with col2:
       st.write(i)
       st.write(df_control_investor.iloc[i,5]) 
       control_investor=df_control_investor.iloc[i,5]
-      if control_investor not in nodes:
+      #if control_investor not in nodes:
+      #    nodes.append( Node(id=control_investor, size=10, color='red') )
+      if control_investor not in nodes_keep:
           nodes.append( Node(id=control_investor, size=10, color='red') )
+          nodes_keep.append(control_investor)
       df_control_invested=db_control[db_control['持股人集團名']==control_investor]
       df_control_invested=df_control_invested[df_control_invested['公司']!=id]
       df_control_invested_id=df_control_invested['公司'] #被控制者 投資的 公司代號
@@ -298,9 +303,12 @@ with col2:
               st.write(investee_name)
               #st.write(str(control_invested_id.iloc[j,0]), control_invested_name.iloc[j,1]) 
               #investor=df_control_investor.iloc[j,5]
-              if investee_id not in nodes:
-                  nodes.append( Node(id=str(investee_id), label=investee_name, size=15, color='green') )
-              #st.dataframe(df_control_invested)
+              #if investee_id not in nodes:
+              #    nodes.append( Node(id=str(investee_id), label=investee_name, size=15, color='green') )
+              if str(investee_id) not in nodes_keep:
+                  nodes.append( Node(id=str(investee_id), size=10, color='red') )
+                  nodes_keep.append(str(investee_id))
+          #st.dataframe(df_control_invested)
 
       #nodes.append( Node(id=df_control['持股人集團名'][i], size=10, color='red') ) 
 
