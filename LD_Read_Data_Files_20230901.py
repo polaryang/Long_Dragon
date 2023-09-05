@@ -261,7 +261,7 @@ def group_graphy(id,ID_name ):
       for i in range(len(df_control_investor)): # control_investor 持股人集團名 len(df_control_investor)
           control_investor=df_control_investor.index[i]
           if control_investor not in nodes_keep:
-              nodes.append( Node(id=control_investor, label=control_investor, size=10+int(df_control_investor['持股占比'][i]/total_share_ratio*40), color='red') )
+              nodes.append( Node(id=control_investor, label=control_investor, size=10+int(df_control_investor['持股占比'][i]/total_share_ratio*50), color='red') )
               edges.append( Edge(source=control_investor, target=str(id), type="CURVE_SMOOTH" ) )
               nodes_keep.append(control_investor)
           df_control_invested=db_control[db_control['持股人集團名']==control_investor]
@@ -275,7 +275,7 @@ def group_graphy(id,ID_name ):
                   investee_id= pd.DataFrame(df_control_invested_id).iloc[j,0]
                   investee_name= pd.DataFrame(df_control_invested_name).iloc[j,0]
                   if str(investee_id) not in nodes_keep:
-                      nodes.append( Node(id=str(investee_id), label=investee_name, size=25, color='green') )
+                      nodes.append( Node(id=str(investee_id), label=investee_name, size=20, color='green') )
                       nodes_keep.append(str(investee_id))
                       edges.append( Edge(source=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
   config = Config(width=1000, height=700, directed=True, physics=True, hierarchical=False,
