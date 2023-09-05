@@ -271,7 +271,7 @@ with col2:
   nodes = []
   edges = []
   df_control=db_control[db_control['公司']==id]
-  nodes.append( Node(id=ID_code, label=ID_name, size=20, color='blue') )   
+  nodes.append( Node(id=str(id), label=ID_name, size=20, color='blue') )   
   df_control_investor=df_control[df_control['持股人集團名']!="                     "]
   #st.dataframe(df_control_investor) 
   for i in range(5): # control_investor 持股人集團名 len(df_control_investor)
@@ -295,12 +295,11 @@ with col2:
               investee_id= pd.DataFrame(df_control_invested_id).iloc[j,0]
               investee_name= pd.DataFrame(df_control_invested_name).iloc[j,0]
               st.write(investee_id)
-              st.write(investee_id)
               st.write(investee_name)
               #st.write(str(control_invested_id.iloc[j,0]), control_invested_name.iloc[j,1]) 
               #investor=df_control_investor.iloc[j,5]
               if investee_id not in nodes:
-                  nodes.append( Node(id=investee_id, label=investee_name, size=15, color='green') )
+                  nodes.append( Node(id=str(investee_id), label=investee_name, size=15, color='green') )
               #st.dataframe(df_control_invested)
 
       #nodes.append( Node(id=df_control['持股人集團名'][i], size=10, color='red') ) 
