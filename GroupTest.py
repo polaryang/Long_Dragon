@@ -271,9 +271,10 @@ with col2:
   nodes = []
   edges = []
   df_control=db_control[db_control['公司']==id]
-  nodes.append( Node(id=ID_code, label=ID_name, size=20, color='blue') )  
-  st.write(len(df_control))  
-  for i in range(1,5):
+  nodes.append( Node(id=ID_code, label=ID_name, size=20, color='blue') )   
+  df_control_investor=df_control['持股人集團名']
+  df_control_investor=df_control_investor['持股人集團名'] !=' '
+  for i in range(1,1):
       st.dataframe(df_control['持股人集團名'])
       #st.write(df_control['持股人集團名'][i])
       #nodes.append( Node(id=df_control['持股人集團名'][i], size=10, color='red') ) 
