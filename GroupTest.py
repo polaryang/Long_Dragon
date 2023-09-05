@@ -278,7 +278,7 @@ with col2:
       st.write(i)
       st.write(id, df_control_investor.iloc[i,5]) 
       control_investor=df_control_investor.iloc[i,5]
-      if !control_investor in nodes:
+      if control_investor not in nodes:
           nodes.append( Node(id=control_investor, size=10, color='red') )
       df_control_invested=db_control[db_control['持股人集團名']==control_investor]
       df_control_invested=df_control_invested[df_control_invested['公司']!=id]
@@ -293,7 +293,7 @@ with col2:
           st.write(investee_id,investee_name)
           #st.write(str(control_invested_id.iloc[j,0]), control_invested_name.iloc[j,1]) 
           #investor=df_control_investor.iloc[j,5]
-          if !investee_id in nodes:
+          if investee_id not in nodes:
               nodes.append( Node(id=investee_id, label=investee_name, size=15, color='green') )
           #st.dataframe(df_control_invested)
 
