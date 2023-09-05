@@ -288,7 +288,7 @@ with col2:
       df_control_invested_id=pd.unique(pd.Series(df_control_invested_id))
       df_control_invested_name=pd.unique(pd.Series(df_control_invested_name))
       if len(df_control_invested_name) >0:
-          for j in range(len(df_control_invested_name): #len(df_control_invested_name)
+          for j in range(len(df_control_invested_name)): #len(df_control_invested_name)
               st.write('被投資者')
               st.write(j)
               
