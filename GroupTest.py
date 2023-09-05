@@ -264,7 +264,7 @@ with col1:
       st.markdown('**'+ID_name+' : '+ID_code+'**')
       st.write(ID_mkt+' '+ID_Inds)
       id=int(ID_code)
-  db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
+  #db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
 
     
 with col2:
