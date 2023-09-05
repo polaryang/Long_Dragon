@@ -242,7 +242,7 @@ def K_bar(stock_data):
     fig.update_layout(xaxis_rangeslider_visible=False)
     return fig
 # ------------------------------------------------------------------
-def group_graphy(id,ID_name )
+def group_graphy(id,ID_name ):
     df_control=db_control[db_control['公司']==id]
   nodes = []
   edges = []
