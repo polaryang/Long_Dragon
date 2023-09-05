@@ -15,6 +15,7 @@ from PIL import Image
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+from streamlit_agraph import agraph, Node, Edge, Config
 # ------------------------------------------------------------------
 #@st.cache_data
 def load_data(url):
@@ -240,6 +241,42 @@ def K_bar(stock_data):
     fig.update_layout(xaxis_rangeslider_visible=False)
     return fig
 # ------------------------------------------------------------------
+def group_graphy(id,ID_name ):
+  df_control=db_control[db_control['公司']==id]
+  nodes = []
+  edges = []
+  nodes_keep=[]
+  nodes.append( Node(id=str(id), label=ID_name, size=25, color='blue') )   
+  nodes_keep.append(str(id))  
+  df_control_investor=df_control[df_control['持股人集團名']!="                     "]
+  if  len(df_control_investor) > 0: 
+      for i in range(len(df_control_investor)): # control_investor 持股人集團名 len(df_control_investor)
+          control_investor=df_control_investor.iloc[i,5]
+          if control_investor not in nodes_keep:
+              nodes.append( Node(id=control_investor, label=control_investor, size=15, color='red') )
+              edges.append( Edge(source=control_investor, target=str(id), type="CURVE_SMOOTH" ) )
+              nodes_keep.append(control_investor)
+          df_control_invested=db_control[db_control['持股人集團名']==control_investor]
+          df_control_invested=df_control_invested[df_control_invested['公司']!=id]
+          df_control_invested_id=df_control_invested['公司'] #被控制者 投資的 公司代號
+          df_control_invested_name=df_control_invested['簡稱'] #被控制者 投資的 公司名稱
+          df_control_invested_id=pd.unique(pd.Series(df_control_invested_id))
+          df_control_invested_name=pd.unique(pd.Series(df_control_invested_name))
+          if len(df_control_invested_name) > 0:
+              for j in range(len(df_control_invested_name)): #len(df_control_invested_name)
+                  investee_id= pd.DataFrame(df_control_invested_id).iloc[j,0]
+                  investee_name= pd.DataFrame(df_control_invested_name).iloc[j,0]
+                  if str(investee_id) not in nodes_keep:
+                      nodes.append( Node(id=str(investee_id), label=investee_name, size=20, color='green') )
+                      nodes_keep.append(str(investee_id))
+                      edges.append( Edge(source=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
+  config = Config(width=1000, height=700, directed=True, physics=True, hierarchical=False,
+                nodeHighlightBehavior=True,  )  #nodeHighlightBehavior=True,   highlightColor="#F7A7A6",   directed=True,   collapsible=True 
+  return_value = agraph(nodes=nodes, 
+                      edges=edges, 
+                      config=config)
+# ------------------------------------------------------------------
+# ------------------------------------------------------------------
 # 程式開始
 # ------------------------------------------------------------------
 st.set_page_config(page_title='長龍股權*數據分析儀表板', page_icon=':sparkles:', layout='wide')
@@ -271,7 +308,7 @@ with col1:
       st.text('yfinance download error')
       
 with col2:
-  tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股價趨勢圖", "徵求作業流程圖", "系統維護"])
+  tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "集團控制關聯圖", "股權分散表", "議事錄", "股價趨勢圖", "徵求作業流程圖", "系統維護"])
   #tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
   with tab1:
     # 1.	重大訊息 db_news
@@ -381,7 +418,11 @@ with col2:
         st.bar_chart(df_control_results, use_container_width=True)
         #st.write('資料截止日期: '+str(collect_date))
     
-  with tab6:  
+  with tab6:      
+    # 集團控制之關聯圖
+    group_graphy(id,ID_name )
+      
+  with tab7:  
     # 6.	股權分散表(公開觀測站)
     st.subheader('股權分散表')
     df_stock_holder1=db_stock_holder1[db_stock_holder1['公司']==str(id)]  
@@ -420,7 +461,7 @@ with col2:
     st.line_chart(df_stock_holder3, x='持股分級', y=['股東會時_比率', '比率'], color = ['#00008B', '#8B0000'], use_container_width=True) 
     #st.write('資料收集日期: '+str(collect_date))
 
-  with tab7: 
+  with tab8: 
     #8.	議事錄
     st.subheader('議事錄')
     df_share_meeting=db_share_meeting[db_share_meeting['公司代號']==id]
@@ -434,7 +475,7 @@ with col2:
     db_share_meeting['公司代號'] = db_share_meeting['公司代號'].astype(str)
     st.dataframe(db_share_meeting, use_container_width=True,hide_index=True)
       
-  with tab8:   
+  with tab9:   
     # 繪製 k 線圖
     st.subheader('近五年股價走勢圖')
     Date_s=stock_data.index.strftime("%Y-%m-%d")
@@ -443,7 +484,7 @@ with col2:
     st.plotly_chart(fig, use_container_width=True)  
     st.dataframe(stock_data,hide_index=True)
       
-  with tab9:
+  with tab10:
     st.subheader('股東常會徵求作業日程表')
     image = Image.open('./workflow_常會.png')
     st.image(image)  
@@ -451,7 +492,7 @@ with col2:
     image = Image.open('./workflow_臨時會.png')
     st.image(image)  
       
-  with tab10:
+  with tab11:
     st.subheader('系統維護說明')
     st.write(':one: 資料更新後首次使用，系統會先把所需要的資料下載')
     st.write(':two: 因此系統會較慢，等資料全部下載完成後速度就恢復正常')
