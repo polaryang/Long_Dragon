@@ -255,14 +255,13 @@ def group_graphy(id,ID_name ):
   nodes = []
   edges = []
   nodes_keep=[]
-  nodes.append( Node(id=str(id), label=ID_name, size=25, color='blue') )   
+  nodes.append( Node(id=str(id), label=ID_name, size=50, color='blue') )   
   nodes_keep.append(str(id))  
-  
   if  len(df_control_investor) > 0: 
       for i in range(len(df_control_investor)): # control_investor 持股人集團名 len(df_control_investor)
           control_investor=df_control_investor.index[i]
           if control_investor not in nodes_keep:
-              nodes.append( Node(id=control_investor, label=control_investor, size=15, color='red') )
+              nodes.append( Node(id=control_investor, label=control_investor, size=10+int(df_control_investor['持股占比'][i]/total_share_ratio*35), color='red') )
               edges.append( Edge(source=control_investor, target=str(id), type="CURVE_SMOOTH" ) )
               nodes_keep.append(control_investor)
           df_control_invested=db_control[db_control['持股人集團名']==control_investor]
