@@ -276,7 +276,7 @@ with col2:
   #st.dataframe(df_control_investor) 
   for i in range(len(df_control_investor)): # control_investor 持股人集團名
       st.write(i)
-      st.write(df_control_investor.iloc[i,5]) 
+      st.write(id, df_control_investor.iloc[i,5]) 
       control_investor=df_control_investor.iloc[i,5]
       nodes.append( Node(id=control_investor, size=10, color='red') )
       df_control_invested=db_control[db_control['持股人集團名']==control_investor]
@@ -294,13 +294,10 @@ with col2:
           #investor=df_control_investor.iloc[j,5]
           nodes.append( Node(id=investee_id, label=investee_name, size=15, color='green') )
           #st.dataframe(df_control_invested)
-      
-      
-      #st.dataframe(df_control_investor)
-      #st.write(df_control_investor.持股人集團名[i])
+
       #nodes.append( Node(id=df_control['持股人集團名'][i], size=10, color='red') ) 
 
-  edges.append( Edge(source="Captain_Marvel", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) )  
+  #edges.append( Edge(source="Captain_Marvel", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) )  
   config = Config(width=750, 
                 height=950,
                 directed=True, 
