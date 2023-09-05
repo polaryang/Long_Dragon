@@ -283,6 +283,7 @@ with col2:
       st.dataframe(df_control_invested)
       df_control_invested_short=df_control_invested['公司']
       invested2=pd.unique(pd.Series(df_control_invested_short))
+      
       st.dataframe(invested2)
       
       #st.dataframe(df_control_investor)
