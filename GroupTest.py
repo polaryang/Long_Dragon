@@ -272,7 +272,7 @@ with col2:
   edges = []
   df_control=db_control[db_control['公司']==id]
   nodes.append( Node(id=ID_code, label=ID_name, size=20, color='blue') )   
-  df_control_investor=df_control['持股人集團名']
+  #df_control_investor=df_control['持股人集團名']
   df_control_investor=pd.Series(df_control['持股人集團名'])
   st.write(len(df_control_investor))  
   for i in range(1,3):
