@@ -275,7 +275,7 @@ with col2:
   #df_control_investor=df_control['持股人集團名']
   df_control_investor=pd.Series(df_control['持股人集團名'])
   df_control_investor=df_control_investor[df_control_investor['持股人集團名']!=" "]
-  st.write(len(df_control_investor))  
+  st.write(df_control_investor.columns)  
   for i in range(1,3):
       st.dataframe(df_control_investor)
       #st.write(df_control['持股人集團名'][i])
