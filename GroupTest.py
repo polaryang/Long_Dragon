@@ -282,11 +282,18 @@ with col2:
   edges.append( Edge(source="Captain_Marvel", label="friend_of", target="2330", type="CURVE_SMOOTH" ) ) 
   edges.append( Edge(source="2330", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) ) 
     
-  config = Config(width=750*2,height=950*2,directed=True, physics=True, hierarchical=False, # **kwargs)
+  config = Config(width=750,
+                height=950,
+                directed=True, 
+                physics=True, 
+                hierarchical=False,
+                # **kwargs
+                )
 
   return_value = agraph(nodes=nodes, 
                       edges=edges, 
                       config=config)
+                  
   from streamlit_agraph.config import Config, ConfigBuilder
 
   # 1. Build the config (with sidebar to play with options) .
