@@ -272,19 +272,18 @@ with col2:
   edges = []
   nodes_keep=[]
   df_control=db_control[db_control['公司']==id]
-  nodes.append( Node(id=str(id), label=ID_name, size=20, color='blue') )   
+  nodes.append( Node(id=str(id), label=ID_name, size=25, color='blue') )   
   nodes_keep.append(str(id))  
   df_control_investor=df_control[df_control['持股人集團名']!="                     "]
-  #st.dataframe(df_control_investor) 
   for i in range(5): # control_investor 持股人集團名 len(df_control_investor)
-      st.write(id)
-      st.write(i)
-      st.write(df_control_investor.iloc[i,5]) 
+      #st.write(id)
+      #st.write(i)
+      #st.write(df_control_investor.iloc[i,5]) 
       control_investor=df_control_investor.iloc[i,5]
       #if control_investor not in nodes:
       #    nodes.append( Node(id=control_investor, size=10, color='red') )
       if control_investor not in nodes_keep:
-          nodes.append( Node(id=control_investor, label=control_investor, size=10, color='red') )
+          nodes.append( Node(id=control_investor, label=control_investor, size=15, color='red') )
           edges.append( Edge(source=str(id), target=control_investor, type="CURVE_SMOOTH" ) )
           nodes_keep.append(control_investor)
       df_control_invested=db_control[db_control['持股人集團名']==control_investor]
@@ -293,11 +292,10 @@ with col2:
       df_control_invested_name=df_control_invested['簡稱'] #被控制者 投資的 公司名稱
       df_control_invested_id=pd.unique(pd.Series(df_control_invested_id))
       df_control_invested_name=pd.unique(pd.Series(df_control_invested_name))
-      if len(df_control_invested_name) >0:
+      if len(df_control_invested_name) > 0:
           for j in range(len(df_control_invested_name)): #len(df_control_invested_name)
-              st.write('被投資者')
-              st.write(j)
-              
+              #st.write('被投資者')
+              #st.write(j)
               investee_id= pd.DataFrame(df_control_invested_id).iloc[j,0]
               investee_name= pd.DataFrame(df_control_invested_name).iloc[j,0]
               st.write(investee_id)
@@ -307,13 +305,10 @@ with col2:
               #if investee_id not in nodes:
               #    nodes.append( Node(id=str(investee_id), label=investee_name, size=15, color='green') )
               if str(investee_id) not in nodes_keep:
-                  nodes.append( Node(id=str(investee_id), label=investee_name, size=15, color='green') )
+                  nodes.append( Node(id=str(investee_id), label=investee_name, size=20, color='green') )
                   nodes_keep.append(str(investee_id))
                   edges.append( Edge(source=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
-                  
-          #st.dataframe(df_control_invested)
 
-      #nodes.append( Node(id=df_control['持股人集團名'][i], size=10, color='red') ) 
 
   #edges.append( Edge(source="Captain_Marvel", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) )  
   config = Config(width=750, 
