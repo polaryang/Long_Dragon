@@ -273,7 +273,7 @@ with col2:
   df_control=db_control[db_control['公司']==id]
   nodes.append( Node(id=ID_code, label=ID_name, size=20, color='blue') )   
   for i in range(len(db_control)):
-      investor=df_control['持股人集團名'][i]
+      investor=df_control.'持股人集團名'[i]
       st.write(investor)
       nodes.append( Node(id=investor, size=10, color='red') ) 
 
