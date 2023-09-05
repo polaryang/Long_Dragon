@@ -273,9 +273,10 @@ with col2:
   df_control=db_control[db_control['公司']==id]
   nodes.append( Node(id=ID_code, label=ID_name, size=20, color='blue') )   
   df_control_investor=df_control[df_control['持股人集團名']!="                     "]
+  st.write(df_control_investor[''持股人集團名''])  
   for i in range(len(df_control_investor)):
       #st.dataframe(df_control_investor)
-      st.write(df_control_investor.持股人集團名[i])
+      #st.write(df_control_investor.持股人集團名[i])
       #nodes.append( Node(id=df_control['持股人集團名'][i], size=10, color='red') ) 
 
   #edges.append( Edge(source="Captain_Marvel", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) )  
