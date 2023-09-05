@@ -39,6 +39,7 @@ def Dateform(datestring):
 @st.cache_data
 def load_data_process():
     file_raw='https://github.com/polaryang/Long_Dragon/raw/main/'
+    file_raw='https://github.com/polaryang/Long_Dragon/raw/main/' 
     st.markdown('** 資料更新狀態 : **')
     # 1.	重大訊息 db_news
     st.text('重大訊息...')
@@ -53,7 +54,7 @@ def load_data_process():
         # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv 每日更新
         #db_news_L=pd.read_csv(file_raw+'t187ap04_L.csv') 
         #db_news_O=pd.read_csv(file_raw+'t187ap04_O.csv')
-        st.text('read local...')
+        st.text('local db')
     db_news['發言日期'] = db_news['發言日期'].astype(str)
     db_news['發言時間'] = db_news['發言時間'].astype(str)
     db_news['公司代號'] = db_news['公司代號'].astype(str)
@@ -70,8 +71,8 @@ def load_data_process():
         db_announce_O = load_data(url)
         db_announce=pd.concat([db_announce_L, db_announce_O])
     except:
-        db_news=pd.read_excel(file_raw+"db_news.xlsx")
-        st.text('read local...')
+        db_announce=pd.read_excel(file_raw+"db_announce.xlsx")
+        st.text('local db...')
         # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv 不定期更新
         #db_announce_L=pd.read_csv(file_raw+'t187ap38_L.csv') 
         #db_announce_O=pd.read_csv(file_raw+'t187ap38_O.csv')
@@ -112,8 +113,8 @@ def load_data_process():
         db_board_balance_O = load_data(url)
         db_board_balance=pd.concat([db_board_balance_L, db_board_balance_O])
     except:
-        db_basic=pd.read_excel(file_raw+"db_basic.xlsx")
-        st.text('read local...')   
+        db_board_balance=pd.read_excel(file_raw+"db_board_balance.xlsx")
+        st.text('local db...')   
         # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap11_L.csv 不定期更新
         #db_board_balance_L=pd.read_csv(file_raw+'t187ap11_L.csv') #4.	董監事持股餘額明細資料
         #db_board_balance_O=pd.read_csv(file_raw+'t187ap11_O.csv')
@@ -149,7 +150,7 @@ def load_data_process():
         url='https://opendata.tdcc.com.tw/getOD.ashx?id=1-5'
         db_stock_holder2 = load_data(url)
     except:
-        db_basic=pd.read_excel(file_raw+"db_basic.xlsx")
+        db_stock_holder2=pd.read_excel(file_raw+"db_stock_holder2.xlsx")
         st.text('read local...')  
         # 先執行 https://opendata.tdcc.com.tw/getOD.ashx?id=1-5  每周更新
         #db_stock_holder2=pd.read_csv(file_raw+'TDCC_OD_1-5.csv') 
@@ -239,10 +240,13 @@ with col1:
       st.write(ID_mkt+' '+ID_Inds)
       id=int(ID_code)
   db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
-  stock_data=yf.download(stock_ticker, period='5y')
-  st.text('股價線圖...')
-  st.text('   '+ stock_data.index[-1].strftime("%Y-%m-%d"))
-    
+  try:
+      stock_data=yf.download(stock_ticker, period='5y')
+      st.text('股價線圖...')
+      st.text('   '+ stock_data.index[-1].strftime("%Y-%m-%d"))
+  except:
+      st.text('yfinance download error')
+      
 with col2:
   tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股價趨勢圖", "徵求作業流程圖", "系統維護"])
   #tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
