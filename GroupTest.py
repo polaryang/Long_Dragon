@@ -250,7 +250,7 @@ st.markdown('**公司重要事情 : 颱風來襲，請同仁注意安全 !**')
 st.info('**_長龍會議顧問 : 為一家「專業委託書徵求機構」，透過徵求委託書出席的方式，協助各公司順利完成股東會，並兼顧股東權益_**')
 today_s =datetime.today().strftime('%Y-%m-%d')
 
-col1, col2 = st.columns([1,3], gap='small')
+col1, col2 = st.columns([1,7], gap='small')
 with col1:
   ID = st.text_input('輸入股票代號(代號或名稱皆可)', '2330')
   ID_code, ID_name, ID_mkt, ID_type, ID_Inds=Checking_ID(ID) 
@@ -309,8 +309,6 @@ with col2:
                   nodes_keep.append(str(investee_id))
                   edges.append( Edge(source=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
 
-
-  #edges.append( Edge(source="Captain_Marvel", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) )  
   config = Config(width=1250, 
                 height=1250,
                 directed=True, 
@@ -326,14 +324,14 @@ with col2:
   from streamlit_agraph.config import Config, ConfigBuilder
 
   # 1. Build the config (with sidebar to play with options) .
-  config_builder = ConfigBuilder(nodes)
-  config = config_builder.build()
+  #config_builder = ConfigBuilder(nodes)
+  #config = config_builder.build()
 
   # 2. If your done, save the config to a file.
-  config.save("config.json")
+  #config.save("config.json")
 
   # 3. Simple reload from json file (you can bump the builder at this point.)
-  config = Config(from_json="config.json")   
+  #config = Config(from_json="config.json")   
   
 # ------------------------------------------------------------------
 
