@@ -274,7 +274,7 @@ with col2:
   nodes.append( Node(id=ID_code, label=ID_name, size=20, color='blue') )   
   df_control_investor=df_control[df_control['持股人集團名']!="                     "]
   #st.dataframe(df_control_investor) 
-  for i in range(len(df_control_investor)): # control_investor 持股人集團名
+  for i in range(3): # control_investor 持股人集團名 len(df_control_investor)
       st.write(i)
       st.write(id, df_control_investor.iloc[i,5]) 
       control_investor=df_control_investor.iloc[i,5]
@@ -286,7 +286,7 @@ with col2:
       df_control_invested_name=df_control_invested['簡稱'] #被控制者 投資的 公司名稱
       df_control_invested_id=pd.unique(pd.Series(df_control_invested_id))
       df_control_invested_name=pd.unique(pd.Series(df_control_invested_name))
-      for j in range(len(df_control_invested_name)):
+      for j in range(5): #len(df_control_invested_name)
           st.write(j)
           investee_id= pd.DataFrame(df_control_invested_id).iloc[j,0]
           investee_name= pd.DataFrame(df_control_invested_name).iloc[j,0]
