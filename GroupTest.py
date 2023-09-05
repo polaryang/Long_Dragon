@@ -272,7 +272,7 @@ with col2:
   edges = []
   df_control=db_control[db_control['公司']==id]
   nodes.append( Node(id=ID_code, label=ID_name, size=20, color='blue') )  
-  print(len(df_control))  
+  st.write(len(df_control))  
   for i in range(len(df_control)):
       df_control['持股人集團名'][i]
       st.write(df_control['持股人集團名'][i])
