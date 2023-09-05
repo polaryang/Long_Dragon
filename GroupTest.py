@@ -250,7 +250,7 @@ st.markdown('**公司重要事情 : 颱風來襲，請同仁注意安全 !**')
 st.info('**_長龍會議顧問 : 為一家「專業委託書徵求機構」，透過徵求委託書出席的方式，協助各公司順利完成股東會，並兼顧股東權益_**')
 today_s =datetime.today().strftime('%Y-%m-%d')
 
-col1, col2 = st.columns([4,28], gap='small')
+col1, col2 = st.columns([1,3], gap='small')
 with col1:
   ID = st.text_input('輸入股票代號(代號或名稱皆可)', '2330')
   ID_code, ID_name, ID_mkt, ID_type, ID_Inds=Checking_ID(ID) 
@@ -270,8 +270,49 @@ with col1:
       st.text('股價線圖...')
       st.text('   '+ stock_data.index[-1].strftime("%Y-%m-%d"))
   except:
-      st.text('yfinance download error')
-      
+      st.text('yfinance download error') 
+  nodes = []
+  edges = []
+  nodes.append( Node(id="Spiderman", 
+                   label="Peter Parker", 
+                   size=25, 
+                   shape="circularImage",
+                   image="http://marvel-force-chart.surge.sh/marvel_force_chart_img/top_spiderman.png") 
+            ) # includes **kwargs
+  nodes.append( Node(id="Captain_Marvel", 
+                   size=25,
+                   shape="circularImage",
+                   image="http://marvel-force-chart.surge.sh/marvel_force_chart_img/top_captainmarvel.png") 
+            )
+  edges.append( Edge(source="Captain_Marvel", 
+                   label="friend_of", 
+                   target="Spiderman", 
+                   # **kwargs
+                   ) 
+            ) 
+
+  config = Config(width=750,
+                height=950,
+                directed=True, 
+                physics=True, 
+                hierarchical=False,
+                # **kwargs
+                )
+
+  return_value = agraph(nodes=nodes, 
+                      edges=edges, 
+                      config=config)
+  from streamlit_agraph.config import Config, ConfigBuilder
+
+  # 1. Build the config (with sidebar to play with options) .
+  config_builder = ConfigBuilder(nodes)
+  config = config_builder.build()
+
+  # 2. If your done, save the config to a file.
+  config.save("config.json")
+
+  # 3. Simple reload from json file (you can bump the builder at this point.)
+  config = Config(from_json="config.json")   
 with col2:
   tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "股權分散表", "議事錄", "股價趨勢圖", "徵求作業流程圖", "系統維護"])
   #tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
