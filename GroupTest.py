@@ -280,7 +280,7 @@ with col2:
       control_investor=df_control_investor.iloc[i,5]
       nodes.append( Node(id=control_investor, size=10, color='red') )
       df_control_invested=db_control[db_control['持股人集團名']==control_investor]
-      df_control_invested=df_control_invested_name[df_control_invested_name[公司]!=id]
+      df_control_invested=df_control_invested[df_control_invested[公司]!=id]
       df_control_invested_id=df_control_invested['公司'] #被控制者 投資的 公司代號
       df_control_invested_name=df_control_invested['簡稱'] #被控制者 投資的 公司名稱
       control_invested_id=pd.unique(pd.Series(df_control_invested_id))
