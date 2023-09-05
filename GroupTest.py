@@ -285,6 +285,7 @@ with col2:
       #    nodes.append( Node(id=control_investor, size=10, color='red') )
       if control_investor not in nodes_keep:
           nodes.append( Node(id=control_investor, size=10, color='red') )
+          edges.append( Edge(source=str(id), target=control_investor, type="CURVE_SMOOTH" ) )
           nodes_keep.append(control_investor)
       df_control_invested=db_control[db_control['持股人集團名']==control_investor]
       df_control_invested=df_control_invested[df_control_invested['公司']!=id]
@@ -308,7 +309,7 @@ with col2:
               if str(investee_id) not in nodes_keep:
                   nodes.append( Node(id=str(investee_id), size=15, color='green') )
                   nodes_keep.append(str(investee_id))
-                  edges.append( Edge(source=str(id), label=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
+                  edges.append( Edge(source=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
                   
           #st.dataframe(df_control_invested)
 
