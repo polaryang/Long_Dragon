@@ -274,9 +274,9 @@ with col2:
   nodes.append( Node(id=ID_code, label=ID_name, size=20, color='blue') )  
   st.write(len(df_control))  
   for i in range(1,5):
-      df_control['持股人集團名'][i]
-      st.write(df_control['持股人集團名'][i])
-      nodes.append( Node(id=df_control['持股人集團名'][i], size=10, color='red') ) 
+      st.dataframe(df_control['持股人集團名'])
+      #st.write(df_control['持股人集團名'][i])
+      #nodes.append( Node(id=df_control['持股人集團名'][i], size=10, color='red') ) 
 
   #edges.append( Edge(source="Captain_Marvel", label="friend_of", target="Spiderman", type="CURVE_SMOOTH" ) )  
 
