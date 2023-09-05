@@ -268,14 +268,14 @@ with col1:
 
     
 with col2:
+  df_control=db_control[db_control['公司']==id]
   nodes = []
   edges = []
   nodes_keep=[]
-  df_control=db_control[db_control['公司']==id]
   nodes.append( Node(id=str(id), label=ID_name, size=25, color='blue') )   
   nodes_keep.append(str(id))  
   df_control_investor=df_control[df_control['持股人集團名']!="                     "]
-  for i in range(5): # control_investor 持股人集團名 len(df_control_investor)
+  for i in range(len(df_control_investor)): # control_investor 持股人集團名 len(df_control_investor)
       #st.write(id)
       #st.write(i)
       #st.write(df_control_investor.iloc[i,5]) 
@@ -308,22 +308,13 @@ with col2:
                   nodes.append( Node(id=str(investee_id), label=investee_name, size=20, color='green') )
                   nodes_keep.append(str(investee_id))
                   edges.append( Edge(source=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
-
-  config = Config(width=1000, 
-                height=700,
-                directed=True, 
-                physics=True, 
-                hierarchical=False,
-                nodeHighlightBehavior=True,  
-                # **kwargs
-                )
-  #nodeHighlightBehavior=True,   highlightColor="#F7A7A6",   directed=True,   collapsible=True 
+  config = Config(width=1000, height=700, directed=True, physics=True, hierarchical=False,
+                nodeHighlightBehavior=True,  )  #nodeHighlightBehavior=True,   highlightColor="#F7A7A6",   directed=True,   collapsible=True 
   return_value = agraph(nodes=nodes, 
                       edges=edges, 
                       config=config)
                   
-  from streamlit_agraph.config import Config, ConfigBuilder
-
+  #from streamlit_agraph.config import Config, ConfigBuilder
   # 1. Build the config (with sidebar to play with options) .
   #config_builder = ConfigBuilder(nodes)
   #config = config_builder.build()
