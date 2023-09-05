@@ -277,6 +277,9 @@ with col2:
   for i in range(len(df_control_investor)):
       st.write(i)
       st.write(df_control_investor.iloc[i,5]) 
+      investor=df_control_investor.iloc[i,5]
+      df_control_invested=db_control[db_control['持股人集團名']==investor]
+      st.dataframe(df_control_invested)
       #st.dataframe(df_control_investor)
       #st.write(df_control_investor.持股人集團名[i])
       #nodes.append( Node(id=df_control['持股人集團名'][i], size=10, color='red') ) 
