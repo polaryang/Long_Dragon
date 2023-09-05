@@ -435,7 +435,7 @@ with col2:
             dict(count = 1, label = 'YTD', step = 'year', stepmode = 'todate'),
             dict(count = 1, label = '1Y', step = 'year', stepmode = 'backward'),
             dict(count = 3, label = '3Y', step = 'year', stepmode = 'backward'),
-            dict(step = '5Y-all')])))
+            dict(step = 'all')])))
     fig.update_layout(xaxis_rangeslider_visible=False)
     st.plotly_chart(fig, use_container_width=True)  
     st.dataframe(stock_data,hide_index=True)
