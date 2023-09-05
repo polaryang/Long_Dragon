@@ -270,7 +270,7 @@ with col1:
 with col2:
   nodes = []
   edges = []
-  nodes.append( Node(id="Spiderman", label="Peter Parker", size=25) ) 
+  nodes.append( Node(id="Spiderman", label="Peter Parker", size=10, color='red') ) 
   nodes.append( Node(id="2330", label="台積電", size=25) ) 
   nodes.append( Node(id="1711", label="永光", size=25) )   
   nodes.append( Node(id="Captain_Marvel", 
