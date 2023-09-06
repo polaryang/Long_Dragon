@@ -51,17 +51,19 @@ def load_data_process():
         url='https://mopsfin.twse.com.tw/opendata/t187ap04_O.csv'
         db_news_O = load_data(url)
         db_news=pd.concat([db_news_L, db_news_O])
+        collect_date=db_news.iloc[0,0]
     except:
         db_news=pd.read_excel(file_raw+"db_news.xlsx")
         # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap04_L.csv 每日更新
         #db_news_L=pd.read_csv(file_raw+'t187ap04_L.csv') 
         #db_news_O=pd.read_csv(file_raw+'t187ap04_O.csv')
+        collect_date=db_news['出表日期'][0]
         st.text('local db')
     db_news['發言日期'] = db_news['發言日期'].astype(str)
     db_news['發言時間'] = db_news['發言時間'].astype(str)
     db_news['公司代號'] = db_news['公司代號'].astype(str)
     db_news['事實發生日'] = db_news['事實發生日'].astype(str)
-    collect_date=db_news.iloc[0,0]
+    
     st.text('   '+ Dateform(collect_date))
         
     # 2.	公告查詢 db_announce
@@ -72,8 +74,10 @@ def load_data_process():
         url='https://mopsfin.twse.com.tw/opendata/t187ap38_O.csv'
         db_announce_O = load_data(url)
         db_announce=pd.concat([db_announce_L, db_announce_O])
+        collect_date=db_announce.iloc[0,0]
     except:
         db_announce=pd.read_excel(file_raw+"db_announce.xlsx")
+        collect_date=db_announce['出表日期'][0]
         st.text('local db...')
         # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap38_L.csv 不定期更新
         #db_announce_L=pd.read_csv(file_raw+'t187ap38_L.csv') 
@@ -86,7 +90,6 @@ def load_data_process():
     db_announce['開會日期'] = db_announce['開會日期'].astype(str)
     db_announce['停止過戶-起期'] = db_announce['停止過戶-起期'].astype(str)
     db_announce['停止過戶-訖期'] = db_announce['停止過戶-訖期'].astype(str)
-    collect_date=db_announce.iloc[0,0]
     st.text('   '+ Dateform(collect_date))
         
     # 3.	公司基本資料 db_basic
@@ -97,13 +100,14 @@ def load_data_process():
         url='https://mopsfin.twse.com.tw/opendata/t187ap03_O.csv'
         db_basic_O = load_data(url)
         db_basic=pd.concat([db_basic_L, db_basic_O])
+        collect_date=db_basic.iloc[0,0]
     except:
         db_basic=pd.read_excel(file_raw+"db_basic.xlsx")
+        collect_date=db_basic['出表日期'][0]
         st.text('read local...')    
         # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap03_L.csv 不定期更新
         #db_basic_L=pd.read_csv(file_raw+'t187ap03_L.csv') 
         #db_basic_O=pd.read_csv(file_raw+'t187ap03_O.csv')  
-    collect_date=db_basic.iloc[0,0]
     st.text('   '+ Dateform(collect_date))
         
     # 4.	董監事持股餘額明細資料 db_board_balance
@@ -114,14 +118,15 @@ def load_data_process():
         url='https://mopsfin.twse.com.tw/opendata/t187ap11_O.csv'
         db_board_balance_O = load_data(url)
         db_board_balance=pd.concat([db_board_balance_L, db_board_balance_O])
+        collect_date=db_board_balance.iloc[0,0]
     except:
         db_board_balance=pd.read_excel(file_raw+"db_board_balance.xlsx")
+        collect_date=db_board_balance['出表日期'][0]
         st.text('local db...')   
         # 先執行 https://mopsfin.twse.com.tw/opendata/t187ap11_L.csv 不定期更新
         #db_board_balance_L=pd.read_csv(file_raw+'t187ap11_L.csv') #4.	董監事持股餘額明細資料
         #db_board_balance_O=pd.read_csv(file_raw+'t187ap11_O.csv')
     db_board_balance['資料年月'] = db_board_balance['資料年月'].astype(str)
-    collect_date=db_board_balance.iloc[0,0]
     st.text('   '+ Dateform(collect_date))
     
     # 5.	年報前十大股東相互間關係表
@@ -151,13 +156,14 @@ def load_data_process():
     try:
         url='https://opendata.tdcc.com.tw/getOD.ashx?id=1-5'
         db_stock_holder2 = load_data(url)
+        collect_date=db_stock_holder2.iloc[0,0]
     except:
         db_stock_holder2=pd.read_excel(file_raw+"db_stock_holder2.xlsx")
+        collect_date=db_stock_holder2['資料日期'][0]
         st.text('read local...')  
         # 先執行 https://opendata.tdcc.com.tw/getOD.ashx?id=1-5  每周更新
         #db_stock_holder2=pd.read_csv(file_raw+'TDCC_OD_1-5.csv') 
     db_stock_holder2=db_stock_holder2[db_stock_holder2['持股分級']!=16]
-    collect_date=db_stock_holder2.iloc[0,0]
     st.text('   '+ Dateform(collect_date))
     
     #8.	議事錄
