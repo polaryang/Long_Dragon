@@ -254,7 +254,7 @@ def group_graphy(id,ID_name ):
   nodes = []
   edges = []
   nodes_keep=[]
-  nodes.append( Node(id=str(id), label=ID_name, size=45, color='blue') )   
+  nodes.append( Node(id=str(id), label=ID_name, size=45, color='c') )   
   nodes_keep.append(str(id))  
   if  len(df_control_investor) > 0: 
       for i in range(len(df_control_investor)): # control_investor 持股人集團名 len(df_control_investor)
