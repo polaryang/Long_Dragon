@@ -185,6 +185,7 @@ def load_data_process():
     except:
         db_entrust=pd.read_excel(file_raw+"db_entrust.xlsx")
         st.write('error ...')
+    db_entrust['股東會日期'] = db_entrust['股東會日期'].astype(str)
     collect_date=datetime.today()
     st.write(collect_date)
 
