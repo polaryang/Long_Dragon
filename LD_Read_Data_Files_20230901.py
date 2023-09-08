@@ -176,8 +176,16 @@ def load_data_process():
         st.write('error local...')
     db_share_meeting=db_share_meeting.dropna()
     db_share_meeting['公司代號'] = db_share_meeting['公司代號'].astype(int)
+
+    #9.	委託書
+        #https://webline.sfi.org.tw/download/lib_ftp/opendata/eFileFreeData.csv 每年一次
+        url='https://webline.sfi.org.tw/download/lib_ftp/opendata/eFileFreeData.csv'
+        db_entrust = load_data(url)
+        collect_date=datetime.today()
+        print(collect_date)
+
     # DB資料下載 與 處理 [結束] 
-    return db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting
+    return db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting, db_entrust
 # ------------------------------------------------------------------
 def Checking_ID(ID):
   ID_code='0'
@@ -312,7 +320,7 @@ with col1:
       st.markdown('**'+ID_name+' : '+ID_code+'**')
       st.write(ID_mkt+' '+ID_Inds)
       id=int(ID_code)
-  db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting=load_data_process() 
+  db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting, db_entrust=load_data_process() 
   try:
       stock_data=yf.download(stock_ticker, period='5y')
       st.text('股價線圖...')
@@ -321,7 +329,7 @@ with col1:
       st.text('yfinance download error')
       
 with col2:
-  tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "集團控制關聯圖", "股權分散表", "議事錄", "股價趨勢圖", "徵求作業流程圖", "系統維護"])
+  tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東", "集團控制關聯圖", "股權分散表", "議事錄", "委託書徵求", "股價趨勢圖", "徵求作業流程圖", "系統維護"])
   #tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["重大訊息", "公告查詢", "公司基本資料", "董監事持股餘額", "十大股東*", "股權分散表-", "議事錄*"])
   with tab1:
     # 1.	重大訊息 db_news
@@ -488,8 +496,21 @@ with col2:
     db_share_meeting.insert(0,"序號",seq,True)  
     db_share_meeting['公司代號'] = db_share_meeting['公司代號'].astype(str)
     st.dataframe(db_share_meeting, use_container_width=True,hide_index=True)
+
+  with tab9: 
+    #9.	議事錄
+    st.subheader('委託書徵求')
+    df_entrust=db_entrust[db_entrust['證券代號']==id] 
+    df_entrust=df_entrust.drop(['證券代號'], axis=1)
+    st.dataframe(df_entrust, use_container_width=True,hide_index=True)
+    st.write('全部委託書徵求')
+    db_entrust=db_entrust.sort_values(by='股東會日期', ascending=False)
+    seq=range(1,len(db_share_meeting)+1)
+    db_entrust.insert(0,"序號",seq,True)  
+    db_entrust['證券代號'] = db_entrust['證券代號'].astype(str)
+    st.dataframe(db_entrust, use_container_width=True,hide_index=True)
       
-  with tab9:   
+  with tab10:   
     # 繪製 k 線圖
     st.subheader('近五年股價走勢圖')
     Date_s=stock_data.index.strftime("%Y-%m-%d")
@@ -498,7 +519,7 @@ with col2:
     st.plotly_chart(fig, use_container_width=True)  
     st.dataframe(stock_data,hide_index=True)
       
-  with tab10:
+  with tab11:
     st.subheader('股東常會徵求作業日程表')
     image = Image.open('./workflow_常會.png')
     st.image(image)  
@@ -506,7 +527,7 @@ with col2:
     image = Image.open('./workflow_臨時會.png')
     st.image(image)  
       
-  with tab11:
+  with tab12:
     st.subheader('系統維護說明')
     st.write(':one: 資料更新後首次使用，系統會先把所需要的資料下載')
     st.write(':two: 因此系統會較慢，等資料全部下載完成後速度就恢復正常')
