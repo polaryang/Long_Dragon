@@ -184,10 +184,10 @@ def load_data_process():
         db_entrust = load_data(url)
     except:
         db_entrust=pd.read_excel(file_raw+"db_entrust.xlsx")
-        st.write('error ...')
+        st.write('Local ...')
     db_entrust['股東會日期'] = db_entrust['股東會日期'].astype(str)
-    collect_date=datetime.today()
-    st.write(collect_date)
+    #collect_date=datetime.today()
+    #st.write(collect_date)
 
     # DB資料下載 與 處理 [結束] 
     return db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting, db_entrust
@@ -370,7 +370,7 @@ with col2:
       st.dataframe(df_announce, use_container_width=True,hide_index=True)
     else:
       st.dataframe(df_announce, use_container_width=True,hide_index=True)
-    st.write('今日全部公告')
+    st.write('今年全部公告')
     if len(db_announce)>0:
       seq=range(1,len(db_announce)+1)
       db_announce.insert(0,"序號",seq,True)
@@ -503,12 +503,12 @@ with col2:
     st.dataframe(db_share_meeting, use_container_width=True,hide_index=True)
 
   with tab9: 
-    #9.	議事錄
-    st.subheader('委託書徵求')
+    #9.	委託書徵求
+    st.subheader('委託書徵求(歷年)')
     df_entrust=db_entrust[db_entrust['證券代號']==id] 
     df_entrust=df_entrust.drop(['證券代號'], axis=1)
     st.dataframe(df_entrust, use_container_width=True,hide_index=True)
-    st.write('全部委託書徵求')
+    st.write('全部公司委託書徵求')
     db_entrust=db_entrust.sort_values(by='股東會日期', ascending=False)
     seq=range(1,len(db_entrust)+1)
     db_entrust.insert(0,"序號",seq,True)  
