@@ -178,11 +178,14 @@ def load_data_process():
     db_share_meeting['公司代號'] = db_share_meeting['公司代號'].astype(int)
 
     #9.	委託書
+    try:
         #https://webline.sfi.org.tw/download/lib_ftp/opendata/eFileFreeData.csv 每年一次
         url='https://webline.sfi.org.tw/download/lib_ftp/opendata/eFileFreeData.csv'
         db_entrust = load_data(url)
-        collect_date=datetime.today()
-        print(collect_date)
+    except:
+        st.write('error ...')
+    collect_date=datetime.today()
+    st.write(collect_date)
 
     # DB資料下載 與 處理 [結束] 
     return db_news, db_announce, db_basic, db_board_balance, db_control, db_stock_holder1, db_stock_holder2, db_share_meeting, db_entrust
