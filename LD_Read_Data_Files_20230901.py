@@ -183,6 +183,7 @@ def load_data_process():
         url='https://webline.sfi.org.tw/download/lib_ftp/opendata/eFileFreeData.csv'
         db_entrust = load_data(url)
     except:
+        db_entrust=pd.read_excel(file_raw+"db_entrust.xlsx")
         st.write('error ...')
     collect_date=datetime.today()
     st.write(collect_date)
