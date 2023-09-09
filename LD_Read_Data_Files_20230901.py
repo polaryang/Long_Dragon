@@ -183,7 +183,7 @@ def load_data_process():
         db_entrust = load_data(url)
     except:
         st.write('error local...')
-    db_entrust['證券代號'] = db_entrust['證券代號'].astype(str)
+    db_entrust['證券代號'] = db_entrust['證券代號'].astype(int)
     #9.	委託書
     #try:
     #    #https://webline.sfi.org.tw/download/lib_ftp/opendata/eFileFreeData.csv 每年一次
@@ -512,7 +512,7 @@ with col2:
   with tab9: 
     #9.	委託書徵求
     st.subheader('委託書徵求(歷年)')
-    df_entrust=db_entrust[db_entrust['證券代號']==str(id)] 
+    df_entrust=db_entrust[db_entrust['證券代號']==id] 
     df_entrust=df_entrust.drop(['證券代號'], axis=1)
     df_entrust=df_entrust.sort_values(by='證券代號', ascending=False)
     st.dataframe(df_entrust, use_container_width=True,hide_index=True)
