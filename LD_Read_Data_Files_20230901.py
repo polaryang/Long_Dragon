@@ -515,10 +515,9 @@ with col2:
     db_entrust['股東常會日期'] = db_entrust['股東常會日期'].astype(str)
     df_entrust=db_entrust[db_entrust['證券代號']==str(id)] 
     df_entrust=df_entrust.drop(['證券代號'], axis=1)
+    df_entrust=df_entrust.sort_values(by='股東常會日期', ascending=False)  
     st.dataframe(df_entrust, use_container_width=True,hide_index=True)
-    #
-    #df_entrust=df_entrust.sort_values(by='證券代號', ascending=False)
-    #st.dataframe(df_entrust, use_container_width=True,hide_index=True)
+
     #st.write('全部公司委託書徵求')
     #db_entrust=db_entrust.sort_values(by=['證券代號','股東常會日期'], ascending=False) 
     #seq=range(1,len(db_entrust)+1)
