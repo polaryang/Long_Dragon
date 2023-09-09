@@ -180,7 +180,6 @@ def load_data_process():
     #9.	委託書
     try:
         db_entrust=pd.read_excel(file_raw+"entrust_pdf_all.xlsx")
-        db_entrust = load_data(url)
     except:
         st.write('error local...')
     db_entrust['證券代號'] = db_entrust['證券代號'].astype(int)
