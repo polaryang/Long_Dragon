@@ -511,12 +511,15 @@ with col2:
   with tab9: 
     #9.	委託書徵求
     st.subheader('委託書徵求(歷年)')
+    st.write('status=1 : 可以從委託書公告網站自動抓下pdf資料；status=0 : 無法自動抓下pdf資料，不代表沒有委託徵求')
     db_entrust['證券代號'] = db_entrust['證券代號'].astype(str)
     db_entrust['股東常會日期'] = db_entrust['股東常會日期'].astype(str)
     df_entrust=db_entrust[db_entrust['證券代號']==str(id)] 
     df_entrust=df_entrust.drop(['證券代號'], axis=1)
     df_entrust=df_entrust.sort_values(by='股東常會日期', ascending=False)  
     st.dataframe(df_entrust, use_container_width=True,hide_index=True)
+    st.caption('此資料僅供參考，必要時請自行修正 委託書徵求資料庫')  
+    st.write(' ')
     st.write('全部公司委託書徵求')
     db_entrust=db_entrust.sort_values(by=['證券代號','股東常會日期'], ascending=True) 
     seq=range(1,len(db_entrust)+1)
