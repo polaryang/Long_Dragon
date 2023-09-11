@@ -301,7 +301,7 @@ def group_graphy(id,ID_name ):
                   if str(investee_id) not in nodes_keep:
                       nodes.append( Node(id=str(investee_id), label=investee_name, size=20, color='green') )
                       nodes_keep.append(str(investee_id))
-                  edges.append( Edge(source=control_investor, target=str(investee_id), type="CURVE_SMOOTH" ) )
+                  edges.append( Edge(source=control_investor, target=str(investee_id), label=str(round(df_control_investor['持股占比'][j],2)), type="CURVE_SMOOTH" ) )
   config = Config(width=1000, height=700, directed=True, physics=True, hierarchical=False,
                 nodeHighlightBehavior=True,  )  #nodeHighlightBehavior=True,   highlightColor="#F7A7A6",   directed=True,   collapsible=True 
   return_value = agraph(nodes=nodes, 
