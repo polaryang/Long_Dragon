@@ -311,8 +311,8 @@ def group_graphy(id,ID_name ):
 # ------------------------------------------------------------------
 # 程式開始
 # ------------------------------------------------------------------
-st.set_page_config(page_title='股東關係*數據分析*儀表板', page_icon=':sparkles:', layout='wide')
-st.header(':sparkles: :blue[股權*數據分析]  :red[儀表板] :pencil:')
+st.set_page_config(page_title='股權結構*數據分析*儀表板', page_icon=':sparkles:', layout='wide')
+st.header(':sparkles: :blue[股權結構*數據分析]  :red[儀表板] :pencil:')
 st.markdown('**公司重要公布 : 目前此系統為測試資料 !**')
 #st.info('**_長龍會議顧問 : 為一家「專業委託書徵求機構」，透過徵求委託書出席的方式，協助各公司順利完成股東會，並兼顧股東權益_**')
 st.info('**_Good leaders have some abilities which makes it easy for them to engage their team and get better results_**')
